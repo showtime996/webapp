@@ -1,0 +1,41 @@
+.login-form {
+  float: right;
+  width:320px ;
+  max-width: 500px;
+  background-color:#FFF;
+  border: 1px solid #ccc;
+  opacity: 0.65;
+}
+.login-form-title{
+float: left;
+margin-left: 35%;
+height: 10px;
+font-size: 20px;
+color: black;
+font-weight: 600;
+
+}
+.login-form-forgot {
+  float: right;
+}
+.ant-col-rtl .login-form-forgot {
+  float: left;
+}
+ .login-form-button {
+
+  font-weight: 600;
+  width: 50%;
+  float: left;
+  margin-left: 25%;
+}
+.login-form-register{
+font-weight: 400;
+  float: left;
+}
+.login-form-register-txt{
+  font-weight: bold;
+}
+.register-type{
+  color: black;
+font-weight: 550;
+}
