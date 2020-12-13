@@ -10,11 +10,11 @@ const userSchema = mongoose.Schema({
   username: { type: String, required: true, trim: true },
   password: { type: String, required: true, trim: true },
   type: { type: String, required: true, trim: true },
-  header: { type: String },
-  post: { type: String },
-  info: { type: String },
-  company: { type: String },
-  salary: { type: String },
+  header: { type: String }, // 头像名称
+  post: { type: String }, // 职位
+  info: { type: String }, // 个人或职位简介
+  school: { type: String },
+  salary: { type: String }, // 月薪
 });
 const UserModel = mongoose.model("user", userSchema);
 // 向外暴露Model
