@@ -3,6 +3,6 @@
   padding-right: 180px;
   width: 100%;
   height: 515px;
-  background-image: url('../images/logo.jpg');
+  background-image: url("../images/logo.jpg");
   background-size: 100% 515px;
 }

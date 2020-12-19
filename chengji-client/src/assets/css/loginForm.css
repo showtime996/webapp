@@ -26,14 +26,17 @@
   float: left;
   margin-left: 25%;
 }
-.login-form-register {
+.login-form-registerLogin {
   font-weight: 400;
   float: left;
 }
-.login-form-register-txt {
+.login-form-registerLogin-txt {
   font-weight: bold;
 }
-.register-type {
-  color: black;
-  font-weight: 550;
+.errorMsg {
+  position: absolute;
+  color: red;
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 600;
 }

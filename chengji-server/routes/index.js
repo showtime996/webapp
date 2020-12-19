@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+//加密
 const md5 = require("blueimp-md5");
 const { UserModel } = require("../db/models");
 /* GET home page. */

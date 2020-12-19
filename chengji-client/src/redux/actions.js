@@ -15,6 +15,7 @@ export const register = (user) => {
   console.log("password", password);
   console.log("password2", password2);
   // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
+
   if (!username) {
     return errorMsg("用户名必须指定!");
   } else if (password !== password2) {
