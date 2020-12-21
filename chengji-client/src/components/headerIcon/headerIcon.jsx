@@ -1,13 +1,24 @@
-import React from "react";
+/*
+选择用户头像的UI组件
+ */
 
-class HeaderIcon extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+import React from "react";
+import { List } from "antd";
+import PropTypes from "prop-types";
+import sIcon1 from "../../assets/studentIcon/icon1.png";
+import sIcon2 from "../../assets/studentIcon/icon2.png";
+export default class HeaderIcon extends React.Component {
+
+
+
+
   render() {
-    return <div>headerIcon</div>;
+    // 头部界面
+
+   
+
+    return (
+    
+    );
   }
 }
-
-export default HeaderIcon;

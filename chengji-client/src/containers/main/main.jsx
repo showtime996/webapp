@@ -8,8 +8,8 @@ export default class Main extends React.Component {
     return (
       <div>
         <Switch>
-          <Route path="/studentInfo" component={StudentInfo}>student</Route>
-          <Route path="/teacherInfo" component={TeacherInfo}>teacher</Route>
+          <Route path="/studentInfo" component={StudentInfo}></Route>
+          <Route path="/teacherInfo" component={TeacherInfo}></Route>
         </Switch>
       </div>
     );
