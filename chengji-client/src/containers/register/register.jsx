@@ -1,18 +1,18 @@
 //注册的路由组件
 import React from "react";
 import "antd/dist/antd.css";
-import "../../assets/css/loginForm.css";
-import bj from "../../assets/css/bj.module.less";
+import "@/assets/css/loginForm.css";
+import bj from "@/assets/css/bj.module.less";
 import { Form, Input, Button, Radio } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import Header from "../../components/header/header";
-import Fonter from "../../components/fonter/fonter";
+import Header from "@/components/header/header";
+import Fonter from "@/components/fonter/fonter";
 
 // 通过异步action实现交互后台的数据 普通的ui不能得使用函数方式
 import { connect } from "react-redux";
 // 引入重定向路由
 import { Redirect } from "react-router-dom";
-import { register } from "../../redux/actions";
+import { register } from "@/redux/actions";
 class Register extends React.Component {
   state = {
     username: "", // 用户名
