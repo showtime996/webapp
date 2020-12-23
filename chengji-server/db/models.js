@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/chengji");
+mongoose.connect("mongodb://localhost:27017/student");
 const conn = mongoose.connection;
 conn.on("connected", () => {
   console.log("db connect success!");
@@ -10,11 +10,17 @@ const userSchema = mongoose.Schema({
   username: { type: String, required: true, trim: true },
   password: { type: String, required: true, trim: true },
   type: { type: String, required: true, trim: true },
-  header: { type: String }, // 头像名称
-  post: { type: String }, // 职位
-  info: { type: String }, // 个人或职位简介
-  school: { type: String },
-  salary: { type: String }, // 月薪
+  realName: { type: String, required: true },
+  sex: { type: String },
+  affiliation: { type: String },
+  age: { type: Number },
+  IDcard: { type: Number },
+  startDate: { type: String },
+  nation: { type: String },
+  region: { type: String },
+  phone: { type: Number },
+  eMail: { type: String },
+  recommend: { type: String },
 });
 const UserModel = mongoose.model("user", userSchema);
 // 向外暴露Model
