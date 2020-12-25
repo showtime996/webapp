@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/student");
 const conn = mongoose.connection;
 conn.on("connected", () => {
-  console.log("db connect success!");
+  console.log("数据库连接成功!");
 });
 //字义Schema
 const userSchema = mongoose.Schema({

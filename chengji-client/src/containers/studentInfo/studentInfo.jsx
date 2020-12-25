@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import { Form, Input, InputNumber, Button, Radio, Select } from "antd";
 import styles from "@/assets/css/global.module.less";
 import GlobalTab from "@/components/layout/global";
+import selfStyles from "./index.module.less";
 // import { updateUser } from "../../redux/actions";
 
 class StudentInfo extends Component {
@@ -70,6 +71,9 @@ class StudentInfo extends Component {
             onFinish={onFinish}
             validateMessages={validateMessages}
           >
+            <Form.Item>
+              <h2 className={selfStyles.title}>基本信息</h2>
+            </Form.Item>
             <Form.Item
               name={"realName"}
               label="真实姓名"
