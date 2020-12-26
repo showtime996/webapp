@@ -18,7 +18,7 @@ class Register extends React.Component {
     username: "", // 用户名
     password: "", // 密码
     password2: "", // 确认密码
-    type: "", // 用户类型名称   dashen/laoban
+    type: "",
   };
 
   // 点击注册调用  将值传入到state中
@@ -26,9 +26,9 @@ class Register extends React.Component {
     console.log("Success:", values);
     this.setState({
       username: (this.username = values.username),
-      password: (this.username = values.password),
-      password2: (this.username = values.password2),
-      type: (this.username = values.type),
+      password: (this.password = values.password),
+      password2: (this.password2 = values.password2),
+      type: (this.type = "administer"),
     });
     //调用redux action中的register方法，判断是否可以注册
     this.props.register(this.state);
@@ -64,7 +64,7 @@ class Register extends React.Component {
           >
             <Form.Item>
               {msg ? <span className="errorMsg">{msg}</span> : null}
-              <div className="login-form-title">用户注册</div>
+              <div className="login-form-title">教务员注册</div>
             </Form.Item>
 
             <Form.Item
@@ -79,7 +79,7 @@ class Register extends React.Component {
               <Input
                 prefix={<UserOutlined className="site-form-item-icon" />}
                 // onChange={val => { this.handleChange('username', val) }}
-                placeholder="学号/职工号/教工号"
+                placeholder="教工号"
               />
             </Form.Item>
             <Form.Item
@@ -115,13 +115,6 @@ class Register extends React.Component {
               />
             </Form.Item>
 
-            <Form.Item name="type" label=" 用户类型：">
-              <Radio.Group>
-                <Radio value="student">学生</Radio>
-                <Radio value="teacher">老师</Radio>
-                <Radio value="administer">教务员</Radio>
-              </Radio.Group>
-            </Form.Item>
             <Form.Item>
               <Button
                 type="primary"
@@ -130,12 +123,25 @@ class Register extends React.Component {
               >
                 注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;册
               </Button>
-              <p className="login-form-registerLogin">
+              <p
+                className="login-form-registerLogin"
+                style={{ marginTop: "10px", marginBottom: "10px" }}
+              >
                 已有账号？ <a onClick={this.toLogin}>点击登入!</a>
               </p>
-              <div className="login-form-registerLogin">
+
+              <div
+                className="login-form-registerLogin"
+                style={{
+                  backgroundColor: "#CCC",
+                  width: "100%",
+                  height: "32px",
+                  position: "absolute",
+                  bottom: "-24px",
+                }}
+              >
                 <span className="login-form-registerLogin-txt">温馨提示:</span>
-                学生账号为学号,老师账号为职工号，教务员账号为教工号！
+                教务员账号为教工号！
               </div>
             </Form.Item>
           </Form>

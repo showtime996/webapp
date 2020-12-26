@@ -12,6 +12,7 @@ import selfStyles from "./index.module.less";
 class StudentInfo extends Component {
   state = {
     realName: "",
+    sex: "",
     affiliation: "",
     age: "",
     startDate: "",
@@ -72,16 +73,20 @@ class StudentInfo extends Component {
             validateMessages={validateMessages}
           >
             <Form.Item>
-              <h2 className={selfStyles.title}>基本信息</h2>
+              <h2 className={selfStyles.title}>学生基本信息</h2>
             </Form.Item>
             <Form.Item
               name={"realName"}
               label="真实姓名"
               rules={[{ required: true }]}
             >
-              <Input />
+              <Input placeholder="请输入姓名" />
             </Form.Item>
-            <Form.Item name={"sex"} label=" 用户类型：">
+            <Form.Item
+              name={"sex"}
+              label=" 性别："
+              rules={[{ required: true }]}
+            >
               <Radio.Group>
                 <Radio value="man">男</Radio>
                 <Radio value="women">女</Radio>
@@ -91,9 +96,9 @@ class StudentInfo extends Component {
               name={"affiliation"}
               label="政治面貌"
               hasFeedback
-              rules={[{ required: true, message: "请输入你的政治面貌!" }]}
+              rules={[{ required: true, message: "请输入你的政治面貌" }]}
             >
-              <Select placeholder="请输入你的政治面貌!">
+              <Select placeholder="请输入你的政治面貌">
                 <Option value="DY">党员</Option>
                 <Option value="TY">团员</Option>
                 <Option value="SXDY">少先队员</Option>
@@ -103,9 +108,9 @@ class StudentInfo extends Component {
             <Form.Item
               name={"age"}
               label="年龄"
-              rules={[{ type: "number", min: 1, max: 100 }]}
+              rules={[{ type: "number", min: 1, max: 100, required: true }]}
             >
-              <InputNumber />
+              <InputNumber placeholder="年龄" />
             </Form.Item>
 
             <Form.Item
@@ -119,22 +124,22 @@ class StudentInfo extends Component {
                 },
               ]}
             >
-              <Input />
+              <Input placeholder="请输入有效的身份证号码" />
             </Form.Item>
             {/* 系统获取时间 */}
             <Form.Item name={"startDate"} label="开学日期">
-              <Input />
+              <Input placeholder="根据系统时间" />
             </Form.Item>
             {/* 系统获取时间 */}
             <Form.Item name={"endDate"} label="毕业日期">
-              <Input />
+              <Input placeholder="根据系统时间" />
             </Form.Item>
             <Form.Item
               name={"nation"}
               label="民族"
               rules={[{ required: true }]}
             >
-              <Input />
+              <Input placeholder="请输入民族" />
             </Form.Item>
             <Form.Item label="籍贯">
               <Input.Group compact>
@@ -179,7 +184,7 @@ class StudentInfo extends Component {
                 >
                   <Input
                     style={{ width: "50%" }}
-                    placeholder="请输入地区信息！"
+                    placeholder="请输入地区信息"
                   />
                 </Form.Item>
               </Input.Group>
@@ -195,26 +200,31 @@ class StudentInfo extends Component {
                 },
               ]}
             >
-              <Input />
+              <Input placeholder="请输入手机号码" />
             </Form.Item>
             <Form.Item name={"eMail"} label="Email" rules={[{ type: "email" }]}>
-              <Input />
+              <Input placeholder="请输入电子邮箱" />
             </Form.Item>
             <Form.Item
               name={"address"}
               label="家庭地址"
               rules={[{ required: true, message: "家庭地址信息必须输入" }]}
             >
-              <Input.TextArea />
+              <Input.TextArea
+                placeholder="请输入家庭地址"
+                style={{ resize: "none" }}
+              />
             </Form.Item>
             <Form.Item name={"recommend"} label="自我简介">
-              <Input.TextArea />
+              <Input.TextArea
+                placeholder="请输入自我简介"
+                style={{ resize: "none" }}
+              />
             </Form.Item>
 
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-              &nbsp;
+              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
               <Button type="primary" htmlType="submit">
                 信息提交
               </Button>

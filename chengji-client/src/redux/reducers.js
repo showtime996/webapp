@@ -14,8 +14,8 @@ const initUser = {
 function user(state = initUser, action) {
   switch (action.type) {
     case AUTH_SUCCESS: // data是user
-      const { type, header } = action.data;
-      return { ...action.data, redirectTo: getRedirectTo(type, header) };
+      const { type, IDcard } = action.data;
+      return { ...action.data, redirectTo: getRedirectTo(type, IDcard) };
     case ERROR_MSG: // data是msg
       return { ...state, msg: action.data };
     default:

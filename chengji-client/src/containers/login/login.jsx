@@ -99,10 +99,24 @@ class Login extends React.Component {
               >
                 登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;入
               </Button>
-              <p className="login-form-registerLogin">
-                没有账号？ <a onClick={this.toRegister}>点击注册!</a>
+
+              <p
+                className="login-form-registerLogin"
+                style={{ marginTop: "10px" }}
+              >
+                教务员没有账号？ <a onClick={this.toRegister}>请点击注册!</a>
               </p>
-              <div className="login-form-registerLogin">
+
+              <div
+                className="login-form-registerLogin"
+                style={{
+                  backgroundColor: "#CCC",
+                  width: "100%",
+                  height: "42px",
+                  position: "absolute",
+                  bottom: "-26px",
+                }}
+              >
                 <span className="login-form-registerLogin-txt">温馨提示:</span>
                 学生账号为学号,老师账号为职工号，教务员账号为教工号！
               </div>

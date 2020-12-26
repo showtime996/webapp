@@ -26,7 +26,7 @@ router.post("/register", function (req, res) {
         user
       ) {
         // // 生成一个cookie(userid: user._id), 并交给浏览器保存
-        // res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
+        res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
         // 返回包含user的json数据
         const data = { username, type, _id: user._id }; // 响应数据中不要携带password
         res.send({ code: 0, data });
@@ -45,7 +45,7 @@ router.post("/login", function (req, res) {
       if (user) {
         // 登陆成功
         // 生成一个cookie(userid: user._id), 并交给浏览器保存
-        // res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
+        res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
         // 返回登陆成功信息(包含user)
         res.send({ code: 0, data: user });
       } else {
