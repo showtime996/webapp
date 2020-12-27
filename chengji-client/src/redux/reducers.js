@@ -3,7 +3,12 @@
 import { combineReducers } from "redux";
 import { getRedirectTo } from "@/utils/index";
 
-import { AUTH_SUCCESS, ERROR_MSG } from "./action-types";
+import {
+  AUTH_SUCCESS,
+  ERROR_MSG,
+  RECEIVE_USER,
+  RESET_USER,
+} from "./action-types";
 const initUser = {
   username: "", // 用户名
   type: "", // 用户类型
@@ -18,6 +23,10 @@ function user(state = initUser, action) {
       return { ...action.data, redirectTo: getRedirectTo(type, IDcard) };
     case ERROR_MSG: // data是msg
       return { ...state, msg: action.data };
+    case RECEIVE_USER:
+      return action.data;
+    case RESET_USER:
+      return { ...initUser, msg: action.data };
     default:
       return state;
   }

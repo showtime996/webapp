@@ -7,7 +7,7 @@ import { Form, Input, InputNumber, Button, Radio, Select } from "antd";
 import styles from "@/assets/css/global.module.less";
 import GlobalTab from "@/components/layout/global";
 import selfStyles from "./index.module.less";
-// import { updateUser } from "../../redux/actions";
+import { updateAdmin } from "@/redux/actions";
 
 class AdminInfo extends Component {
   state = {
@@ -23,18 +23,14 @@ class AdminInfo extends Component {
     duty: "",
   };
 
-  save = () => {
-    this.props.updateUser(this.state);
-  };
-
   render() {
     // 如果信息已经完善, 自动重定向到对应主界面
-    // const { header, type } = this.props.user;
-    // if (header) {
-    //   // 说明信息已经完善
-    //   const path = type === "" ? "/" : "/";
-    //   return <Redirect to={path} />;
-    // }
+    const { IDcard, type } = this.props.user;
+    if (IDcard) {
+      // 说明信息已经完善
+      const path = type === "admin" ? "/admin" : "/adminInfo";
+      return <Redirect to={path} />;
+    }
     const layout = {
       labelCol: { span: 5 },
       wrapperCol: { span: 16 },
@@ -54,7 +50,20 @@ class AdminInfo extends Component {
     };
 
     const onFinish = (values) => {
-      console.log(values);
+      this.setState({
+        realName: (this.realName = values.realName),
+        affiliation: (this.affiliation = values.affiliation),
+        age: (this.age = values.age),
+        startDate: (this.startDate = values.startDate),
+        phone: (this.phone = values.phone),
+        IDcard: (this.IDcard = values.IDcard),
+        eMail: (this.eMail = values.eMail),
+        address: (this.address = values.address),
+        department: (this.department = values.department),
+        duty: (this.duty = values.duty),
+      });
+      this.props.updateAdmin(this.state);
+      console.log("Success:", values);
     };
 
     return (
@@ -71,11 +80,7 @@ class AdminInfo extends Component {
             <Form.Item>
               <h2 className={selfStyles.title}>教务员基本信息</h2>
             </Form.Item>
-            <Form.Item
-              name={"realName"}
-              label="真实姓名"
-              rules={[{ required: true }]}
-            >
+            <Form.Item name={"realName"} label="真实姓名">
               <Input placeholder="请输入姓名" />
             </Form.Item>
             <Form.Item
@@ -196,5 +201,6 @@ class AdminInfo extends Component {
   }
 }
 
-//updateUser
-export default connect((state) => ({ user: state.user }), {})(AdminInfo);
+export default connect((state) => ({ user: state.user }), { updateAdmin })(
+  AdminInfo
+);

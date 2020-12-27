@@ -7,7 +7,7 @@ import { Form, Input, InputNumber, Button, Radio, Select } from "antd";
 import styles from "@/assets/css/global.module.less";
 import GlobalTab from "@/components/layout/global";
 import selfStyles from "./index.module.less";
-// import { updateUser } from "../../redux/actions";
+import { updateStudent } from "../../redux/actions";
 
 class StudentInfo extends Component {
   state = {
@@ -33,12 +33,12 @@ class StudentInfo extends Component {
 
   render() {
     // 如果信息已经完善, 自动重定向到对应主界面
-    // const { header, type } = this.props.user;
-    // if (header) {
-    //   // 说明信息已经完善
-    //   const path = type === "" ? "/" : "/";
-    //   return <Redirect to={path} />;
-    // }
+    const { IDcard, type } = this.props.user;
+    if (IDcard) {
+      // 说明信息已经完善
+      const path = type === "student" ? "/student" : "/studentInfo";
+      return <Redirect to={path} />;
+    }
     const layout = {
       labelCol: { span: 5 },
       wrapperCol: { span: 16 },
@@ -237,4 +237,6 @@ class StudentInfo extends Component {
 }
 
 //updateUser
-export default connect((state) => ({ user: state.user }), {})(StudentInfo);
+export default connect((state) => ({ user: state.user }), { updateStudent })(
+  StudentInfo
+);

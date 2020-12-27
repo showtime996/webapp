@@ -5,17 +5,13 @@ conn.on("connected", () => {
   console.log("数据库连接成功!");
 });
 //字义Schema
-const userSchema = mongoose.Schema({
+
+const studentSchema = mongoose.Schema({
   // type:Number, min:3, max:9, required: true
   username: { type: String, required: true, trim: true },
   password: { type: String, required: true, trim: true },
   type: { type: String, required: true, trim: true },
-});
-const UserModel = mongoose.model("userInfo", userSchema);
-
-const studentSchema = mongoose.Schema({
-  // type:Number, min:3, max:9, required: true
-  realName: { type: String, required: true },
+  realName: { type: String },
   sex: { type: String, trim: true },
   affiliation: { type: String, trim: true },
   age: { type: Number },
@@ -34,7 +30,10 @@ const StudentModel = mongoose.model("studentInfo", studentSchema);
 
 const teacherSchema = mongoose.Schema({
   // type:Number, min:3, max:9, required: true
-  realName: { type: String, required: true },
+  username: { type: String, required: true, trim: true },
+  password: { type: String, required: true, trim: true },
+  type: { type: String, required: true, trim: true },
+  realName: { type: String },
   sex: { type: String, trim: true },
   affiliation: { type: String, trim: true },
   age: { type: Number },
@@ -54,7 +53,10 @@ const TeacherModel = mongoose.model("teacherInfo", teacherSchema);
 
 const adminSchema = mongoose.Schema({
   // type:Number, min:3, max:9, required: true
-  realName: { type: String, required: true },
+  username: { type: String, required: true, trim: true },
+  password: { type: String, required: true, trim: true },
+  type: { type: String, required: true, trim: true },
+  realName: { type: String },
   sex: { type: String, trim: true },
   affiliation: { type: String, trim: true },
   age: { type: Number },
@@ -68,7 +70,6 @@ const adminSchema = mongoose.Schema({
 });
 const AdminModel = mongoose.model("adminInfo", adminSchema);
 // 向外暴露Model
-exports.UserModel = UserModel;
 exports.StudentModel = StudentModel;
 exports.TeacherModel = TeacherModel;
 exports.AdminModel = AdminModel;

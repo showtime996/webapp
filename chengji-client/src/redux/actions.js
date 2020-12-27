@@ -1,16 +1,35 @@
 // 包含n个action creator
 // 异步action
 // 同步action
-import { AUTH_SUCCESS, ERROR_MSG } from "./action-types";
-import { reqRegister, reqLogin } from "../api/index";
+import {
+  AUTH_SUCCESS,
+  ERROR_MSG,
+  RECEIVE_USER,
+  RESET_USER,
+} from "./action-types";
+import {
+  reqteacherRegister,
+  reqstudentRegister,
+  reqadminRegister,
+  reqadminLogin,
+  reqstudentLogin,
+  reqteacherLogin,
+  reqStudentUpdate,
+  reqTeacherUpdate,
+  reqAdminUpdate,
+} from "../api/index";
 
 // 授权成功的同步action
 const authSuccess = (user) => ({ type: AUTH_SUCCESS, data: user });
 // 错误提示信息的同步action
 const errorMsg = (msg) => ({ type: ERROR_MSG, data: msg });
+// 接收用户的同步action
+const receive = (user) => ({ type: RECEIVE_USER, data: user });
+// 重置用户的同步action
+export const reset = (msg) => ({ type: RESET_USER, data: msg });
 
-// 注册异步action
-export const register = (user) => {
+// 注册教务员异步action
+export const adminRegister = (user) => {
   const { username, password, password2, type } = user;
   console.log("password", password);
   console.log("password2", password2);
@@ -24,11 +43,7 @@ export const register = (user) => {
   // 表单数据合法, 返回一个发ajax请求的异步action函数
   return async (dispatch) => {
     // 发送注册的异步ajax请求
-    /*const promise = reqRegister(user)
-    promise.then(response => {
-      const result = response.data  // {code: 0/1, data: user, msg: ''}
-    })*/
-    const response = await reqRegister({ username, password, type });
+    const response = await reqadminRegister({ username, password, type });
     const result = response.data; //  {code: 0/1, data: user, msg: ''}
     if (result.code === 0) {
       // 成功
@@ -41,9 +56,68 @@ export const register = (user) => {
     }
   };
 };
+// 等待教务员注册完成 接口已经封装完成
+
+// // 注册老师异步action
+// export const teacherRegister = (user) => {
+//   const { username, password, password2, type } = user;
+//   console.log("password", password);
+//   console.log("password2", password2);
+//   // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
+
+//   if (!username) {
+//     return errorMsg("用户名必须指定!");
+//   } else if (password !== password2) {
+//     return errorMsg("2次密码要一致!");
+//   }
+//   // 表单数据合法, 返回一个发ajax请求的异步action函数
+//   return async (dispatch) => {
+//     // 发送注册的异步ajax请求
+//     const response = await reqteacherRegister({ username, password, type });
+//     const result = response.data; //  {code: 0/1, data: user, msg: ''}
+//     if (result.code === 0) {
+//       // 成功
+//       // 分发授权成功的同步action
+//       dispatch(authSuccess(result.data));
+//     } else {
+//       // 失败
+//       // 分发错误提示信息的同步action
+//       dispatch(errorMsg(result.msg));
+//     }
+//   };
+// };
+
+// // 注册学生异步action
+// export const studentRegister = (user) => {
+//   const { username, password, password2, type } = user;
+//   console.log("password", password);
+//   console.log("password2", password2);
+//   // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
+
+//   if (!username) {
+//     return errorMsg("用户名必须指定!");
+//   } else if (password !== password2) {
+//     return errorMsg("2次密码要一致!");
+//   }
+//   // 表单数据合法, 返回一个发ajax请求的异步action函数
+//   return async (dispatch) => {
+//     // 发送注册的异步ajax请求
+//     const response = await reqstudentRegister({ username, password, type });
+//     const result = response.data; //  {code: 0/1, data: user, msg: ''}
+//     if (result.code === 0) {
+//       // 成功
+//       // 分发授权成功的同步action
+//       dispatch(authSuccess(result.data));
+//     } else {
+//       // 失败
+//       // 分发错误提示信息的同步action
+//       dispatch(errorMsg(result.msg));
+//     }
+//   };
+// };
 
 // 登陆异步action
-export const login = (user) => {
+export const adminLogin = (user) => {
   const { username, password } = user;
   // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
   if (!username) {
@@ -52,12 +126,7 @@ export const login = (user) => {
     return errorMsg("密码必须指定!");
   }
   return async (dispatch) => {
-    // 发送注册的异步ajax请求
-    /*const promise = reqLogin(user)
-    promise.then(response => {
-      const result = response.data  // {code: 0/1, data: user, msg: ''}
-    })*/
-    const response = await reqLogin(user);
+    const response = await reqadminLogin(user);
     const result = response.data;
     if (result.code === 0) {
       // 成功
@@ -67,6 +136,95 @@ export const login = (user) => {
       // 失败
       // 分发错误提示信息的同步action
       dispatch(errorMsg(result.msg));
+    }
+  };
+};
+
+export const studentLogin = (user) => {
+  const { username, password } = user;
+  // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
+  if (!username) {
+    return errorMsg("用户名必须指定!");
+  } else if (!password) {
+    return errorMsg("密码必须指定!");
+  }
+  return async (dispatch) => {
+    const response = await reqstudentLogin(user);
+    const result = response.data;
+    if (result.code === 0) {
+      // 成功
+      // 分发授权成功的同步action
+      dispatch(authSuccess(result.data));
+    } else {
+      // 失败
+      // 分发错误提示信息的同步action
+      dispatch(errorMsg(result.msg));
+    }
+  };
+};
+
+export const teacherLogin = (user) => {
+  const { username, password } = user;
+  // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
+  if (!username) {
+    return errorMsg("用户名必须指定!");
+  } else if (!password) {
+    return errorMsg("密码必须指定!");
+  }
+  return async (dispatch) => {
+    const response = await reqteacherLogin(user);
+    const result = response.data;
+    if (result.code === 0) {
+      // 成功
+      // 分发授权成功的同步action
+      dispatch(authSuccess(result.data));
+    } else {
+      // 失败
+      // 分发错误提示信息的同步action
+      dispatch(errorMsg(result.msg));
+    }
+  };
+};
+
+// 更新用户异步action
+export const updateStudent = (user) => {
+  return async (dispatch) => {
+    const response = await reqStudentUpdate(user);
+    const result = response.data;
+    if (result.code === 0) {
+      // 更新成功: data
+      dispatch(receive(result.data));
+    } else {
+      // 更新失败: msg
+      dispatch(reset(result.msg));
+    }
+  };
+};
+// 更新用户异步action
+export const updateTeacher = (user) => {
+  return async (dispatch) => {
+    const response = await reqTeacherUpdate(user);
+    const result = response.data;
+    if (result.code === 0) {
+      // 更新成功: data
+      dispatch(receive(result.data));
+    } else {
+      // 更新失败: msg
+      dispatch(reset(result.msg));
+    }
+  };
+};
+// 更新用户异步action
+export const updateAdmin = (user) => {
+  return async (dispatch) => {
+    const response = await reqAdminUpdate(user);
+    const result = response.data;
+    if (result.code === 0) {
+      // 更新成功: data
+      dispatch(receive(result.data));
+    } else {
+      // 更新失败: msg
+      dispatch(reset(result.msg));
     }
   };
 };

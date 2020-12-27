@@ -1,4 +1,4 @@
-//注册的路由组件
+//教务员注册的路由组件
 import React from "react";
 import "antd/dist/antd.css";
 import "@/assets/css/loginForm.css";
@@ -12,8 +12,8 @@ import Fonter from "@/components/fonter/fonter";
 import { connect } from "react-redux";
 // 引入重定向路由
 import { Redirect } from "react-router-dom";
-import { register } from "@/redux/actions";
-class Register extends React.Component {
+import { adminRegister } from "@/redux/actions";
+class AdminRegister extends React.Component {
   state = {
     username: "", // 用户名
     password: "", // 密码
@@ -23,17 +23,16 @@ class Register extends React.Component {
 
   // 点击注册调用  将值传入到state中
   onFinish = (values) => {
-    console.log("Success:", values);
     this.setState({
       username: (this.username = values.username),
       password: (this.password = values.password),
       password2: (this.password2 = values.password2),
-      type: (this.type = "administer"),
+      type: (this.type = "admin"),
     });
     //调用redux action中的register方法，判断是否可以注册
-    this.props.register(this.state);
-    console.log(" this.props", this.props.register);
-    console.log("state", this.state);
+    this.props.adminRegister(this.state);
+    // console.log(" this.props", this.props.adminRegister);
+    // console.log("state", this.state);
   };
   // 点击注册调用
 
@@ -157,5 +156,5 @@ export default connect(
   // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
   (state) => ({ user: state.user }),
   //  函数确定
-  { register }
-)(Register);
+  { adminRegister }
+)(AdminRegister);
