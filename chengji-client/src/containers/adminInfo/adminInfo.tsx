@@ -10,7 +10,7 @@ import {
 import { Redirect } from "react-router-dom";
 import { Form, Input, InputNumber, Button, Radio, Select } from "antd";
 import styles from "@/assets/css/global.module.less";
-import GlobalTab from "@/components/layout/global.tsx";
+import GlobalTab from "@/components/tabNav/global.tsx";
 import selfStyles from "./index.module.less";
 import { updateAdmin } from "../../redux/actions";
 

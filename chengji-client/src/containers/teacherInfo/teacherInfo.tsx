@@ -5,11 +5,14 @@ import { connect, RootStateOrAny } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Form, Input, InputNumber, Button, Radio, Select } from "antd";
 import styles from "@/assets/css/global.module.less";
-import GlobalTab from "@/components/layout/global.tsx";
+import GlobalTab from "@/components/tabNav/global.tsx";
 import selfStyles from "./index.module.less";
 import { updateTeacher } from "../../redux/actions";
 
-function TeacherInfo(props: { updateUser: (arg0: any) => void; user: { IDcard: any; type: any; }; }) {
+function TeacherInfo(props: {
+  updateUser: (arg0: any) => void;
+  user: { IDcard: any; type: any };
+}) {
   const [state, setState] = useState({
     realName: "",
     affiliation: "",
@@ -231,6 +234,6 @@ function TeacherInfo(props: { updateUser: (arg0: any) => void; user: { IDcard: a
 }
 
 //updateUser
-export default connect((state:RootStateOrAny) => ({ user: state.user }), { updateTeacher })(
-  TeacherInfo
-);
+export default connect((state: RootStateOrAny) => ({ user: state.user }), {
+  updateTeacher,
+})(TeacherInfo);
