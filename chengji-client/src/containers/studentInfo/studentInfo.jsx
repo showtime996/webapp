@@ -1,6 +1,6 @@
 //学生信息完善的路由容器组件
 
-import React, { Component } from "react";
+import React, {  useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Form, Input, InputNumber, Button, Radio, Select } from "antd";
@@ -9,8 +9,8 @@ import GlobalTab from "@/components/layout/global";
 import selfStyles from "./index.module.less";
 import { updateStudent } from "../../redux/actions";
 
-class StudentInfo extends Component {
-  state = {
+function StudentInfo(props) {
+   const [state, setState]=useState( {
     realName: "",
     sex: "",
     affiliation: "",
@@ -25,15 +25,17 @@ class StudentInfo extends Component {
     eMail: "",
     street: "",
     address: "",
-  };
+  })
+ 
+ const onFinish = (values) => {
+   console.log(values);
+   props.updateUser(state);
+ };
+    
 
-  save = () => {
-    this.props.updateUser(this.state);
-  };
 
-  render() {
     // 如果信息已经完善, 自动重定向到对应主界面
-    const { IDcard, type } = this.props.user;
+    const { IDcard, type } = props.user;
     if (IDcard) {
       // 说明信息已经完善
       const path = type === "student" ? "/student" : "/studentInfo";
@@ -57,9 +59,7 @@ class StudentInfo extends Component {
       },
     };
 
-    const onFinish = (values) => {
-      console.log(values);
-    };
+   
 
     return (
       <div className={styles.container}>
@@ -234,7 +234,7 @@ class StudentInfo extends Component {
       </div>
     );
   }
-}
+
 
 //updateUser
 export default connect((state) => ({ user: state.user }), { updateStudent })(
