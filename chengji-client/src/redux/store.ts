@@ -2,7 +2,7 @@
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import reducers from "./reducers.js";
+import reducers from "./reducers";
 // 向外面去暴露store对象
 export default createStore(
   reducers,

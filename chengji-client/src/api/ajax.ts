@@ -5,7 +5,7 @@
 import axios from "axios";
 const baseUrl = "";
 // const baseUrl = 'http://localhost:4000'
-export default function ajax(url, data = {}, type = "GET") {
+export default function ajax(url: string, data: any = {}, type = "GET") {
   url = baseUrl + url;
   if (type === "GET") {
     // 发送GET请求

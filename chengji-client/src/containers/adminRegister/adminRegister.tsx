@@ -1,39 +1,50 @@
-//注册的路由组件
-import React, { useState } from "react";
+//教务员注册的路由组件
+import React, { useState, useEffect } from "react";
 import "antd/dist/antd.css";
 import "@/assets/css/loginForm.css";
 import bj from "@/assets/css/bj.module.less";
 import { Form, Input, Button, Radio } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import Header from "@/components/header/header";
-import Fonter from "@/components/fonter/fonter";
+import Header from "@/components/header/header.tsx";
+import Fonter from "@/components/fonter/fonter.tsx";
+
+// 通过异步action实现交互后台的数据 普通的ui不能得使用函数方式
+import { connect, RootStateOrAny } from "react-redux";
 // 引入重定向路由
 import { Redirect } from "react-router-dom";
-// 通过异步action实现交互后台的数据 普通的ui不能得使用函数方式
-import { connect } from "react-redux";
-import { adminLogin, studentLogin, teacherLogin } from "@/redux/actions";
-function Login(props) {
+import { adminRegister } from "../../redux/actions";
+function AdminRegister(props: {
+    adminRegister: (arg0: {
+      username: string; // 用户名
+      password: string; // 密码
+      password2: string; // 确认密码
+      type: string;
+    }) => void; history: { replace: (arg0: string) => void; }; user: { msg: any; redirectTo: any; };
+  }) {
   const [state, setState] = useState({
     username: "", // 用户名
     password: "", // 密码
+    password2: "", // 确认密码
+    type: "",
   });
 
   // 点击注册调用  将值传入到state中
-  const onFinish = (values) => {
+  const onFinish = (values: { username: string; password: string; password2: string; }) => {
     setState({
       username: (state.username = values.username),
       password: (state.password = values.password),
+      password2: (state.password2 = values.password2),
+      type: (state.type = "admin"),
     });
-    //调用redux action中的login方法，判断是否可以注册
-    props.adminLogin(state);
-    props.studentLogin(state);
-    props.teacherLogin(state);
-    console.log("Success:", values);
+    //调用redux action中的register方法，判断是否可以注册
+    props.adminRegister(state);
+    // console.log(" this.props", this.props.adminRegister);
+    // console.log("state", this.state);
   };
-  // 点击登入调用
+  // 点击注册调用
 
-  const toRegister = () => {
-    props.history.replace("/adminRegister");
+  const toLogin = () => {
+    props.history.replace("/login");
   };
 
   const { msg, redirectTo } = props.user;
@@ -41,6 +52,7 @@ function Login(props) {
   if (redirectTo) {
     return <Redirect to={redirectTo} />;
   }
+
   return (
     <div>
       {/* 头部部分 */}
@@ -57,7 +69,7 @@ function Login(props) {
         >
           <Form.Item>
             {msg ? <span className="errorMsg">{msg}</span> : null}
-            <div className="login-form-title">用户登入</div>
+            <div className="login-form-title">教务员注册</div>
           </Form.Item>
 
           <Form.Item
@@ -72,7 +84,7 @@ function Login(props) {
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
               // onChange={val => { this.handleChange('username', val) }}
-              placeholder="学号/职工号/教工号"
+              placeholder="教工号"
             />
           </Form.Item>
           <Form.Item
@@ -91,6 +103,22 @@ function Login(props) {
               // onChange={val => { this.handleChange('password', val) }}
             />
           </Form.Item>
+          <Form.Item
+            name="password2"
+            rules={[
+              {
+                required: true,
+                message: "请重新输入密码!",
+              },
+            ]}
+          >
+            <Input
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="确认密码"
+              // onChange={val => { this.handleChange('password2', val) }}
+            />
+          </Form.Item>
 
           <Form.Item>
             <Button
@@ -98,14 +126,13 @@ function Login(props) {
               htmlType="submit"
               className="login-form-button"
             >
-              登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;入
+              注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;册
             </Button>
-
             <p
               className="login-form-registerLogin"
-              style={{ marginTop: "10px" }}
+              style={{ marginTop: "10px", marginBottom: "10px" }}
             >
-              教务员没有账号？ <a onClick={toRegister}>请点击注册!</a>
+              已有账号？ <a onClick={toLogin}>点击登入!</a>
             </p>
 
             <div
@@ -113,13 +140,13 @@ function Login(props) {
               style={{
                 backgroundColor: "#CCC",
                 width: "100%",
-                height: "42px",
+                height: "32px",
                 position: "absolute",
-                bottom: "-26px",
+                bottom: "-24px",
               }}
             >
               <span className="login-form-registerLogin-txt">温馨提示:</span>
-              学生账号为学号,老师账号为职工号，教务员账号为教工号！
+              教务员账号为教工号！
             </div>
           </Form.Item>
         </Form>
@@ -132,7 +159,7 @@ function Login(props) {
 
 export default connect(
   // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
-  (state) => ({ user: state.user }),
+  (state:RootStateOrAny) => ({ user: state.user }),
   //  函数确定
-  { adminLogin, studentLogin, teacherLogin }
-)(Login);
+  { adminRegister }
+)(AdminRegister);

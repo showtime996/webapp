@@ -10,12 +10,9 @@ const {
 
 module.exports = override(
   fixBabelImports("import", {
-    libraryName: "antd",
-    libraryDirectory: "es",
+    libraryName: ["antd", "loginForm"],
+    libraryDirectory: ["es", "./src/assets/css/loginForm.css"],
     style: "css", // change importing css to less
-    libraryName: "loginForm",
-    libraryDirectory: "./src/assets/css/loginForm.css",
-    style: "css",
   }),
 
   addLessLoader({

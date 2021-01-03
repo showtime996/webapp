@@ -4,10 +4,10 @@ import ReactDOM from "react-dom";
 // react-router-dom比react-router功能更多
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Provider } from "react-redux";
-import Register from "@/containers/adminRegister/adminRegister.jsx";
-import Main from "@/containers/main/main.jsx";
-import Login from "@/containers/login/login.jsx";
-import store from "./redux/store.js";
+import Register from "@/containers/adminRegister/adminRegister.tsx";
+import Main from "@/containers/main/main.tsx";
+import Login from "@/containers/login/login.tsx";
+import store from "./redux/store";
 const app = document.getElementById("root");
 ReactDOM.render(
   <Provider store={store}>

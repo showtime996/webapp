@@ -20,16 +20,16 @@ import {
 } from "../api/index";
 
 // 授权成功的同步action
-const authSuccess = (user) => ({ type: AUTH_SUCCESS, data: user });
+const authSuccess = (user: any) => ({ type: AUTH_SUCCESS, data: user });
 // 错误提示信息的同步action
-const errorMsg = (msg) => ({ type: ERROR_MSG, data: msg });
+const errorMsg = (msg: string) => ({ type: ERROR_MSG, data: msg });
 // 接收用户的同步action
-const receive = (user) => ({ type: RECEIVE_USER, data: user });
+const receive = (user: any) => ({ type: RECEIVE_USER, data: user });
 // 重置用户的同步action
-export const reset = (msg) => ({ type: RESET_USER, data: msg });
+export const reset = (msg: any) => ({ type: RESET_USER, data: msg });
 
 // 注册教务员异步action
-export const adminRegister = (user) => {
+export const adminRegister = (user: { username: any; password: any; password2: any; type: any; }) => {
   const { username, password, password2, type } = user;
   console.log("password", password);
   console.log("password2", password2);
@@ -41,7 +41,7 @@ export const adminRegister = (user) => {
     return errorMsg("2次密码要一致!");
   }
   // 表单数据合法, 返回一个发ajax请求的异步action函数
-  return async (dispatch) => {
+  return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     // 发送注册的异步ajax请求
     const response = await reqadminRegister({ username, password, type });
     const result = response.data; //  {code: 0/1, data: user, msg: ''}
@@ -117,7 +117,7 @@ export const adminRegister = (user) => {
 // };
 
 // 登陆异步action
-export const adminLogin = (user) => {
+export const adminLogin = (user: { username: any; password: any; }) => {
   const { username, password } = user;
   // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
   if (!username) {
@@ -125,7 +125,9 @@ export const adminLogin = (user) => {
   } else if (!password) {
     return errorMsg("密码必须指定!");
   }
-  return async (dispatch) => {
+  return async (
+    dispatch: (arg0: { type: string; data: any }) => void
+  ) => {
     const response = await reqadminLogin(user);
     const result = response.data;
     if (result.code === 0) {
@@ -140,7 +142,7 @@ export const adminLogin = (user) => {
   };
 };
 
-export const studentLogin = (user) => {
+export const studentLogin = (user: { username: any; password: any; }) => {
   const { username, password } = user;
   // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
   if (!username) {
@@ -148,7 +150,9 @@ export const studentLogin = (user) => {
   } else if (!password) {
     return errorMsg("密码必须指定!");
   }
-  return async (dispatch) => {
+  return async (
+    dispatch: (arg0: { type: string; data: any }) => void
+  ) => {
     const response = await reqstudentLogin(user);
     const result = response.data;
     if (result.code === 0) {
@@ -163,7 +167,7 @@ export const studentLogin = (user) => {
   };
 };
 
-export const teacherLogin = (user) => {
+export const teacherLogin = (user: { username: any; password: any; }) => {
   const { username, password } = user;
   // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
   if (!username) {
@@ -171,7 +175,9 @@ export const teacherLogin = (user) => {
   } else if (!password) {
     return errorMsg("密码必须指定!");
   }
-  return async (dispatch) => {
+  return async (
+    dispatch: (arg0: { type: string; data: any }) => void
+  ) => {
     const response = await reqteacherLogin(user);
     const result = response.data;
     if (result.code === 0) {
@@ -187,8 +193,10 @@ export const teacherLogin = (user) => {
 };
 
 // 更新用户异步action
-export const updateStudent = (user) => {
-  return async (dispatch) => {
+export const updateStudent = (user: any) => {
+  return async (
+    dispatch: (arg0: { type: string; data: any }) => void
+  ) => {
     const response = await reqStudentUpdate(user);
     const result = response.data;
     if (result.code === 0) {
@@ -201,8 +209,10 @@ export const updateStudent = (user) => {
   };
 };
 // 更新用户异步action
-export const updateTeacher = (user) => {
-  return async (dispatch) => {
+export const updateTeacher = (user: any) => {
+  return async (
+    dispatch: (arg0: { type: string; data: any }) => void
+  ) => {
     const response = await reqTeacherUpdate(user);
     const result = response.data;
     if (result.code === 0) {
@@ -215,8 +225,10 @@ export const updateTeacher = (user) => {
   };
 };
 // 更新用户异步action
-export const updateAdmin = (user) => {
-  return async (dispatch) => {
+export const updateAdmin = (user: any) => {
+  return async (
+    dispatch: (arg0: { type: string; data: any}) => void
+  ) => {
     const response = await reqAdminUpdate(user);
     const result = response.data;
     if (result.code === 0) {

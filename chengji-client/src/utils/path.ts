@@ -1,7 +1,7 @@
 /*
 返回对应的路由路径
  */
-export function getRedirectTo(type, IDcard) {
+export function getRedirectTo(type: string, IDcard: any) {
   let path;
   // type
   if (type === "student") {

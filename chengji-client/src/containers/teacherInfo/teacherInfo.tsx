@@ -1,33 +1,43 @@
 //学生信息完善的路由容器组件
 
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { connect, RootStateOrAny } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Form, Input, InputNumber, Button, Radio, Select } from "antd";
 import styles from "@/assets/css/global.module.less";
-import GlobalTab from "@/components/layout/global";
+import GlobalTab from "@/components/layout/global.tsx";
 import selfStyles from "./index.module.less";
-import { updateAdmin } from "@/redux/actions";
+import { updateTeacher } from "../../redux/actions";
 
-function AdminInfo(props) {
+function TeacherInfo(props: { updateUser: (arg0: any) => void; user: { IDcard: any; type: any; }; }) {
   const [state, setState] = useState({
     realName: "",
     affiliation: "",
+    sex: "",
     age: "",
-    startDate: "",
-    phone: "",
+    salary: "",
+    endSchool: "",
+    experience: "",
     IDcard: "",
+    startDate: "",
+    nation: "",
+    region: "",
+    phone: "",
     eMail: "",
+    street: "",
     address: "",
-    department: "",
-    duty: "",
   });
+
+  const onFinish = (values: any) => {
+    console.log(values);
+    props.updateUser(state);
+  };
 
   // 如果信息已经完善, 自动重定向到对应主界面
   const { IDcard, type } = props.user;
   if (IDcard) {
     // 说明信息已经完善
-    const path = type === "admin" ? "/admin" : "/adminInfo";
+    const path = type === "teacher" ? "/teacher" : "/teacherInfo";
     return <Redirect to={path} />;
   }
   const layout = {
@@ -48,23 +58,6 @@ function AdminInfo(props) {
     },
   };
 
-  const onFinish = (values) => {
-    setState({
-      realName: (state.realName = values.realName),
-      affiliation: (state.affiliation = values.affiliation),
-      age: (state.age = values.age),
-      startDate: (state.startDate = values.startDate),
-      phone: (state.phone = values.phone),
-      IDcard: (state.IDcard = values.IDcard),
-      eMail: (state.eMail = values.eMail),
-      address: (state.address = values.address),
-      department: (state.department = values.department),
-      duty: (state.duty = values.duty),
-    });
-    props.updateAdmin(state);
-    console.log("Success:", values);
-  };
-
   return (
     <div className={styles.container}>
       <GlobalTab></GlobalTab>
@@ -77,9 +70,13 @@ function AdminInfo(props) {
           validateMessages={validateMessages}
         >
           <Form.Item>
-            <h2 className={selfStyles.title}>教务员基本信息</h2>
+            <h2 className={selfStyles.title}>教师基本信息</h2>
           </Form.Item>
-          <Form.Item name={"realName"} label="真实姓名">
+          <Form.Item
+            name={"realName"}
+            label="真实姓名"
+            rules={[{ required: true }]}
+          >
             <Input placeholder="请输入姓名" />
           </Form.Item>
           <Form.Item name={"sex"} label=" 性别：" rules={[{ required: true }]}>
@@ -104,33 +101,25 @@ function AdminInfo(props) {
           <Form.Item
             name={"age"}
             label="年龄"
-            rules={[{ type: "number", min: 1, max: 100 }]}
+            rules={[{ type: "number", min: 1, max: 100, required: true }]}
           >
             <InputNumber placeholder="年龄" />
           </Form.Item>
-
           <Form.Item
-            name={"department"}
-            label="学院"
-            hasFeedback
-            rules={[{ required: true, message: "请输入你负责的学院" }]}
+            name={"endSchool"}
+            label="毕业学校"
+            rules={[{ required: true }]}
           >
-            <Select placeholder="请输入你负责的学院">
-              <Option value="DXG">电子信息与工程学院</Option>
-              <Option value="JZG">建筑工程学院</Option>
-              <Option value="JXG">机械工程学院</Option>
-              <Option value="JT">交通学院</Option>
-              <Option value="HG">化学工程学院</Option>
-              <Option value="CL">材料学院</Option>
-              <Option value="LI">理学院</Option>
-              <Option value="JIG">经济管理学院</Option>
-              <Option value="WG">外国语学院</Option>
-              <Option value="RW">人文学院</Option>
-              <Option value="GJ">国际交流学院</Option>
-              <Option value="CJ">成人教育学院</Option>
-            </Select>
+            <Input placeholder="请输入毕业学校" />
           </Form.Item>
 
+          <Form.Item
+            name={"salary"}
+            label="薪资"
+            rules={[{ type: "number", required: true }]}
+          >
+            <InputNumber placeholder="薪资" />
+          </Form.Item>
           <Form.Item
             name={"IDcard"}
             label="身份证号码"
@@ -145,10 +134,57 @@ function AdminInfo(props) {
             <Input placeholder="请输入有效的身份证号码" />
           </Form.Item>
           {/* 系统获取时间 */}
-          <Form.Item name={"startDate"} label="开始日期">
+          <Form.Item name={"startDate"} label="上班日期">
             <Input placeholder="根据系统时间" />
           </Form.Item>
-
+          <Form.Item name={"nation"} label="民族" rules={[{ required: true }]}>
+            <Input placeholder="请输入民族" />
+          </Form.Item>
+          <Form.Item label="籍贯">
+            <Input.Group compact>
+              <Form.Item name={"region"} noStyle>
+                <Select placeholder="请选择省份">
+                  <Option value="hb">河北</Option>
+                  <Option value="sx">山西</Option>
+                  <Option value="ln">辽宁</Option>
+                  <Option value="jl">吉林</Option>
+                  <Option value="hlj">黑龙江</Option>
+                  <Option value="js">江苏</Option>
+                  <Option value="zj">浙江</Option>
+                  <Option value="ah">安徽</Option>
+                  <Option value="fj">福建</Option>
+                  <Option value="jx">江西</Option>
+                  <Option value="sd">山东</Option>
+                  <Option value="hna">河南</Option>
+                  <Option value="hb">湖北</Option>
+                  <Option value="hnb">湖南</Option>
+                  <Option value="gd">广东</Option>
+                  <Option value="hnc">海南</Option>
+                  <Option value="sc">四川</Option>
+                  <Option value="gz">贵州</Option>
+                  <Option value="nmg">内蒙古</Option>
+                  <Option value="gx">广西壮族</Option>
+                  <Option value="xz">西藏</Option>
+                  <Option value="nx">宁夏回族</Option>
+                  <Option value="xj">新疆维吾尔</Option>
+                  <Option value="bj">北京</Option>
+                  <Option value="tj">天津</Option>
+                  <Option value="sh">上海</Option>
+                  <Option value="cq">重庆</Option>
+                  <Option value="xg">香港</Option>
+                  <Option value="am">澳门</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item
+                name={"street"}
+                label="地区"
+                noStyle
+                rules={[{ required: true, message: "地区信息必须输入！" }]}
+              >
+                <Input style={{ width: "50%" }} placeholder="请输入地区信息" />
+              </Form.Item>
+            </Input.Group>
+          </Form.Item>
           <Form.Item
             name={"phone"}
             label="手机号码"
@@ -175,13 +211,12 @@ function AdminInfo(props) {
               style={{ resize: "none" }}
             />
           </Form.Item>
-          <Form.Item name={"duty"} label="职责">
+          <Form.Item name={"experience"} label="工作经历">
             <Input.TextArea
-              placeholder="请输入职责"
+              placeholder="请输入工作经历"
               style={{ resize: "none" }}
             />
           </Form.Item>
-
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -195,6 +230,7 @@ function AdminInfo(props) {
   );
 }
 
-export default connect((state) => ({ user: state.user }), { updateAdmin })(
-  AdminInfo
+//updateUser
+export default connect((state:RootStateOrAny) => ({ user: state.user }), { updateTeacher })(
+  TeacherInfo
 );

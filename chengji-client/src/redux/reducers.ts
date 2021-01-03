@@ -1,7 +1,7 @@
 // 包含n个reducer函数: 根据老的state和指定的action返回一个新的state
 
 import { combineReducers } from "redux";
-import { getRedirectTo } from "@/utils/index";
+import { getRedirectTo } from "../utils/path";
 
 import {
   AUTH_SUCCESS,
@@ -16,7 +16,7 @@ const initUser = {
   redirectTo: "", // 需要自动重定向的路由路径 定义好返回给state
 };
 // 产生user状态的reducer
-function user(state = initUser, action) {
+function user(state = initUser, action: { type: any; data: { type: any; IDcard: any; }; }) {
   switch (action.type) {
     case AUTH_SUCCESS: // data是user
       const { type, IDcard } = action.data;
