@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "baseUrl": ".",
     "moduleResolution": "node",
     "declarationDir": "dist/types",
     "declaration": true,
     "target": "es6",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -18,10 +21,19 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "noUnusedLocals": false,
+    "noUnusedParameters": true,
+    "baseUrl": ".",
+    "noImplicitAny": false
   },
-
-  "exclude": ["node_modules", "dist", "build", "mock"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "mock"
+  ],
+  "include": [
+    "src/**/*"
+  ],
+  "extends": "./paths.json"
 }

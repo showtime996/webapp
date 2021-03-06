@@ -4,9 +4,9 @@ import { Switch, Route } from "react-router-dom";
 import StudentInfo from "@/containers/studentInfo/studentInfo.tsx";
 import TeacherInfo from "@/containers/teacherInfo/teacherInfo.tsx";
 import AdminInfo from "@/containers/adminInfo/adminInfo.tsx";
-import Student from "@/containers/student";
-import Admin from "@/containers/admin";
-import Teacher from "@/containers/teacher";
+import Student from "../student";
+import Admin from "../admin";
+import Teacher from "../teacher";
 export default function Main() {
   return (
     <div>
