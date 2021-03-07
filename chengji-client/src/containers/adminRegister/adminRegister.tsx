@@ -14,13 +14,15 @@ import { connect, RootStateOrAny } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { adminRegister } from "../../redux/actions";
 function AdminRegister(props: {
-    adminRegister: (arg0: {
-      username: string; // 用户名
-      password: string; // 密码
-      password2: string; // 确认密码
-      type: string;
-    }) => void; history: { replace: (arg0: string) => void; }; user: { msg: any; redirectTo: any; };
-  }) {
+  adminRegister: (arg0: {
+    username: string; // 用户名
+    password: string; // 密码
+    password2: string; // 确认密码
+    type: string;
+  }) => void;
+  history: { replace: (arg0: string) => void };
+  user: { msg: any; redirectTo: any };
+}) {
   const [state, setState] = useState({
     username: "", // 用户名
     password: "", // 密码
@@ -29,7 +31,11 @@ function AdminRegister(props: {
   });
 
   // 点击注册调用  将值传入到state中
-  const onFinish = (values: { username: string; password: string; password2: string; }) => {
+  const onFinish = (values: {
+    username: string;
+    password: string;
+    password2: string;
+  }) => {
     setState({
       username: (state.username = values.username),
       password: (state.password = values.password),
@@ -128,12 +134,12 @@ function AdminRegister(props: {
             >
               注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;册
             </Button>
-            <p
+            <div
               className="login-form-registerLogin"
               style={{ marginTop: "10px", marginBottom: "10px" }}
             >
-              已有账号？ <a onClick={toLogin}>点击登入!</a>
-            </p>
+              <a onClick={toLogin}>已是教务员-点击登入!</a>
+            </div>
 
             <div
               className="login-form-registerLogin"
@@ -159,7 +165,7 @@ function AdminRegister(props: {
 
 export default connect(
   // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
-  (state:RootStateOrAny) => ({ user: state.user }),
+  (state: RootStateOrAny) => ({ user: state.user }),
   //  函数确定
   { adminRegister }
 )(AdminRegister);
