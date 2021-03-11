@@ -7,7 +7,7 @@ import {
   UploadOutlined,
 } from "@ant-design/icons";
 import React, { useState } from "react";
-import "./admin.less";
+import "./index.less";
 
 const { Header, Sider, Content } = Layout;
 export default class Administer extends React.Component {

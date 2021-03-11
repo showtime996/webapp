@@ -1,9 +1,9 @@
 // 主页面路由组件
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import StudentInfo from "@/containers/studentInfo/studentInfo.tsx";
-import TeacherInfo from "@/containers/teacherInfo/teacherInfo.tsx";
-import AdminInfo from "@/containers/adminInfo/adminInfo.tsx";
+import StudentInfo from "@/containers/studentInfo";
+import TeacherInfo from "@/containers/teacherInfo";
+import AdminInfo from "@/containers/adminInfo";
 import Student from "../student";
 import Admin from "../admin";
 import Teacher from "../teacher";

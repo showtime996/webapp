@@ -3,8 +3,8 @@
 // 同步action
 import { AUTH_SUCCESS, ERROR_MSG, RECEIVE_USER, RESET_USER } from './action-types';
 import {
-  // reqteacherRegister,
-  // reqstudentRegister,
+  reqteacherRegister,
+  reqstudentRegister,
   reqadminRegister,
   reqadminLogin,
   reqstudentLogin,
@@ -17,7 +17,7 @@ import {
 // 授权成功的同步action
 const authSuccess = (user: any) => ({ type: AUTH_SUCCESS, data: user });
 // 错误提示信息的同步action
-const errorMsg = (msg: string) => ({ type: ERROR_MSG, data: msg });
+const errorMsg = (msg: any) => ({ type: ERROR_MSG, data: msg });
 // 接收用户的同步action
 const receive = (user: any) => ({ type: RECEIVE_USER, data: user });
 // 重置用户的同步action
@@ -118,7 +118,7 @@ export const adminRegister = (user: {
 // };
 
 // 登陆异步action
-export const adminLogin = (user: { username: any; password: any }) => {
+export const adminLogin = (user: any) => {
   const { username, password } = user;
   // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
   if (!username) {

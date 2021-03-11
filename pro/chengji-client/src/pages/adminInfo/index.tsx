@@ -1,15 +1,19 @@
 /* eslint-disable no-template-curly-in-string */
 // 学生信息完善的路由容器组件
 
-import React, { useState } from 'react';
-import type { RootStateOrAny } from 'react-redux';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { Form, Input, InputNumber, Button, Radio, Select } from 'antd';
-import styles from '@/assets/css/global.less';
-import GlobalTab from '@/components/tabNav';
-import selfStyles from './index.less';
-import { updateAdmin } from '../../redux/actions';
+import React, { useState } from "react";
+import {
+  connect,
+  DefaultRootState,
+  RootStateOrAny,
+  useSelector,
+} from "react-redux";
+import { Redirect } from "react-router-dom";
+import { Form, Input, InputNumber, Button, Radio, Select } from "antd";
+import styles from "@/assets/css/global.less";
+import GlobalTab from "@/components/tabNav";
+import selfStyles from "./index.less";
+import { updateAdmin } from "../../redux/actions";
 
 function AdminInfo(props: {
   user: { IDcard: any; type: any };
@@ -27,23 +31,23 @@ function AdminInfo(props: {
   }) => void;
 }) {
   const [state, setState] = useState({
-    realName: '',
-    affiliation: '',
-    age: '',
-    startDate: '',
-    phone: '',
-    IDcard: '',
-    eMail: '',
-    address: '',
-    department: '',
-    duty: '',
+    realName: "",
+    affiliation: "",
+    age: "",
+    startDate: "",
+    phone: "",
+    IDcard: "",
+    eMail: "",
+    address: "",
+    department: "",
+    duty: "",
   });
 
   // 如果信息已经完善, 自动重定向到对应主界面
   const { IDcard, type } = props.user;
   if (IDcard) {
     // 说明信息已经完善
-    const path = type === 'admin' ? '/admin' : '/adminInfo';
+    const path = type === "admin" ? "/admin" : "/adminInfo";
     return <Redirect to={path} />;
   }
   const layout = {
@@ -52,15 +56,15 @@ function AdminInfo(props: {
   };
   const { Option } = Select;
   const validateMessages = {
-    required: '${label} 必须填写!',
-    message: '请输入你的${label}!',
-    len: '${label}长度必须18位',
+    required: "${label} 必须填写!",
+    message: "请输入你的${label}!",
+    len: "${label}长度必须18位",
     types: {
-      email: '${label} 不是有效的邮箱!',
-      number: '${label} 不是有效的数字!',
+      email: "${label} 不是有效的邮箱!",
+      number: "${label} 不是有效的数字!",
     },
     number: {
-      range: '${label} 范围必须在${min} 和 ${max}',
+      range: "${label} 范围必须在${min} 和 ${max}",
     },
   };
 
@@ -89,7 +93,7 @@ function AdminInfo(props: {
       duty: (state.duty = values.duty),
     });
     props.updateAdmin(state);
-    console.log('Success:', values);
+    console.log("Success:", values);
   };
 
   return (
@@ -98,7 +102,7 @@ function AdminInfo(props: {
       <div className={styles.formContainer}>
         <Form
           {...layout}
-          style={{ margin: '17px auto' }}
+          style={{ margin: "17px auto" }}
           name="nest-messages"
           onFinish={onFinish}
           validateMessages={validateMessages}
@@ -106,20 +110,20 @@ function AdminInfo(props: {
           <Form.Item>
             <h2 className={selfStyles.title}>教务员基本信息</h2>
           </Form.Item>
-          <Form.Item name={'realName'} label="真实姓名">
+          <Form.Item name={"realName"} label="真实姓名">
             <Input placeholder="请输入姓名" />
           </Form.Item>
-          <Form.Item name={'sex'} label=" 性别：" rules={[{ required: true }]}>
+          <Form.Item name={"sex"} label=" 性别：" rules={[{ required: true }]}>
             <Radio.Group>
               <Radio value="man">男</Radio>
               <Radio value="women">女</Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item
-            name={'affiliation'}
+            name={"affiliation"}
             label="政治面貌"
             hasFeedback
-            rules={[{ required: true, message: '请输入你的政治面貌' }]}
+            rules={[{ required: true, message: "请输入你的政治面貌" }]}
           >
             <Select placeholder="请输入你的政治面貌">
               <Option value="DY">党员</Option>
@@ -128,15 +132,19 @@ function AdminInfo(props: {
               <Option value="QZ">群众</Option>
             </Select>
           </Form.Item>
-          <Form.Item name={'age'} label="年龄" rules={[{ type: 'number', min: 1, max: 100 }]}>
+          <Form.Item
+            name={"age"}
+            label="年龄"
+            rules={[{ type: "number", min: 1, max: 100 }]}
+          >
             <InputNumber placeholder="年龄" />
           </Form.Item>
 
           <Form.Item
-            name={'department'}
+            name={"department"}
             label="学院"
             hasFeedback
-            rules={[{ required: true, message: '请输入你负责的学院' }]}
+            rules={[{ required: true, message: "请输入你负责的学院" }]}
           >
             <Select placeholder="请输入你负责的学院">
               <Option value="DXG">电子信息与工程学院</Option>
@@ -155,53 +163,59 @@ function AdminInfo(props: {
           </Form.Item>
 
           <Form.Item
-            name={'IDcard'}
+            name={"IDcard"}
             label="身份证号码"
             rules={[
               {
                 required: true,
                 len: 18,
-                message: '请输入18位有效数字!',
+                message: "请输入18位有效数字!",
               },
             ]}
           >
             <Input placeholder="请输入有效的身份证号码" />
           </Form.Item>
           {/* 系统获取时间 */}
-          <Form.Item name={'startDate'} label="开始日期">
+          <Form.Item name={"startDate"} label="开始日期">
             <Input placeholder="根据系统时间" />
           </Form.Item>
 
           <Form.Item
-            name={'phone'}
+            name={"phone"}
             label="手机号码"
             rules={[
               {
                 required: true,
                 len: 11,
-                message: '请输入11位有效数字!',
+                message: "请输入11位有效数字!",
               },
             ]}
           >
             <Input placeholder="请输入手机号码" />
           </Form.Item>
-          <Form.Item name={'eMail'} label="Email" rules={[{ type: 'email' }]}>
+          <Form.Item name={"eMail"} label="Email" rules={[{ type: "email" }]}>
             <Input placeholder="请输入电子邮箱" />
           </Form.Item>
           <Form.Item
-            name={'address'}
+            name={"address"}
             label="家庭地址"
-            rules={[{ required: true, message: '家庭地址信息必须输入' }]}
+            rules={[{ required: true, message: "家庭地址信息必须输入" }]}
           >
-            <Input.TextArea placeholder="请输入家庭地址" style={{ resize: 'none' }} />
+            <Input.TextArea
+              placeholder="请输入家庭地址"
+              style={{ resize: "none" }}
+            />
           </Form.Item>
-          <Form.Item name={'duty'} label="职责">
-            <Input.TextArea placeholder="请输入职责" style={{ resize: 'none' }} />
+          <Form.Item name={"duty"} label="职责">
+            <Input.TextArea
+              placeholder="请输入职责"
+              style={{ resize: "none" }}
+            />
           </Form.Item>
 
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             <Button type="primary" htmlType="submit">
               信息提交
             </Button>

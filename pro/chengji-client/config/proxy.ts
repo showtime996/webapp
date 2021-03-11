@@ -22,7 +22,7 @@ export default {
   },
   pre: {
     '/api/': {
-      target: ' http://localhost:4000',
+      target: 'your pre url',
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },

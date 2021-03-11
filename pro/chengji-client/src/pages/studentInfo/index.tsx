@@ -1,15 +1,13 @@
-/* eslint-disable no-template-curly-in-string */
 // 学生信息完善的路由容器组件
 
-import React, { useState } from 'react';
-import type { RootStateOrAny } from 'react-redux';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { Form, Input, InputNumber, Button, Radio, Select } from 'antd';
-import styles from '@/assets/css/global.less';
-import GlobalTab from '@/components/tabNav';
-import selfStyles from './index.less';
-import { updateStudent } from '../../redux/actions';
+import React, { useState } from "react";
+import { connect, RootStateOrAny } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { Form, Input, InputNumber, Button, Radio, Select } from "antd";
+import styles from "@/assets/css/global.less";
+import GlobalTab from "@/components/tabNav";
+import selfStyles from "./index.less";
+import { updateStudent } from "../../redux/actions";
 
 function StudentInfo(props: {
   updateUser: (arg0: {
@@ -31,20 +29,20 @@ function StudentInfo(props: {
   user: { IDcard: any; type: any };
 }) {
   const [state, setState] = useState({
-    realName: '',
-    sex: '',
-    affiliation: '',
-    age: '',
-    startDate: '',
-    endDate: '',
-    nation: '',
-    region: '',
-    phone: '',
-    IDcard: '',
-    recommend: '',
-    eMail: '',
-    street: '',
-    address: '',
+    realName: "",
+    sex: "",
+    affiliation: "",
+    age: "",
+    startDate: "",
+    endDate: "",
+    nation: "",
+    region: "",
+    phone: "",
+    IDcard: "",
+    recommend: "",
+    eMail: "",
+    street: "",
+    address: "",
   });
 
   const onFinish = (values: any) => {
@@ -56,7 +54,7 @@ function StudentInfo(props: {
   const { IDcard, type } = props.user;
   if (IDcard) {
     // 说明信息已经完善
-    const path = type === 'student' ? '/student' : '/studentInfo';
+    const path = type === "student" ? "/student" : "/studentInfo";
     return <Redirect to={path} />;
   }
   const layout = {
@@ -65,15 +63,15 @@ function StudentInfo(props: {
   };
   const { Option } = Select;
   const validateMessages = {
-    required: '${label} 必须填写!',
-    message: '请输入你的${label}!',
-    len: '${label}长度必须18位',
+    required: "${label} 必须填写!",
+    message: "请输入你的${label}!",
+    len: "${label}长度必须18位",
     types: {
-      email: '${label} 不是有效的邮箱!',
-      number: '${label} 不是有效的数字!',
+      email: "${label} 不是有效的邮箱!",
+      number: "${label} 不是有效的数字!",
     },
     number: {
-      range: '${label} 范围必须在${min} 和 ${max}',
+      range: "${label} 范围必须在${min} 和 ${max}",
     },
   };
 
@@ -83,7 +81,7 @@ function StudentInfo(props: {
       <div className={styles.formContainer}>
         <Form
           {...layout}
-          style={{ margin: '17px auto' }}
+          style={{ margin: "17px auto" }}
           name="nest-messages"
           onFinish={onFinish}
           validateMessages={validateMessages}
@@ -91,20 +89,24 @@ function StudentInfo(props: {
           <Form.Item>
             <h2 className={selfStyles.title}>学生基本信息</h2>
           </Form.Item>
-          <Form.Item name={'realName'} label="真实姓名" rules={[{ required: true }]}>
+          <Form.Item
+            name={"realName"}
+            label="真实姓名"
+            rules={[{ required: true }]}
+          >
             <Input placeholder="请输入姓名" />
           </Form.Item>
-          <Form.Item name={'sex'} label=" 性别：" rules={[{ required: true }]}>
+          <Form.Item name={"sex"} label=" 性别：" rules={[{ required: true }]}>
             <Radio.Group>
               <Radio value="man">男</Radio>
               <Radio value="women">女</Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item
-            name={'affiliation'}
+            name={"affiliation"}
             label="政治面貌"
             hasFeedback
-            rules={[{ required: true, message: '请输入你的政治面貌' }]}
+            rules={[{ required: true, message: "请输入你的政治面貌" }]}
           >
             <Select placeholder="请输入你的政治面貌">
               <Option value="DY">党员</Option>
@@ -114,40 +116,40 @@ function StudentInfo(props: {
             </Select>
           </Form.Item>
           <Form.Item
-            name={'age'}
+            name={"age"}
             label="年龄"
-            rules={[{ type: 'number', min: 1, max: 100, required: true }]}
+            rules={[{ type: "number", min: 1, max: 100, required: true }]}
           >
             <InputNumber placeholder="年龄" />
           </Form.Item>
 
           <Form.Item
-            name={'IDcard'}
+            name={"IDcard"}
             label="身份证号码"
             rules={[
               {
                 required: true,
                 len: 18,
-                message: '请输入18位有效数字!',
+                message: "请输入18位有效数字!",
               },
             ]}
           >
             <Input placeholder="请输入有效的身份证号码" />
           </Form.Item>
           {/* 系统获取时间 */}
-          <Form.Item name={'startDate'} label="开学日期">
+          <Form.Item name={"startDate"} label="开学日期">
             <Input placeholder="根据系统时间" />
           </Form.Item>
           {/* 系统获取时间 */}
-          <Form.Item name={'endDate'} label="毕业日期">
+          <Form.Item name={"endDate"} label="毕业日期">
             <Input placeholder="根据系统时间" />
           </Form.Item>
-          <Form.Item name={'nation'} label="民族" rules={[{ required: true }]}>
+          <Form.Item name={"nation"} label="民族" rules={[{ required: true }]}>
             <Input placeholder="请输入民族" />
           </Form.Item>
           <Form.Item label="籍贯">
             <Input.Group compact>
-              <Form.Item name={'region'} noStyle>
+              <Form.Item name={"region"} noStyle>
                 <Select placeholder="请选择省份">
                   <Option value="hb">河北</Option>
                   <Option value="sx">山西</Option>
@@ -181,45 +183,51 @@ function StudentInfo(props: {
                 </Select>
               </Form.Item>
               <Form.Item
-                name={'street'}
+                name={"street"}
                 label="地区"
                 noStyle
-                rules={[{ required: true, message: '地区信息必须输入！' }]}
+                rules={[{ required: true, message: "地区信息必须输入！" }]}
               >
-                <Input style={{ width: '50%' }} placeholder="请输入地区信息" />
+                <Input style={{ width: "50%" }} placeholder="请输入地区信息" />
               </Form.Item>
             </Input.Group>
           </Form.Item>
           <Form.Item
-            name={'phone'}
+            name={"phone"}
             label="手机号码"
             rules={[
               {
                 required: true,
                 len: 11,
-                message: '请输入11位有效数字!',
+                message: "请输入11位有效数字!",
               },
             ]}
           >
             <Input placeholder="请输入手机号码" />
           </Form.Item>
-          <Form.Item name={'eMail'} label="Email" rules={[{ type: 'email' }]}>
+          <Form.Item name={"eMail"} label="Email" rules={[{ type: "email" }]}>
             <Input placeholder="请输入电子邮箱" />
           </Form.Item>
           <Form.Item
-            name={'address'}
+            name={"address"}
             label="家庭地址"
-            rules={[{ required: true, message: '家庭地址信息必须输入' }]}
+            rules={[{ required: true, message: "家庭地址信息必须输入" }]}
           >
-            <Input.TextArea placeholder="请输入家庭地址" style={{ resize: 'none' }} />
+            <Input.TextArea
+              placeholder="请输入家庭地址"
+              style={{ resize: "none" }}
+            />
           </Form.Item>
-          <Form.Item name={'recommend'} label="自我简介">
-            <Input.TextArea placeholder="请输入自我简介" style={{ resize: 'none' }} />
+          <Form.Item name={"recommend"} label="自我简介">
+            <Input.TextArea
+              placeholder="请输入自我简介"
+              style={{ resize: "none" }}
+            />
           </Form.Item>
 
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             <Button type="primary" htmlType="submit">
               信息提交
             </Button>
@@ -229,7 +237,7 @@ function StudentInfo(props: {
     </div>
   );
 }
-// updateUser
-export default connect((state: RootStateOrAny) => ({ user: state.user }), { updateStudent })(
-  StudentInfo,
+//updateUser
+export default connect((state:RootStateOrAny) => ({ user: state.user }), { updateStudent })(
+  StudentInfo
 );

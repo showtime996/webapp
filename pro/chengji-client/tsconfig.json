@@ -14,13 +14,12 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "allowJs": true,
-    // "skipLibCheck": true,
+    "skipLibCheck": true,
     "experimentalDecorators": true,
     "strict": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@@/*": ["./src/.umi/*"],
-
+      "@@/*": ["./src/.umi/*"]
     }
   },
   "include": [

@@ -1,38 +1,48 @@
 ﻿export default [
+  {
+    path: '/user',
+    layout: false,
+    routes: [
+      {
+        path: '/user',
+        routes: [
+          {
+            name: 'login',
+            path: '/user/login',
+            component: './User/login',
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    path: '/welcome',
+    name: 'welcome',
+    icon: 'smile',
+    component: './Welcome',
+  },
   // {
-  //   path: '/user',
-  //   layout: false,
+  //   path: '/admin',
+  //   name: 'admin',
+  //   icon: 'crown',
+  //   access: 'canAdmin',
+  //   component: './Admin',
   //   routes: [
   //     {
-  //       path: '/user',
-  //       routes: [
-  //         {
-  //           name: 'login',
-  //           path: '/user/login',
-  //           component: './User/login',
-  //         },
-  //       ],
+  //       path: '/admin/sub-page',
+  //       name: 'sub-page',
+  //       icon: 'smile',
+  //       component: './Welcome',
   //     },
   //   ],
   // },
-  {
-    path: '/login',
-    name: 'login',
-    // icon: 'smile',
-    component: './login/index',
-  },
-  {
-    path: '/adminRegister',
-    name: 'adminRegister',
-    // icon: 'smile',
-    component: './adminRegister',
-  },
-  {
-    path: '/',
-    name: 'adminRegister',
-    // icon: 'smile',
-    component: './adminRegister',
-  },
+  // {
+  //   name: 'list.table-list',
+  //   icon: 'table',
+  //   path: '/list',
+  //   component: './TableList',
+  // },
   {
     path: '/',
     redirect: '/welcome',

@@ -5,27 +5,41 @@ import { connect, RootStateOrAny } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Form, Input, InputNumber, Button, Radio, Select } from "antd";
 import styles from "@/assets/css/global.module.less";
-import GlobalTab from "@/components/tabNav/global.tsx";
+import GlobalTab from "@/components/tabNav";
 import selfStyles from "./index.module.less";
-import { updateTeacher } from "../../redux/actions";
+import { updateStudent } from "../../redux/actions";
 
-function TeacherInfo(props: {
-  updateUser: (arg0: any) => void;
+function StudentInfo(props: {
+  updateUser: (arg0: {
+    realName: string;
+    sex: string;
+    affiliation: string;
+    age: string;
+    startDate: string;
+    endDate: string;
+    nation: string;
+    region: string;
+    phone: string;
+    IDcard: string;
+    recommend: string;
+    eMail: string;
+    street: string;
+    address: string;
+  }) => void;
   user: { IDcard: any; type: any };
 }) {
   const [state, setState] = useState({
     realName: "",
-    affiliation: "",
     sex: "",
+    affiliation: "",
     age: "",
-    salary: "",
-    endSchool: "",
-    experience: "",
-    IDcard: "",
     startDate: "",
+    endDate: "",
     nation: "",
     region: "",
     phone: "",
+    IDcard: "",
+    recommend: "",
     eMail: "",
     street: "",
     address: "",
@@ -40,7 +54,7 @@ function TeacherInfo(props: {
   const { IDcard, type } = props.user;
   if (IDcard) {
     // 说明信息已经完善
-    const path = type === "teacher" ? "/teacher" : "/teacherInfo";
+    const path = type === "student" ? "/student" : "/studentInfo";
     return <Redirect to={path} />;
   }
   const layout = {
@@ -73,7 +87,7 @@ function TeacherInfo(props: {
           validateMessages={validateMessages}
         >
           <Form.Item>
-            <h2 className={selfStyles.title}>教师基本信息</h2>
+            <h2 className={selfStyles.title}>学生基本信息</h2>
           </Form.Item>
           <Form.Item
             name={"realName"}
@@ -108,21 +122,7 @@ function TeacherInfo(props: {
           >
             <InputNumber placeholder="年龄" />
           </Form.Item>
-          <Form.Item
-            name={"endSchool"}
-            label="毕业学校"
-            rules={[{ required: true }]}
-          >
-            <Input placeholder="请输入毕业学校" />
-          </Form.Item>
 
-          <Form.Item
-            name={"salary"}
-            label="薪资"
-            rules={[{ type: "number", required: true }]}
-          >
-            <InputNumber placeholder="薪资" />
-          </Form.Item>
           <Form.Item
             name={"IDcard"}
             label="身份证号码"
@@ -137,7 +137,11 @@ function TeacherInfo(props: {
             <Input placeholder="请输入有效的身份证号码" />
           </Form.Item>
           {/* 系统获取时间 */}
-          <Form.Item name={"startDate"} label="上班日期">
+          <Form.Item name={"startDate"} label="开学日期">
+            <Input placeholder="根据系统时间" />
+          </Form.Item>
+          {/* 系统获取时间 */}
+          <Form.Item name={"endDate"} label="毕业日期">
             <Input placeholder="根据系统时间" />
           </Form.Item>
           <Form.Item name={"nation"} label="民族" rules={[{ required: true }]}>
@@ -214,12 +218,13 @@ function TeacherInfo(props: {
               style={{ resize: "none" }}
             />
           </Form.Item>
-          <Form.Item name={"experience"} label="工作经历">
+          <Form.Item name={"recommend"} label="自我简介">
             <Input.TextArea
-              placeholder="请输入工作经历"
+              placeholder="请输入自我简介"
               style={{ resize: "none" }}
             />
           </Form.Item>
+
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -232,8 +237,7 @@ function TeacherInfo(props: {
     </div>
   );
 }
-
 //updateUser
-export default connect((state: RootStateOrAny) => ({ user: state.user }), {
-  updateTeacher,
-})(TeacherInfo);
+export default connect((state:RootStateOrAny) => ({ user: state.user }), { updateStudent })(
+  StudentInfo
+);

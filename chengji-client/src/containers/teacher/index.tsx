@@ -1,4 +1,4 @@
-import Administer from "@/layout/admin/admin";
+import Administer from "@/layout/admin";
 import React from "react";
 
 export default function Teacher() {

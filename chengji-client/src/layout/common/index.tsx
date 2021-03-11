@@ -1,6 +1,6 @@
 import { Layout, Menu, Breadcrumb } from "antd";
 import React from "react";
-import "./common.less";
+import "./index.less";
 
 export default function CommonLayout() {
   const { Header, Footer, Sider, Content } = Layout;

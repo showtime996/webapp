@@ -1,41 +1,38 @@
 // 注册的路由组件
-import React, { useState } from 'react';
-import 'antd/dist/antd.css';
-import '@/assets/css/loginForm.less';
-import bj from '@/assets/css/bj.less';
-import { Form, Input, Button } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import Header from '@/components/header';
-import Fonter from '@/components/fonter';
+import React, { useState } from "react";
+import "antd/dist/antd.css";
+import "@/assets/css/loginForm.less";
+import bj from "@/assets/css/bj.less";
+import { Form, Input, Button, Radio } from "antd";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import Header from "@/components/header";
+import Fonter from "@/components/fonter";
 // 引入重定向路由
-import { Redirect } from 'react-router-dom';
+import { Redirect } from "react-router-dom";
 // 通过异步action实现交互后台的数据 普通的ui不能得使用函数方式
-import { connect, RootStateOrAny } from 'react-redux';
-import { adminLogin, studentLogin, teacherLogin } from '../../redux/actions';
+import type { RootStateOrAny } from "react-redux";
+import { connect } from "react-redux";
+import { adminLogin, studentLogin, teacherLogin } from "../../redux/actions";
 
 function Login(props: {
-  adminLogin: (arg0: {
-    username: string; // 用户名
-    password: string;
-  }) => void;
-  studentLogin: (arg0: {
-    username: string; // 用户名
-    password: string;
-  }) => void;
-  teacherLogin: (arg0: {
-    username: string; // 用户名
-    password: string;
-  }) => void;
-  history: { replace: (arg0: string) => void };
-  user: { msg: any; redirectTo: any };
-}) {
+    adminLogin: (arg0: {
+      username: string; // 用户名
+      password: string;
+    }) => void; studentLogin: (arg0: {
+      username: string; // 用户名
+      password: string;
+    }) => void; teacherLogin: (arg0: {
+      username: string; // 用户名
+      password: string;
+    }) => void; history: { replace: (arg0: string) => void; }; user: { msg: any; redirectTo: any; };
+  }) {
   const [state, setState] = useState({
-    username: '', // 用户名
-    password: '', // 密码
+    username: "", // 用户名
+    password: "", // 密码
   });
 
   // 点击注册调用  将值传入到state中
-  const onFinish = (values: { username: string; password: string }) => {
+  const onFinish = (values: { username: string; password: string; }) => {
     setState({
       username: (state.username = values.username),
       password: (state.password = values.password),
@@ -44,12 +41,12 @@ function Login(props: {
     props.adminLogin(state);
     props.studentLogin(state);
     props.teacherLogin(state);
-    console.log('Success:', values);
+    console.log("Success:", values);
   };
   // 点击登入调用
 
   const toRegister = () => {
-    props.history.replace('/adminRegister');
+    props.history.replace("/adminRegister");
   };
 
   const { msg, redirectTo } = props.user;
@@ -81,7 +78,7 @@ function Login(props: {
             rules={[
               {
                 required: true,
-                message: '请输入用户名!',
+                message: "请输入用户名!",
               },
             ]}
           >
@@ -96,7 +93,7 @@ function Login(props: {
             rules={[
               {
                 required: true,
-                message: '请输入密码!',
+                message: "请输入密码!",
               },
             ]}
           >
@@ -109,22 +106,29 @@ function Login(props: {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" className="login-form-button">
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
               登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;入
             </Button>
 
-            <p className="login-form-registerLogin" style={{ marginTop: '10px' }}>
+            <p
+              className="login-form-registerLogin"
+              style={{ marginTop: "10px" }}
+            >
               教务员没有账号？ <a onClick={toRegister}>请点击注册!</a>
             </p>
 
             <div
               className="login-form-registerLogin"
               style={{
-                backgroundColor: '#CCC',
-                width: '100%',
-                height: '42px',
-                position: 'absolute',
-                bottom: '-26px',
+                backgroundColor: "#CCC",
+                width: "100%",
+                height: "42px",
+                position: "absolute",
+                bottom: "-26px",
               }}
             >
               <span className="login-form-registerLogin-txt">温馨提示:</span>
@@ -143,5 +147,5 @@ export default connect(
   // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
   (state: RootStateOrAny) => ({ user: state.user }),
   //  函数确定
-  { adminLogin, studentLogin, teacherLogin },
+  { adminLogin, studentLogin, teacherLogin }
 )(Login);
