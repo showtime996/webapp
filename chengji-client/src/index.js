@@ -17,7 +17,7 @@ ReactDOM.render(
         <Route path="/login" component={Login}></Route>
         {/* 默认的组件 */}
         <Route component={Main}></Route>
-        {/* <Redirect to="/login"></Redirect> */}
+       
       </Switch>
     </HashRouter>
   </Provider>,

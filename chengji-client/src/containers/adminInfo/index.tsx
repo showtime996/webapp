@@ -92,7 +92,7 @@ function AdminInfo(props: {
       duty: (state.duty = values.duty),
     });
     props.updateAdmin(state);
-    console.log("Success:", values);
+  
   };
 
   return (

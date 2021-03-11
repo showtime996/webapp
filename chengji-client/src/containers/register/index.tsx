@@ -12,7 +12,11 @@ import Fonter from "@/components/fonter/index.tsx";
 import { connect, RootStateOrAny } from "react-redux";
 // 引入重定向路由
 import { Redirect } from "react-router-dom";
-import { userRegister } from "../../redux/actions";
+import {
+  adminRegister,
+  teacherRegister,
+  studentRegister,
+} from "../../redux/actions";
 function Register(props) {
   const [state, setState] = useState({
     username: "", // 用户名
@@ -37,7 +41,9 @@ function Register(props) {
       type: (state.type = values.type),
     });
     //调用redux action中的register方法，判断是否可以注册
-    props.userRegister(state);
+    props.adminRegister(state);
+    props.teacherRegister(state);
+    props.studentRegister(state);
     // console.log(" this.props", this.props.adminRegister);
     // console.log("state", this.state);
   };
@@ -176,5 +182,5 @@ export default connect(
   // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
   (state: RootStateOrAny) => ({ user: state.user }),
   //  函数确定
-  { userRegister }
+  { adminRegister, teacherRegister, studentRegister }
 )(Register);

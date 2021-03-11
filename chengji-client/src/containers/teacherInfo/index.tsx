@@ -10,7 +10,7 @@ import selfStyles from "./index.module.less";
 import { updateTeacher } from "../../redux/actions";
 
 function TeacherInfo(props: {
-  updateUser: (arg0: any) => void;
+  updateTeacher: (arg0: any) => void;
   user: { IDcard: any; type: any };
 }) {
   const [state, setState] = useState({
@@ -32,8 +32,25 @@ function TeacherInfo(props: {
   });
 
   const onFinish = (values: any) => {
-    console.log(values);
-    props.updateUser(state);
+    setState({
+      realName: (state.realName = values.realName),
+      affiliation: (state.affiliation = values.affiliation),
+      age: (state.age = values.age),
+      sex: (state.sex = values.sex),
+      salary: (state.salary = values.salary),
+      endSchool: (state.endSchool = values.endSchool),
+      experience: (state.experience = values.experience),
+      startDate: (state.startDate = values.startDate),
+      nation: (state.nation = values.nation),
+      region: (state.region = values.region),
+      phone: (state.phone = values.phone),
+      IDcard: (state.IDcard = values.IDcard),
+      eMail: (state.eMail = values.eMail),
+      street: (state.street = values.street),
+      address: (state.address = values.address),
+    });
+
+    props.updateTeacher(state);
   };
 
   // 如果信息已经完善, 自动重定向到对应主界面

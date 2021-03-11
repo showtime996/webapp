@@ -1,6 +1,6 @@
 // 主页面路由组件
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import StudentInfo from "@/containers/studentInfo";
 import TeacherInfo from "@/containers/teacherInfo";
 import AdminInfo from "@/containers/adminInfo";
@@ -17,6 +17,9 @@ export default function Main() {
         <Route path="/student" component={Student}></Route>
         <Route path="/teacher" component={Admin}></Route>
         <Route path="/admin" component={Teacher}></Route>
+        <Route path="/">
+          <Redirect to="/login"></Redirect>
+        </Route>
       </Switch>
     </div>
   );

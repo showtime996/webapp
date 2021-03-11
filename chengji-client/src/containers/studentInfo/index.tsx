@@ -10,7 +10,7 @@ import selfStyles from "./index.module.less";
 import { updateStudent } from "../../redux/actions";
 
 function StudentInfo(props: {
-  updateUser: (arg0: {
+  updateStudent: (arg0: {
     realName: string;
     sex: string;
     affiliation: string;
@@ -46,8 +46,23 @@ function StudentInfo(props: {
   });
 
   const onFinish = (values: any) => {
-    console.log(values);
-    props.updateUser(state);
+    setState({
+      realName: (state.realName = values.realName),
+      sex: (state.sex = values.sex),
+      affiliation: (state.affiliation = values.affiliation),
+      age: (state.age = values.age),
+      startDate: (state.startDate = values.startDate),
+      endDate: (state.endDate = values.endDate),
+      region: (state.region = values.region),
+      phone: (state.phone = values.phone),
+      nation: (state.nation = values.nation),
+      IDcard: (state.IDcard = values.IDcard),
+      recommend: (state.recommend = values.recommend),
+      eMail: (state.eMail = values.eMail),
+      street: (state.street = values.street),
+      address: (state.address = values.address),
+    });
+    props.updateStudent(state);
   };
 
   // 如果信息已经完善, 自动重定向到对应主界面
@@ -238,6 +253,6 @@ function StudentInfo(props: {
   );
 }
 //updateUser
-export default connect((state:RootStateOrAny) => ({ user: state.user }), { updateStudent })(
-  StudentInfo
-);
+export default connect((state: RootStateOrAny) => ({ user: state.user }), {
+  updateStudent,
+})(StudentInfo);

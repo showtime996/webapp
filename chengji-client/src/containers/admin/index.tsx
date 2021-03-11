@@ -1,4 +1,4 @@
-import Administer from "@/layout/admin/index.tsx";
+import Administer from "@/layout/admin";
 import React from "react";
 
 export default function Admin() {

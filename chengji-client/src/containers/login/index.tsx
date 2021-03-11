@@ -11,7 +11,7 @@ import Fonter from "@/components/fonter";
 import { Redirect } from "react-router-dom";
 // 通过异步action实现交互后台的数据 普通的ui不能得使用函数方式
 import { connect, RootStateOrAny } from "react-redux";
-import { userLogin } from "../../redux/actions";
+import { adminLogin, studentLogin, teacherLogin } from "../../redux/actions";
 function Login(props: any) {
   const [state, setState] = useState({
     username: "", // 用户名
@@ -25,9 +25,9 @@ function Login(props: any) {
       password: (state.password = values.password),
     });
     //调用redux action中的login方法，判断是否可以注册
-    props.userLogin(state);
-
-    console.log("Success:", values);
+    props.adminLogin(state);
+    props.studentLogin(state);
+    props.teacherLogin(state);
   };
   // 点击登入调用
 
@@ -133,5 +133,5 @@ export default connect(
   // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
   (state: RootStateOrAny) => ({ user: state.user }),
   //  函数确定
-  { userLogin }
+  { adminLogin, studentLogin, teacherLogin }
 )(Login);
