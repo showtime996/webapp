@@ -269,10 +269,14 @@ export const SearchClass = () => {
 export const getUser = () => {
   return async (dispatch) => {
     // 执行异步ajax请求
+
     const response = await reqStudentInfo();
+
     const result = response.data;
+
     if (result.code === 0) {
       // 成功
+
       dispatch(receiveUser(result.data));
     } else {
       // 失败

@@ -82,7 +82,7 @@ const classSchema = mongoose.Schema({
   classno: [studentSchema], // s t cname
 
   department: [studentSchema], //s、t、j department
-  username: [studentSchema], //st u
+  Susername: [studentSchema], //st u
   //st u    teacher: [studentSchema],
 });
 const ClassModel = mongoose.model("ClassManagement", classSchema);
