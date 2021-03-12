@@ -41,11 +41,13 @@ function Register(props) {
       type: (state.type = values.type),
     });
     //调用redux action中的register方法，判断是否可以注册
-    props.adminRegister(state);
-    props.teacherRegister(state);
-    props.studentRegister(state);
-    // console.log(" this.props", this.props.adminRegister);
-    // console.log("state", this.state);
+    if (state.type === "student") {
+      props.studentRegister(state);
+    } else if (state.type === "admin") {
+      props.adminRegister(state);
+    } else {
+      props.teacherRegister(state);
+    }
   };
   // 点击注册调用
 

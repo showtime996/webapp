@@ -1,6 +1,6 @@
 // 包含了n个接口请求的函数的模块
 // 函数返回值为: promise
-import ajax from "./ajax";
+import ajax from "../utils/ajax";
 // 老师注册接口
 export const reqteacherRegister = (teacher: any) =>
   ajax("/teacherRegister", teacher, "POST");
@@ -8,14 +8,17 @@ export const reqteacherRegister = (teacher: any) =>
 export const reqstudentRegister = (student: any) =>
   ajax("/studentRegister", student, "POST");
 // 教务员注册接口
-export const reqadminRegister = (admin: { username: any; password: any; type: any; }) =>
-  ajax("/adminRegister", admin, "POST");
+export const reqadminRegister = (admin: {
+  username: any;
+  password: any;
+  type: any;
+}) => ajax("/adminRegister", admin, "POST");
 // 登陆接口
-export const reqadminLogin = ({ username, password }:any) =>
+export const reqadminLogin = ({ username, password }: any) =>
   ajax("/adminLogin", { username, password }, "POST");
-export const reqstudentLogin = ({ username, password }:any) =>
+export const reqstudentLogin = ({ username, password }: any) =>
   ajax("/studentLogin", { username, password }, "POST");
-export const reqteacherLogin = ({ username, password }:any) =>
+export const reqteacherLogin = ({ username, password }: any) =>
   ajax("/teacherLogin", { username, password }, "POST");
 // 更新用户接口
 export const reqStudentUpdate = (student: any) =>
@@ -24,3 +27,13 @@ export const reqTeacherUpdate = (teacher: any) =>
   ajax("/teacherInfoupdate", teacher, "POST");
 export const reqAdminUpdate = (admin: any) =>
   ajax("/adminInfoupdate", admin, "POST");
+//班级查询
+export const reqClassSearch = () => ajax("/classSearch");
+//学生信息查询
+export const reqStudentInfo = () => ajax("/studentInfo");
+
+// // 获取当前用户的聊天消息列表
+// export const reqChatMsgList = () => ajax('/msglist')
+
+// // 修改指定消息为已读
+// export const reqReadMsg = (from) => ajax('/readmsg', {from}, 'POST')

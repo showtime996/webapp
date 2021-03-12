@@ -18,8 +18,11 @@ function StudentInfo(props: {
     startDate: string;
     endDate: string;
     nation: string;
+    cname: string;
+    classno: string;
     region: string;
     phone: string;
+    department: string;
     IDcard: string;
     recommend: string;
     eMail: string;
@@ -35,11 +38,15 @@ function StudentInfo(props: {
     age: "",
     startDate: "",
     endDate: "",
+    cname: "",
+    classno: "",
+
     nation: "",
     region: "",
     phone: "",
     IDcard: "",
     recommend: "",
+    department: "",
     eMail: "",
     street: "",
     address: "",
@@ -50,12 +57,15 @@ function StudentInfo(props: {
       realName: (state.realName = values.realName),
       sex: (state.sex = values.sex),
       affiliation: (state.affiliation = values.affiliation),
+      cname: (state.cname = values.cname),
+      classno: (state.classno = values.classno),
       age: (state.age = values.age),
       startDate: (state.startDate = values.startDate),
       endDate: (state.endDate = values.endDate),
       region: (state.region = values.region),
       phone: (state.phone = values.phone),
       nation: (state.nation = values.nation),
+      department: (state.department = values.department),
       IDcard: (state.IDcard = values.IDcard),
       recommend: (state.recommend = values.recommend),
       eMail: (state.eMail = values.eMail),
@@ -118,6 +128,27 @@ function StudentInfo(props: {
             </Radio.Group>
           </Form.Item>
           <Form.Item
+            name={"department"}
+            label="学院"
+            hasFeedback
+            rules={[{ required: true, message: "请输入你负责的学院" }]}
+          >
+            <Select placeholder="请输入你负责的学院">
+              <Option value="DXG">电子信息与工程学院</Option>
+              <Option value="JZG">建筑工程学院</Option>
+              <Option value="JXG">机械工程学院</Option>
+              <Option value="JT">交通学院</Option>
+              <Option value="HG">化学工程学院</Option>
+              <Option value="CL">材料学院</Option>
+              <Option value="LI">理学院</Option>
+              <Option value="JIG">经济管理学院</Option>
+              <Option value="WG">外国语学院</Option>
+              <Option value="RW">人文学院</Option>
+              <Option value="GJ">国际交流学院</Option>
+              <Option value="CJ">成人教育学院</Option>
+            </Select>
+          </Form.Item>
+          <Form.Item
             name={"affiliation"}
             label="政治面貌"
             hasFeedback
@@ -162,6 +193,49 @@ function StudentInfo(props: {
           <Form.Item name={"nation"} label="民族" rules={[{ required: true }]}>
             <Input placeholder="请输入民族" />
           </Form.Item>
+          <Form.Item label="班级名">
+            <Input.Group compact>
+              <Form.Item name={"cname"} noStyle>
+                <Select placeholder="请选择班级名">
+                  <Option value="wlgc">网络工程</Option>
+                  <Option value="jsjjj">计算机技术</Option>
+                  <Option value="dzxxgc">电子信息工程</Option>
+                  <Option value="rgzn">人工智能</Option>
+                  <Option value="jzx">建筑学</Option>
+                  <Option value="tmgc">土木工程</Option>
+                  <Option value="gcgl">工程管理</Option>
+                  <Option value="ah">交通工程</Option>
+                  <Option value="jtgc">材料成型及控制工程</Option>
+                  <Option value="clgc">车辆工程</Option>
+                  <Option value="hxgcygy">化学工程与工艺</Option>
+                  <Option value="yqcygc">油气储运工程</Option>
+                  <Option value="clwl">材料物理</Option>
+                  <Option value="yyhx">应用化学</Option>
+                  <Option value="jrgc">金融工程</Option>
+                  <Option value="yytjx">应用统计学</Option>
+                  <Option value="wlgl">物流管理</Option>
+                  <Option value="kjx">会计学</Option>
+                  <Option value="gjjjywy">国际经济与贸易</Option>
+                  <Option value="yy">英语</Option>
+                  <Option value="ry">日语</Option>
+                  <Option value="dy">德语</Option>
+                  <Option value="gysj">工业设计</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item
+                name={"classno"}
+                label="班级"
+                noStyle
+                rules={[{ required: true, message: "班级信息必须输入！" }]}
+              >
+                <Input
+                  style={{ width: "50%" }}
+                  placeholder="请输入班级信息例如：网络194"
+                />
+              </Form.Item>
+            </Input.Group>
+          </Form.Item>
+
           <Form.Item label="籍贯">
             <Input.Group compact>
               <Form.Item name={"region"} noStyle>

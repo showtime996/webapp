@@ -4,7 +4,16 @@ var router = express.Router();
 // const ObjectId = require("mongodb").ObjectId;
 //加密
 const md5 = require("blueimp-md5");
-const { StudentModel, TeacherModel, AdminModel } = require("../db/models");
+const {
+  StudentModel,
+  TeacherModel,
+  AdminModel,
+  ClassModel,
+  CourseModel,
+  GradeModel,
+  RecommandModel,
+  PersonModel,
+} = require("../db/models");
 /* GET home page. */
 router.get("/", function (req, res, next) {
   res.render("index", { title: "Express" });
@@ -169,7 +178,7 @@ router.post("/studentInfoupdate", function (req, res) {
 
   // 如果不存在, 直接返回一个提示信息
   if (!userid) {
-    return res.send({ code: 1, msg: "请先登陆" });
+    return res.send({ code: 1, msg: "请求的cookie请先登陆" });
   }
   // 存在, 根据userid更新对应的user文档数据
   // 得到提交的用户数据
@@ -254,5 +263,52 @@ router.post("/adminInfoupdate", function (req, res) {
       }
     }
   );
+});
+
+// 更新教务员用户信息的路由
+router.post("/classSearch", function (req, res) {
+  // 从请求的cookie得到userid
+  const userid = req.cookies.userid;
+
+  // const id = ObjectId(req.body.id);
+  // 如果不存在, 直接返回一个提示信息
+  if (!userid) {
+    return res.send({ code: 1, msg: "请先登陆" });
+  }
+  // 存在, 根据userid更新对应的user文档数据
+  // 得到提交的用户数据
+  const user = req.body; // 没有_id
+  //  ClassModel.find({}).toArray(function (err, result) {
+  //   if (err) throw err;
+  //   const { _id, cname, classno, department, student } = result;
+  //   const data = Object.assign(
+  //     { _id, cname, classno, department, student },
+  //     user
+  //   );
+  ClassModel.find({ _id: userid }, user, function (error, oldUser) {
+    if (error) throw err;
+    if (!oldUser) {
+      // 通知浏览器删除userid cookie
+      res.clearCookie("userid");
+      // 返回返回一个提示信息
+      res.send({ code: 1, msg: "请先登陆" });
+    } else {
+      // 准备一个返回的user数据对象
+      const { _id, cname, classno, department, student } = oldUser;
+      const data = Object.assign(
+        { _id, cname, classno, department, student },
+        user
+      );
+      // 返回
+      res.send({ code: 0, data });
+    }
+  });
+});
+// 获取用户列表(根据类型)
+router.get("/studentInfo", function (req, res) {
+  const datasource = req.query;
+  StudentModel.find(datasource, function (error, users) {
+    res.send({ code: 0, data: users });
+  });
 });
 module.exports = router;

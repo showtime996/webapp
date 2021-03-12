@@ -25,6 +25,7 @@ function Login(props: any) {
       password: (state.password = values.password),
     });
     //调用redux action中的login方法，判断是否可以注册
+
     props.adminLogin(state);
     props.studentLogin(state);
     props.teacherLogin(state);

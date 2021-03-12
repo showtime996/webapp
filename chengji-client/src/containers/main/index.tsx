@@ -15,8 +15,8 @@ export default function Main() {
         <Route path="/teacherInfo" component={TeacherInfo}></Route>
         <Route path="/adminInfo" component={AdminInfo}></Route>
         <Route path="/student" component={Student}></Route>
-        <Route path="/teacher" component={Admin}></Route>
-        <Route path="/admin" component={Teacher}></Route>
+        <Route path="/teacher" component={Teacher}></Route>
+        <Route path="/admin" component={Admin}></Route>
         <Route path="/">
           <Redirect to="/login"></Redirect>
         </Route>
