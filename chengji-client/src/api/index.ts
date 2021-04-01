@@ -27,13 +27,9 @@ export const reqTeacherUpdate = (teacher: any) =>
   ajax("/teacherInfoupdate", teacher, "POST");
 export const reqAdminUpdate = (admin: any) =>
   ajax("/adminInfoupdate", admin, "POST");
-//班级查询
-export const reqClassSearch = () => ajax("/classSearch");
+
+
 //学生信息查询
 export const reqStudentInfo = () => ajax("/studentInfo");
 
-// // 获取当前用户的聊天消息列表
-// export const reqChatMsgList = () => ajax('/msglist')
 
-// // 修改指定消息为已读
-// export const reqReadMsg = (from) => ajax('/readmsg', {from}, 'POST')

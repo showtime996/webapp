@@ -2,11 +2,11 @@
 // 异步action
 // 同步action
 import {
-  AUTH_SUCCESS,
-  ERROR_MSG,
+  AUTH_SUCCESS_USER,
+  ERROR_MSG_USER,
   RECEIVE_USER,
   RESET_USER,
-  SEARCH_SUCCESS,
+  SEARCH_SUCCESS__GRADE,
 } from "./action-types";
 import {
   reqteacherRegister,
@@ -18,23 +18,17 @@ import {
   reqStudentUpdate,
   reqTeacherUpdate,
   reqAdminUpdate,
-  reqClassSearch,
   reqStudentInfo,
 } from "../api/index";
 
 // 授权成功的同步action
-const authSuccess = (user: any) => ({ type: AUTH_SUCCESS, data: user });
+const authSuccess = (user: any) => ({ type: AUTH_SUCCESS_USER, data: user });
 // 错误提示信息的同步action
-const errorMsg = (msg: string) => ({ type: ERROR_MSG, data: msg });
+const errorMsg = (msg: string) => ({ type: ERROR_MSG_USER, data: msg });
 // 接收用户的同步action
 const receiveUser = (user) => ({ type: RECEIVE_USER, data: user });
 // 接收用户的同步action
 const receive = (user: any) => ({ type: RECEIVE_USER, data: user });
-// 查询用户action
-const classSearch = (classSearch: any) => ({
-  type: SEARCH_SUCCESS,
-  data: classSearch,
-});
 // 查询用户action
 const resetUser = (StudentInfo: any) => ({
   type: RESET_USER,
@@ -244,22 +238,6 @@ export const updateAdmin = (user: any) => {
       dispatch(receive(result.data));
     } else {
       // 更新失败: msg
-      dispatch(reset(result.msg));
-    }
-  };
-};
-
-// 查询班级异步action
-export const SearchClass = () => {
-  return async (dispatch) => {
-    // 执行异步ajax请求
-    const response = await reqClassSearch();
-    const result = response.data;
-    if (result.code === 0) {
-      // 成功
-      dispatch(classSearch(result.data));
-    } else {
-      // 失败
       dispatch(reset(result.msg));
     }
   };

@@ -1,4 +1,4 @@
-import CommonLayout from "../../layout/common";
+import CommonLayout from "./components/common";
 import React from "react";
 
 export default function Student() {

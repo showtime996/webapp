@@ -1,4 +1,4 @@
-import Administer from "@/layout/admin";
+import Administer from "@/containers/admin/components/admin";
 import React from "react";
 import styles from "./index.module.less";
 

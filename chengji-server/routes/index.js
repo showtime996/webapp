@@ -8,16 +8,29 @@ const {
   StudentModel,
   TeacherModel,
   AdminModel,
-  ClassModel,
-  CourseModel,
+
   GradeModel,
-  RecommandModel,
-  PersonModel,
 } = require("../db/models");
 /* GET home page. */
 router.get("/", function (req, res, next) {
   res.render("index", { title: "Express" });
 });
+
+var count = 6000;
+var originalArray = new Array(); //原数组
+//给原数组originalArray赋值
+for (var i = 0; i < count; i++) {
+  originalArray[i] = i + 1;
+}
+
+originalArray.sort(function () {
+  return 0.5 - Math.random();
+});
+var i = 0;
+// for (i;i<count;i++){
+// console.log(originalArray[i]);
+// }
+
 // 教务员注册的路由
 router.post("/adminRegister", function (req, res) {
   // 读取请求参数数据
@@ -34,15 +47,18 @@ router.post("/adminRegister", function (req, res) {
     } else {
       // 没值(不存在)
       // 保存
-      new AdminModel({ username, type, password: md5(password) }).save(
-        function (error, user) {
-          // 生成一个cookie(userid: user._id), 并交给浏览器保存
-          res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
-          // 返回包含user的json数据
-          const data = { username, type, _id: user._id }; // 响应数据中不要携带password
-          res.send({ code: 0, data });
-        }
-      );
+      new AdminModel({
+        _id: originalArray[i],
+        username,
+        type,
+        password: md5(password),
+      }).save(function (error, user) {
+        // 生成一个cookie(userid: user._id), 并交给浏览器保存
+        res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
+        // 返回包含user的json数据
+        const data = { username, type, _id: user._id }; // 响应数据中不要携带password
+        res.send({ code: 0, data });
+      });
     }
   });
   // 返回响应数据
@@ -63,15 +79,18 @@ router.post("/teacherRegister", function (req, res) {
     } else {
       // 没值(不存在)
       // 保存
-      new TeacherModel({ username, type, password: md5(password) }).save(
-        function (error, user) {
-          // // 生成一个cookie(userid: user._id), 并交给浏览器保存
-          res.cookie("userid", user.id, { maxAge: 1000 * 60 * 60 * 24 });
-          // 返回包含user的json数据
-          const data = { username, type, _id: user.id }; // 响应数据中不要携带password
-          res.send({ code: 0, data });
-        }
-      );
+      new TeacherModel({
+        _id: originalArray[i],
+        username,
+        type,
+        password: md5(password),
+      }).save(function (error, user) {
+        // // 生成一个cookie(userid: user._id), 并交给浏览器保存
+        res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
+        // 返回包含user的json数据
+        const data = { username, type, _id: user._id }; // 响应数据中不要携带password
+        res.send({ code: 0, data });
+      });
     }
   });
   // 返回响应数据
@@ -92,15 +111,18 @@ router.post("/studentRegister", function (req, res) {
     } else {
       // 没值(不存在)
       // 保存
-      new StudentModel({ username, type, password: md5(password) }).save(
-        function (error, user) {
-          // // 生成一个cookie(userid: user._id), 并交给浏览器保存
-          res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
-          // 返回包含user的json数据
-          const data = { username, type, _id: user._id }; // 响应数据中不要携带password
-          res.send({ code: 0, data });
-        }
-      );
+      new StudentModel({
+        _id: originalArray[i],
+        username,
+        type,
+        password: md5(password),
+      }).save(function (error, user) {
+        // // 生成一个cookie(userid: user._id), 并交给浏览器保存
+        res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
+        // 返回包含user的json数据
+        const data = { username, type, _id: user._id }; // 响应数据中不要携带password
+        res.send({ code: 0, data });
+      });
     }
   });
   // 返回响应数据
@@ -265,45 +287,6 @@ router.post("/adminInfoupdate", function (req, res) {
   );
 });
 
-// 更新教务员用户信息的路由
-router.post("/classSearch", function (req, res) {
-  // 从请求的cookie得到userid
-  const userid = req.cookies.userid;
-
-  // const id = ObjectId(req.body.id);
-  // 如果不存在, 直接返回一个提示信息
-  if (!userid) {
-    return res.send({ code: 1, msg: "请先登陆" });
-  }
-  // 存在, 根据userid更新对应的user文档数据
-  // 得到提交的用户数据
-  const user = req.body; // 没有_id
-  //  ClassModel.find({}).toArray(function (err, result) {
-  //   if (err) throw err;
-  //   const { _id, cname, classno, department, student } = result;
-  //   const data = Object.assign(
-  //     { _id, cname, classno, department, student },
-  //     user
-  //   );
-  ClassModel.find({ _id: userid }, user, function (error, oldUser) {
-    if (error) throw err;
-    if (!oldUser) {
-      // 通知浏览器删除userid cookie
-      res.clearCookie("userid");
-      // 返回返回一个提示信息
-      res.send({ code: 1, msg: "请先登陆" });
-    } else {
-      // 准备一个返回的user数据对象
-      const { _id, cname, classno, department, student } = oldUser;
-      const data = Object.assign(
-        { _id, cname, classno, department, student },
-        user
-      );
-      // 返回
-      res.send({ code: 0, data });
-    }
-  });
-});
 // 获取用户列表(根据类型)
 router.get("/studentInfo", function (req, res) {
   const datasource = req.query;

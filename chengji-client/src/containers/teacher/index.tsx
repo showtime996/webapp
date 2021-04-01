@@ -1,4 +1,4 @@
-import Teachers from "@/layout/teacher";
+import Teachers from "@/containers/teacher/components/teacher";
 import React from "react";
 
 export default function Teacher() {

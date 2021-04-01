@@ -1,4 +1,4 @@
-import { Layout, Menu } from "antd";
+import { Button, Layout, Menu } from "antd";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import React, { useState } from "react";
 import "./index.less";
-
+import Cookies from "js-cookie";
 const { Header, Sider, Content, Footer } = Layout;
 export default function Teachers() {
   const [state, setState] = useState({
@@ -20,28 +20,40 @@ export default function Teachers() {
       collapsed: !state.collapsed,
     });
   };
-
+  const btnclearcookie = () => {
+    Cookies.remove("userid");
+  };
   return (
     <Layout>
-      <Sider trigger={null} collapsible collapsed={state.collapsed}>
+      <Sider
+        trigger={null}
+        collapsible
+        style={{ backgroundColor: "#fff" }}
+        collapsed={state.collapsed}
+      >
         <div className="logo" />
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
+        <Menu theme="light" mode="inline" defaultSelectedKeys={["1"]}>
           <Menu.Item key="1" icon={<UserOutlined />}>
-            nav 1
+            成绩管理
           </Menu.Item>
           <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-            nav 2
+            成绩表
           </Menu.Item>
           <Menu.Item key="3" icon={<UploadOutlined />}>
-            nav 3
-          </Menu.Item>
-          <Menu.Item key="3" icon={<UploadOutlined />}>
-            nav 3
+            个人信息
           </Menu.Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }}>
+        <Header
+          className="site-layout-background"
+          style={{
+            padding: "30px 40px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           {React.createElement(
             state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
             {
@@ -49,6 +61,9 @@ export default function Teachers() {
               onClick: toggle,
             }
           )}
+          <Button onClick={btnclearcookie} href="/login" danger>
+            退出
+          </Button>
         </Header>
         <Content
           className="site-layout-background"

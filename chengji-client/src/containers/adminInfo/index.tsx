@@ -20,11 +20,11 @@ function AdminInfo(props: {
     realName: string;
     affiliation: string;
     age: string;
-    startDate: string;
+
     phone: string;
     IDcard: string;
     eMail: string;
-    address: string;
+    diploma: string;
     department: string;
     duty: string;
   }) => void;
@@ -33,11 +33,11 @@ function AdminInfo(props: {
     realName: "",
     affiliation: "",
     age: "",
-    startDate: "",
+    diploma: "",
     phone: "",
     IDcard: "",
     eMail: "",
-    address: "",
+
     department: "",
     duty: "",
   });
@@ -67,32 +67,20 @@ function AdminInfo(props: {
     },
   };
 
-  const onFinish = (values: {
-    realName: string;
-    affiliation: string;
-    age: string;
-    startDate: string;
-    phone: string;
-    IDcard: string;
-    eMail: string;
-    address: string;
-    department: string;
-    duty: string;
-  }) => {
+  const onFinish = (values: any) => {
     setState({
       realName: (state.realName = values.realName),
       affiliation: (state.affiliation = values.affiliation),
       age: (state.age = values.age),
-      startDate: (state.startDate = values.startDate),
+      diploma: (state.diploma = values.diploma),
       phone: (state.phone = values.phone),
       IDcard: (state.IDcard = values.IDcard),
       eMail: (state.eMail = values.eMail),
-      address: (state.address = values.address),
+
       department: (state.department = values.department),
       duty: (state.duty = values.duty),
     });
     props.updateAdmin(state);
-  
   };
 
   return (
@@ -146,21 +134,22 @@ function AdminInfo(props: {
             rules={[{ required: true, message: "请输入你负责的学院" }]}
           >
             <Select placeholder="请输入你负责的学院">
-              <Option value="DXG">电子信息与工程学院</Option>
-              <Option value="JZG">建筑工程学院</Option>
-              <Option value="JXG">机械工程学院</Option>
-              <Option value="JT">交通学院</Option>
-              <Option value="HG">化学工程学院</Option>
-              <Option value="CL">材料学院</Option>
-              <Option value="LI">理学院</Option>
-              <Option value="JIG">经济管理学院</Option>
-              <Option value="WG">外国语学院</Option>
-              <Option value="RW">人文学院</Option>
-              <Option value="GJ">国际交流学院</Option>
-              <Option value="CJ">成人教育学院</Option>
+              <Option value="电子信息与工程学院">电子信息与工程学院</Option>
+              <Option value="建筑工程学院">建筑工程学院</Option>
+              <Option value="机械工程学院">机械工程学院</Option>
+              <Option value="交通学院">交通学院</Option>
+              <Option value="化学工程学院">化学工程学院</Option>
+              <Option value="材料学院">材料学院</Option>
+              <Option value="理学院">理学院</Option>
             </Select>
           </Form.Item>
-
+          <Form.Item name={"diploma"} label="学历" hasFeedback>
+            <Select placeholder="请输入你的学历">
+              <Option value="博士">博士</Option>
+              <Option value="研究生">研究生</Option>
+              <Option value="本科">本科</Option>
+            </Select>
+          </Form.Item>
           <Form.Item
             name={"IDcard"}
             label="身份证号码"
@@ -173,10 +162,6 @@ function AdminInfo(props: {
             ]}
           >
             <Input placeholder="请输入有效的身份证号码" />
-          </Form.Item>
-          {/* 系统获取时间 */}
-          <Form.Item name={"startDate"} label="开始日期">
-            <Input placeholder="根据系统时间" />
           </Form.Item>
 
           <Form.Item
@@ -195,16 +180,7 @@ function AdminInfo(props: {
           <Form.Item name={"eMail"} label="Email" rules={[{ type: "email" }]}>
             <Input placeholder="请输入电子邮箱" />
           </Form.Item>
-          <Form.Item
-            name={"address"}
-            label="家庭地址"
-            rules={[{ required: true, message: "家庭地址信息必须输入" }]}
-          >
-            <Input.TextArea
-              placeholder="请输入家庭地址"
-              style={{ resize: "none" }}
-            />
-          </Form.Item>
+
           <Form.Item name={"duty"} label="职责">
             <Input.TextArea
               placeholder="请输入职责"

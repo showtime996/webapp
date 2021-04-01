@@ -18,9 +18,8 @@ function TeacherInfo(props: {
     affiliation: "",
     sex: "",
     age: "",
-    salary: "",
-    endSchool: "",
-    experience: "",
+
+    duty: "",
     IDcard: "",
     startDate: "",
     cname: "",
@@ -31,18 +30,18 @@ function TeacherInfo(props: {
     phone: "",
     eMail: "",
     street: "",
-    address: "",
+    diploma: "",
   });
-
+  const [seletdata, setselectdata] = useState();
+  const [deparmentdata, setdeparmentdata] = useState();
   const onFinish = (values: any) => {
     setState({
       realName: (state.realName = values.realName),
       affiliation: (state.affiliation = values.affiliation),
       age: (state.age = values.age),
       sex: (state.sex = values.sex),
-      salary: (state.salary = values.salary),
-      endSchool: (state.endSchool = values.endSchool),
-      experience: (state.experience = values.experience),
+      diploma: (state.diploma = values.diploma),
+      duty: (state.duty = values.duty),
       cname: (state.cname = values.cname),
       classno: (state.classno = values.classno),
       startDate: (state.startDate = values.startDate),
@@ -53,7 +52,6 @@ function TeacherInfo(props: {
       eMail: (state.eMail = values.eMail),
       department: (state.department = values.department),
       street: (state.street = values.street),
-      address: (state.address = values.address),
     });
 
     props.updateTeacher(state);
@@ -84,6 +82,12 @@ function TeacherInfo(props: {
     },
   };
 
+  const cnameselect = (e) => {
+    setselectdata(e);
+  };
+  const deparmentselect = (e) => {
+    setdeparmentdata(e);
+  };
   return (
     <div className={styles.container}>
       <GlobalTab></GlobalTab>
@@ -119,8 +123,7 @@ function TeacherInfo(props: {
           >
             <Select placeholder="请输入你的政治面貌">
               <Option value="DY">党员</Option>
-              <Option value="TY">团员</Option>
-              <Option value="SXDY">少先队员</Option>
+
               <Option value="QZ">群众</Option>
             </Select>
           </Form.Item>
@@ -137,36 +140,24 @@ function TeacherInfo(props: {
             hasFeedback
             rules={[{ required: true, message: "请输入你负责的学院" }]}
           >
-            <Select placeholder="请输入你负责的学院">
-              <Option value="DXG">电子信息与工程学院</Option>
-              <Option value="JZG">建筑工程学院</Option>
-              <Option value="JXG">机械工程学院</Option>
-              <Option value="JT">交通学院</Option>
-              <Option value="HG">化学工程学院</Option>
-              <Option value="CL">材料学院</Option>
-              <Option value="LI">理学院</Option>
-              <Option value="JIG">经济管理学院</Option>
-              <Option value="WG">外国语学院</Option>
-              <Option value="RW">人文学院</Option>
-              <Option value="GJ">国际交流学院</Option>
-              <Option value="CJ">成人教育学院</Option>
+            <Select onChange={deparmentselect} placeholder="请输入你负责的学院">
+              <Option value="电子信息与工程学院">电子信息与工程学院</Option>
+              <Option value="建筑工程学院">建筑工程学院</Option>
+              <Option value="机械工程学院">机械工程学院</Option>
+              <Option value="交通学院">交通学院</Option>
+              <Option value="化学工程学院">化学工程学院</Option>
+              <Option value="材料学院">材料学院</Option>
+              <Option value="理学院">理学院</Option>
             </Select>
           </Form.Item>
-          <Form.Item
-            name={"endSchool"}
-            label="毕业学校"
-            rules={[{ required: true }]}
-          >
-            <Input placeholder="请输入毕业学校" />
+          <Form.Item name={"diploma"} label="学历" hasFeedback>
+            <Select placeholder="请输入你的学历">
+              <Option value="博士">博士</Option>
+              <Option value="研究生">研究生</Option>
+              <Option value="本科">本科</Option>
+            </Select>
           </Form.Item>
 
-          <Form.Item
-            name={"salary"}
-            label="薪资"
-            rules={[{ type: "number", required: true }]}
-          >
-            <InputNumber placeholder="薪资" />
-          </Form.Item>
           <Form.Item
             name={"IDcard"}
             label="身份证号码"
@@ -180,52 +171,91 @@ function TeacherInfo(props: {
           >
             <Input placeholder="请输入有效的身份证号码" />
           </Form.Item>
-          {/* 系统获取时间 */}
-          <Form.Item name={"startDate"} label="上班日期">
-            <Input placeholder="根据系统时间" />
-          </Form.Item>
+
           <Form.Item name={"nation"} label="民族" rules={[{ required: true }]}>
             <Input placeholder="请输入民族" />
           </Form.Item>
-          <Form.Item label="班级名">
+          <Form.Item label="专业名">
             <Input.Group compact>
-              <Form.Item name={"cname"} noStyle>
-                <Select placeholder="请选择班级名">
-                  <Option value="wlgc">网络工程</Option>
-                  <Option value="jsjjj">计算机技术</Option>
-                  <Option value="dzxxgc">电子信息工程</Option>
-                  <Option value="rgzn">人工智能</Option>
-                  <Option value="jzx">建筑学</Option>
-                  <Option value="tmgc">土木工程</Option>
-                  <Option value="gcgl">工程管理</Option>
-                  <Option value="ah">交通工程</Option>
-                  <Option value="jtgc">材料成型及控制工程</Option>
-                  <Option value="clgc">车辆工程</Option>
-                  <Option value="hxgcygy">化学工程与工艺</Option>
-                  <Option value="yqcygc">油气储运工程</Option>
-                  <Option value="clwl">材料物理</Option>
-                  <Option value="yyhx">应用化学</Option>
-                  <Option value="jrgc">金融工程</Option>
-                  <Option value="yytjx">应用统计学</Option>
-                  <Option value="wlgl">物流管理</Option>
-                  <Option value="kjx">会计学</Option>
-                  <Option value="gjjjywy">国际经济与贸易</Option>
-                  <Option value="yy">英语</Option>
-                  <Option value="ry">日语</Option>
-                  <Option value="dy">德语</Option>
-                  <Option value="gysj">工业设计</Option>
-                </Select>
-              </Form.Item>
+              {deparmentdata === "电子信息与工程学院" && (
+                <Form.Item name={"cname"} noStyle>
+                  <Select onChange={cnameselect} placeholder="请选择专业名">
+                    <Option value="网络工程">网络工程</Option>
+                    <Option value="计算机技术">计算机技术</Option>
+                    <Option value="电子信息工程">电子信息工程</Option>
+                    <Option value="人工智能">人工智能</Option>
+                  </Select>
+                </Form.Item>
+              )}
+              {deparmentdata === "建筑工程学院" && (
+                <Form.Item name={"cname"} noStyle>
+                  <Select onChange={cnameselect} placeholder="请选择专业名">
+                    <Option value="建筑学">建筑学</Option>
+                    <Option value="土木工程">土木工程</Option>
+                    <Option value="工程管理">工程管理</Option>
+                    <Option value="交通工程">交通工程</Option>
+                  </Select>
+                </Form.Item>
+              )}
+              {deparmentdata === "机械工程学院" && (
+                <Form.Item name={"cname"} noStyle>
+                  <Select onChange={cnameselect} placeholder="请选择专业名">
+                    <Option value="材料成型及控制工程">
+                      材料成型及控制工程
+                    </Option>
+                    <Option value="车辆工程">车辆工程</Option>
+                    <Option value="化学工程与工艺">化学工程与工艺</Option>
+                    <Option value="油气储运工程">油气储运工程</Option>
+                  </Select>
+                </Form.Item>
+              )}
+              {deparmentdata === "交通学院" && (
+                <Form.Item name={"cname"} noStyle>
+                  <Select onChange={cnameselect} placeholder="请选择专业名">
+                    <Option value="金融工程">金融工程</Option>
+                    <Option value="会计学">会计学</Option>
+                    <Option value="国际经济与贸易">国际经济与贸易</Option>
+                  </Select>
+                </Form.Item>
+              )}
+              {deparmentdata === "化学工程学院" && (
+                <Form.Item name={"cname"} noStyle>
+                  <Select onChange={cnameselect} placeholder="请选择专业名">
+                    <Option value="应用统计学">应用统计学</Option>
+                    <Option value="物流管理">物流管理</Option>
+                    <Option value="材料物理">材料物理</Option>
+                    <Option value="应用化学">应用化学</Option>
+                  </Select>
+                </Form.Item>
+              )}
+              {deparmentdata === "材料学院" && (
+                <Form.Item name={"cname"} noStyle>
+                  <Select onChange={cnameselect} placeholder="请选择专业名">
+                    <Option value="英语">英语</Option>
+                    <Option value="日语">日语</Option>
+                    <Option value="德语">德语</Option>
+                  </Select>
+                </Form.Item>
+              )}
+              {deparmentdata === "理学院" && (
+                <Form.Item name={"cname"} noStyle>
+                  <Select onChange={cnameselect} placeholder="请选择专业名">
+                    <Option value="工业设计">工业设计</Option>
+                  </Select>
+                </Form.Item>
+              )}
+
               <Form.Item
                 name={"classno"}
                 label="班级"
                 noStyle
                 rules={[{ required: true, message: "班级信息必须输入！" }]}
               >
-                <Input
-                  style={{ width: "50%" }}
-                  placeholder="请输入班级信息例如：网络194"
-                />
+                <Select placeholder="请选择专业名">
+                  <Option value={seletdata + "1"}>{seletdata + "1"}</Option>
+                  <Option value={seletdata + "2"}>{seletdata + "2"}</Option>
+                  <Option value={seletdata + "3"}>{seletdata + "3"}</Option>
+                </Select>
               </Form.Item>
             </Input.Group>
           </Form.Item>
@@ -290,19 +320,10 @@ function TeacherInfo(props: {
           <Form.Item name={"eMail"} label="Email" rules={[{ type: "email" }]}>
             <Input placeholder="请输入电子邮箱" />
           </Form.Item>
-          <Form.Item
-            name={"address"}
-            label="家庭地址"
-            rules={[{ required: true, message: "家庭地址信息必须输入" }]}
-          >
+
+          <Form.Item name={"duty"} label="职责">
             <Input.TextArea
-              placeholder="请输入家庭地址"
-              style={{ resize: "none" }}
-            />
-          </Form.Item>
-          <Form.Item name={"experience"} label="工作经历">
-            <Input.TextArea
-              placeholder="请输入工作经历"
+              placeholder="请输入工作职责"
               style={{ resize: "none" }}
             />
           </Form.Item>

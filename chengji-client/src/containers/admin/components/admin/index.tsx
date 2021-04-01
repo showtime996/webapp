@@ -10,7 +10,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./index.less";
 import Cookies from "js-cookie"; // 可以操作前端cookie的对象 set()/get()/remove()
 import { connect, RootStateOrAny } from "react-redux";
-import { SearchClass, getUser } from "../../redux/actions";
+import { getUser } from "../../../../redux/actions";
 import type { TablePaginationConfig } from "antd/lib/table/interface";
 import type { ActionType } from "@ant-design/pro-table";
 import { reqStudentInfo } from "@/api";
@@ -39,8 +39,8 @@ const Administer = (props) => {
 
       props.getUser();
     }
-  });
-  console.log("props", props);
+  }, []);
+
 
   const toggle = () => {
     setState({
@@ -146,7 +146,7 @@ const Administer = (props) => {
             minHeight: 618,
           }}
         >
-          <Table columns={columns} options={{}}></Table>
+          <Table columns={columns}></Table>
           {/* <ProTable
             columns={columns}
             rowKey="dataIndex"
@@ -176,6 +176,5 @@ const Administer = (props) => {
   );
 };
 export default connect((state: RootStateOrAny) => ({ user: state.user }), {
-  SearchClass,
   getUser,
 })(Administer);

@@ -1,14 +1,26 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-
-var app = express();
-var bodyParser = require("body-parser");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
+const app = express();
+const bodyParser = require("body-parser");
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Content-Type,Content-Length,Authorization,Accept,X-Requested-With"
+  );
+  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  res.header("X-Powered-By", "3.2.1");
+  if (req.method === "OPTIONS") {
+    res.send(200);
+  } else {
+    next();
+  }
+});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 // view engine setup

@@ -4,11 +4,11 @@ import { combineReducers } from "redux";
 import { getRedirectTo } from "../utils/path";
 
 import {
-  AUTH_SUCCESS,
-  ERROR_MSG,
+  AUTH_SUCCESS_USER,
+  ERROR_MSG_USER,
   RECEIVE_USER,
   RESET_USER,
-  SEARCH_SUCCESS,
+  SEARCH_SUCCESS__GRADE,
 } from "./action-types";
 const initUser = {
   username: "", // 用户名
@@ -23,17 +23,16 @@ const user = (
   action: { type: any; data: { type: any; IDcard: any } }
 ) => {
   switch (action.type) {
-    case AUTH_SUCCESS: // data是user
+    case AUTH_SUCCESS_USER: // data是user
       const { type, IDcard } = action.data;
       return { ...action.data, redirectTo: getRedirectTo(type, IDcard) };
-    case ERROR_MSG: // data是msg
+    case ERROR_MSG_USER: // data是msg
       return { ...state, msg: action.data };
     case RECEIVE_USER:
       return action.data;
     case RESET_USER:
       return { ...initUser, msg: action.data };
-    case SEARCH_SUCCESS:
-      return action.data;
+
     default:
       return state;
   }
