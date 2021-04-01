@@ -28,8 +28,6 @@ export const reqTeacherUpdate = (teacher: any) =>
 export const reqAdminUpdate = (admin: any) =>
   ajax("/adminInfoupdate", admin, "POST");
 
-
 //学生信息查询
 export const reqStudentInfo = () => ajax("/studentInfo");
-
-
+export const reqAddGrade = (grade: any) => ajax("/addgrade", grade, "POST");

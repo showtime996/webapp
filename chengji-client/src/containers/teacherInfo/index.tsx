@@ -251,7 +251,7 @@ function TeacherInfo(props: {
                 noStyle
                 rules={[{ required: true, message: "班级信息必须输入！" }]}
               >
-                <Select placeholder="请选择专业名">
+                <Select placeholder="请选择班级">
                   <Option value={seletdata + "1"}>{seletdata + "1"}</Option>
                   <Option value={seletdata + "2"}>{seletdata + "2"}</Option>
                   <Option value={seletdata + "3"}>{seletdata + "3"}</Option>

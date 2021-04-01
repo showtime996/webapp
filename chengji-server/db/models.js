@@ -19,16 +19,16 @@ const studentSchema = mongoose.Schema({
   IDcard: { type: Number },
   cname: { type: String, trim: true },
   classno: { type: String, trim: true },
-  
+
   department: { type: String, trim: true },
- 
+
   nation: { type: String, trim: true },
   region: { type: String, trim: true },
   phone: { type: Number },
   eMail: { type: String, trim: true },
   street: { type: String, trim: true },
   address: { type: String, trim: true },
-  recommend: { type: String,  },
+  recommend: { type: String },
 });
 const StudentModel = mongoose.model("studentInfo", studentSchema);
 
@@ -78,15 +78,17 @@ const AdminModel = mongoose.model("adminInfo", adminSchema);
 // 成绩
 const gradeSchema = mongoose.Schema({
   _id: Number,
-  // type:Number, min:3, max:9, required: true
-  count: { type: Number },
-  average: { type: Number },
-  cno: { type: String, required: true, trim: true }, //cno
-  scope: { type: Number },
+  classno: { type: String },
+  username: { type: String },
+  realName: { type: String },
+  courseNo: { type: String },
+  credit: { type: String },
+  courseType: { type: String },
+  courseName: { type: String },
   grade: { type: Number },
-  student: { type: String, trim: true }, //s username
-  pass: { type: Boolean },
-  cheat: { type: Boolean },
+  cheat: { type: String },
+
+  gpa: { type: Number },
 });
 const GradeModel = mongoose.model("GradeManagement", gradeSchema);
 

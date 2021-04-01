@@ -5,12 +5,15 @@ import {
   AUTH_SUCCESS_USER,
   ERROR_MSG_USER,
   RECEIVE_USER,
+  ADD_SUCCESS__GRADE,
   RESET_USER,
+  RESET__GRADE,
   SEARCH_SUCCESS__GRADE,
 } from "./action-types";
 import {
   reqteacherRegister,
   reqstudentRegister,
+  reqAddGrade,
   reqadminRegister,
   reqadminLogin,
   reqstudentLogin,
@@ -35,7 +38,10 @@ const resetUser = (StudentInfo: any) => ({
   data: StudentInfo,
 });
 // 重置用户的同步action
-export const reset = (msg: any) => ({ type: RESET_USER, data: msg });
+const reset = (msg: any) => ({ type: RESET_USER, data: msg });
+// 接收用户的同步action
+const addgrade = (grade: any) => ({ type: ADD_SUCCESS__GRADE, data: grade });
+const resetgrade = (grade: any) => ({ type: RESET__GRADE, data: grade });
 
 // 注册教务员异步action
 export const adminRegister = (user: {
@@ -259,6 +265,20 @@ export const getUser = () => {
     } else {
       // 失败
       dispatch(resetUser(result.msg));
+    }
+  };
+};
+
+export const addGrade = (grade: any) => {
+  return async (dispatch: (arg0: { type: string; data: any }) => void) => {
+    const response = await reqAddGrade(grade);
+    const result = response.data;
+    if (result.code === 0) {
+      // 更新成功: data
+      dispatch(addgrade(result.data));
+    } else {
+      // 更新失败: msg
+      dispatch(resetgrade(result.msg));
     }
   };
 };

@@ -7,7 +7,9 @@ import {
   AUTH_SUCCESS_USER,
   ERROR_MSG_USER,
   RECEIVE_USER,
+  ADD_SUCCESS__GRADE,
   RESET_USER,
+  RESET__GRADE,
   SEARCH_SUCCESS__GRADE,
 } from "./action-types";
 const initUser = {
@@ -16,6 +18,18 @@ const initUser = {
   msg: "", // 错误提示信息
   redirectTo: "", // 需要自动重定向的路由路径 定义好返回给state
   cname: "",
+};
+const initGrade = {
+  username: "",
+  realName: "",
+  courseNo: "",
+  classno: "",
+  credit: "",
+  courseType: "",
+  courseName: "",
+  grade: "",
+  cheat: "",
+  pass: "",
 };
 // 产生user状态的reducer
 const user = (
@@ -37,7 +51,19 @@ const user = (
       return state;
   }
 };
+const grade = (state = initGrade, action: { type: any; data: any }) => {
+  switch (action.type) {
+    case ADD_SUCCESS__GRADE: // data是user
+      return action.data;
 
+    case RESET__GRADE:
+      return action.data;
+
+    default:
+      return state;
+  }
+};
 export default combineReducers({
+  grade,
   user,
 });

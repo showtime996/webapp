@@ -291,7 +291,36 @@ router.post("/adminInfoupdate", function (req, res) {
 router.get("/studentInfo", function (req, res) {
   const datasource = req.query;
   StudentModel.find(datasource, function (error, users) {
+    res.status = 200;
     res.send({ code: 0, data: users });
+  });
+});
+
+// 更新老师用户信息的路由
+router.post("/addgrade", function (req, res) {
+  // 从请求的cookie得到userid
+  const userid = req.cookies.userid;
+  // 如果不存在, 直接返回一个提示信息
+  if (!userid) {
+    return res.send({ code: 1, msg: "请先登陆" });
+  }
+  // 存在, 根据userid更新对应的user文档数据
+  // 得到提交的用户数据
+  const grade = req.body; // 没有_id
+  console.log("grade", grade);
+  GradeModel.insertMany({
+    _id: originalArray[i],
+    username: grade.username,
+    realName: grade.realName,
+    courseNo: grade.courseNo,
+    classno: grade.classno,
+    credit: grade.credit,
+    courseType: grade.courseType,
+    courseName: grade.courseName,
+    grade: grade.grade,
+    cheat: grade.cheat,
+
+    gpa: (grade.grade / 10 - 5).toFixed(2),
   });
 });
 module.exports = router;
