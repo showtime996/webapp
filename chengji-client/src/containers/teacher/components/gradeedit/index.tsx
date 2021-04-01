@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Table,
   Input,
@@ -12,7 +12,7 @@ import { connect, RootStateOrAny } from "react-redux";
 import type { ActionType } from "@ant-design/pro-table";
 import AddGrade from "../addgrade";
 import request from "umi-request";
-import { getUser } from "@/redux/actions";
+import { GradeInfo } from "@/redux/actions";
 import ProTable from "@ant-design/pro-table";
 
 import {
@@ -20,15 +20,6 @@ import {
   UseFetchDataAction,
 } from "@ant-design/pro-table/lib/typing";
 const originData: any = [];
-
-for (let i = 0; i < 100; i++) {
-  originData.push({
-    key: i.toString(),
-    name: `Edrward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`,
-  });
-}
 
 const EditableCell = ({
   editing,
@@ -65,13 +56,13 @@ const EditableCell = ({
   );
 };
 
-const GradeEdit = () => {
+const GradeEdit = (props) => {
   const [form] = Form.useForm();
   const [data, setData] = useState(originData);
   const [editingKey, setEditingKey] = useState("");
   const actionRef = useRef<ActionType>();
   const isEditing = (record) => record.key === editingKey;
-
+  const { tempdata } = props;
   const edit = (record) => {
     form.setFieldsValue({
       name: "",
@@ -85,7 +76,37 @@ const GradeEdit = () => {
   const cancel = () => {
     setEditingKey("");
   };
+  useEffect(() => {
+    props.GradeInfo(tempdata);
+  }, []);
+  console.log("GradeInfo", props);
 
+  const formatedata = props.grade;
+
+  const temp = formatedata.length;
+  originData.length = 0;
+  if (JSON.stringify(formatedata) !== "{}") {
+    for (let i = originData.length; i < temp; i++) {
+      console.log("wwwwwwwwwwwwwwwwwww", tempdata.username);
+      if (tempdata.username === formatedata[i].username) {
+        console.log("formatedata", formatedata);
+        originData.push({
+          key: i + 1,
+          username: formatedata[i].username,
+          realName: formatedata[i].realName,
+          cname: formatedata[i].cname,
+          classno: formatedata[i].classno,
+          courseNo: formatedata[i].courseNo,
+          courseName: formatedata[i].courseName,
+          courseType: formatedata[i].courseType,
+          grade: formatedata[i].grade,
+          credit: formatedata[i].credit,
+          gpa: formatedata[i].gpa,
+          cheat: formatedata[i].cheat,
+        });
+      }
+    }
+  }
   const save = async (key) => {
     try {
       const row = await form.validateFields();
@@ -123,6 +144,12 @@ const GradeEdit = () => {
     {
       title: "姓名",
       dataIndex: "realName",
+      width: "7%",
+      editable: true,
+    },
+    {
+      title: "专业名",
+      dataIndex: "cname",
       width: "7%",
       editable: true,
     },
@@ -175,7 +202,7 @@ const GradeEdit = () => {
       editable: true,
     },
     {
-      title: "operation",
+      title: "操作",
       dataIndex: "operation",
       width: "7%",
       render: (_, record) => {
@@ -222,12 +249,10 @@ const GradeEdit = () => {
       }),
     };
   });
-  const datarequest: any = async (params = {}) =>
+  const datarequest: any = async () =>
     request<{
       data: any[];
-    }>("http://localhost:3000/grade", {
-      params,
-    })
+    }>("http://localhost:4000/gradeinfo")
       .then((response) => {
         // 将request请求的对象保存到state中
         // setTableData(response);
@@ -239,7 +264,7 @@ const GradeEdit = () => {
 
   return (
     <Form form={form} component={false}>
-      <AddGrade></AddGrade>
+      <AddGrade tempdata={tempdata}></AddGrade>
       <ProTable
         options={{ fullScreen: true }}
         actionRef={actionRef}
@@ -264,7 +289,7 @@ const GradeEdit = () => {
 
 export default connect(
   // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
-  (state: RootStateOrAny) => ({ user: state.user }),
+  (state: RootStateOrAny) => ({ grade: state.grade }),
   //  函数确定
-  { getUser }
+  { GradeInfo }
 )(GradeEdit);

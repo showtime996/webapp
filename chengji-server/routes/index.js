@@ -319,8 +319,18 @@ router.post("/addgrade", function (req, res) {
     courseName: grade.courseName,
     grade: grade.grade,
     cheat: grade.cheat,
-
+    cname: grade.cname,
     gpa: (grade.grade / 10 - 5).toFixed(2),
   });
+});
+
+// 更新学生用户信息的路由
+router.post("/gradeinfo", function (req, res) {
+  const grade = req.body; // 没有_id
+  console.log("grade", grade);
+  GradeModel.find({ username: grade.username }, function (error, data) {
+    res.status = 200;
+    res.send({ code: 0, data: data });
+  }).exec();
 });
 module.exports = router;

@@ -58,7 +58,8 @@ const grade = (state = initGrade, action: { type: any; data: any }) => {
 
     case RESET__GRADE:
       return action.data;
-
+    case SEARCH_SUCCESS__GRADE:
+      return action.data;
     default:
       return state;
   }

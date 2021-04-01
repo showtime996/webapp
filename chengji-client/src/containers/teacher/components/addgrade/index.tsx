@@ -1,13 +1,13 @@
 import { Modal, Button } from "antd";
 import { connect, RootStateOrAny } from "react-redux";
-import { getUser } from "@/redux/actions";
+import { GradeInfo } from "@/redux/actions";
 import React, { useEffect, useRef, useState } from "react";
 import GradeEdit from "../gradeedit";
 import AddDetail from "./components/adddetail";
-const AddGrade = () => {
+const AddGrade = (props) => {
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-
+  const { tempdata } = props;
   const showModal = () => {
     setVisible(true);
   };
@@ -34,18 +34,20 @@ const AddGrade = () => {
         title="录入成绩表"
         width={700}
         visible={visible}
+        footer={null}
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
+        destroyOnClose={true}
       >
-        <AddDetail></AddDetail>
+        <AddDetail tempdata={tempdata}></AddDetail>
       </Modal>
     </>
   );
 };
 export default connect(
   // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
-  (state: RootStateOrAny) => ({ user: state.user }),
+  (state: RootStateOrAny) => ({ grade: state.grade }),
   //  函数确定
-  { getUser }
+  { GradeInfo }
 )(AddGrade);

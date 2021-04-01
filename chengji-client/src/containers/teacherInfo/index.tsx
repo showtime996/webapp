@@ -111,8 +111,8 @@ function TeacherInfo(props: {
           </Form.Item>
           <Form.Item name={"sex"} label=" 性别：" rules={[{ required: true }]}>
             <Radio.Group>
-              <Radio value="man">男</Radio>
-              <Radio value="women">女</Radio>
+              <Radio value="男">男</Radio>
+              <Radio value="女">女</Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item

@@ -15,6 +15,7 @@ import {
   reqstudentRegister,
   reqAddGrade,
   reqadminRegister,
+  reqGradeInfo,
   reqadminLogin,
   reqstudentLogin,
   reqteacherLogin,
@@ -33,16 +34,20 @@ const receiveUser = (user) => ({ type: RECEIVE_USER, data: user });
 // 接收用户的同步action
 const receive = (user: any) => ({ type: RECEIVE_USER, data: user });
 // 查询用户action
-const resetUser = (StudentInfo: any) => ({
-  type: RESET_USER,
-  data: StudentInfo,
+const searchgrade = (data: any) => ({
+  type: SEARCH_SUCCESS__GRADE,
+  data: data,
 });
 // 重置用户的同步action
 const reset = (msg: any) => ({ type: RESET_USER, data: msg });
 // 接收用户的同步action
 const addgrade = (grade: any) => ({ type: ADD_SUCCESS__GRADE, data: grade });
 const resetgrade = (grade: any) => ({ type: RESET__GRADE, data: grade });
-
+// 查询用户action
+const resetUser = (StudentInfo: any) => ({
+  type: RESET_USER,
+  data: StudentInfo,
+});
 // 注册教务员异步action
 export const adminRegister = (user: {
   username: any;
@@ -276,6 +281,19 @@ export const addGrade = (grade: any) => {
     if (result.code === 0) {
       // 更新成功: data
       dispatch(addgrade(result.data));
+    } else {
+      // 更新失败: msg
+      dispatch(resetgrade(result.msg));
+    }
+  };
+};
+export const GradeInfo = (grade: any) => {
+  return async (dispatch: (arg0: { type: string; data: any }) => void) => {
+    const response = await reqGradeInfo(grade);
+    const result = response.data;
+    if (result.code === 0) {
+      // 更新成功: data
+      dispatch(searchgrade(result.data));
     } else {
       // 更新失败: msg
       dispatch(resetgrade(result.msg));

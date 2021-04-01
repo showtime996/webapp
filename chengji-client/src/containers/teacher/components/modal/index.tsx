@@ -3,14 +3,14 @@ import { connect, RootStateOrAny } from "react-redux";
 import { getUser } from "@/redux/actions";
 import React, { useEffect, useRef, useState } from "react";
 import GradeEdit from "../gradeedit";
-const EditModal = () => {
+const EditModal = (props) => {
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
 
   const showModal = () => {
     setVisible(true);
   };
-
+  const { tempdata } = props;
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {
@@ -37,7 +37,7 @@ const EditModal = () => {
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
       >
-        <GradeEdit></GradeEdit>
+        <GradeEdit tempdata={tempdata}></GradeEdit>
       </Modal>
     </>
   );

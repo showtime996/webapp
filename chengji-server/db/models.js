@@ -87,7 +87,7 @@ const gradeSchema = mongoose.Schema({
   courseName: { type: String },
   grade: { type: Number },
   cheat: { type: String },
-
+  cname: { type: String },
   gpa: { type: Number },
 });
 const GradeModel = mongoose.model("GradeManagement", gradeSchema);

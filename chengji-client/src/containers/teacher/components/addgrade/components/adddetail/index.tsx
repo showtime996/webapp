@@ -8,7 +8,7 @@ import styles from "@/assets/css/global.module.less";
 import GlobalTab from "@/components/tabNav";
 import selfStyles from "./index.module.less";
 import { addGrade } from "@/redux/actions";
-function AddDetail() {
+function AddDetail(props) {
   const [state, setState] = useState({
     username: "",
     realName: "",
@@ -19,15 +19,18 @@ function AddDetail() {
     courseName: "",
     grade: Number,
     cheat: "",
+    cname: "",
   });
   const [seletdata, setselectdata] = useState();
   const [deparmentdata, setdeparmentdata] = useState();
+  const { tempdata } = props;
   const onFinish = (values: any) => {
     setState({
-      username: (state.username = values.username),
-      realName: (state.realName = values.realName),
+      username: (state.username = tempdata.username),
+      realName: (state.realName = tempdata.realName),
+      cname: (state.cname = tempdata.cname),
+      classno: (state.classno = tempdata.classno),
       courseNo: (state.courseNo = values.courseNo),
-      classno: (state.classno = values.classno),
       credit: (state.credit = values.credit),
       courseType: (state.courseType = values.courseType),
       courseName: (state.courseName = values.courseName),
@@ -35,9 +38,9 @@ function AddDetail() {
       cheat: (state.cheat = values.cheat),
     });
 
-    // props.addGrade(state);
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa", values);
+    props.addGrade(state);
   };
+  console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww", tempdata.cname);
 
   const layout = {
     labelCol: { span: 5 },
@@ -56,7 +59,13 @@ function AddDetail() {
       range: "${label} 范围必须在${min} 和 ${max}",
     },
   };
+  const btnclick = () => {
+    setTimeout(() => {
+      window.history.go(0)
+    }, 1000);
+  };
 
+  
   return (
     <Form
       {...layout}
@@ -65,24 +74,37 @@ function AddDetail() {
       onFinish={onFinish}
       validateMessages={validateMessages}
     >
-     
-      <Form.Item name={"username"} label="学号" rules={[{ required: true }]}>
-        <Input placeholder="请输入学号" />
+      <Form.Item name={"username"} label="学号">
+        <Input
+          readOnly
+          placeholder="请输入学号"
+          defaultValue={tempdata.username}
+          value={tempdata.username}
+        />
       </Form.Item>
-      <Form.Item name={"realName"} label="姓名" rules={[{ required: true }]}>
-        <Input placeholder="请输入姓名" />
+      <Form.Item name={"realName"} label="姓名">
+        <Input
+          readOnly
+          placeholder="请输入姓名"
+          defaultValue={tempdata.realName}
+          value={tempdata.realName}
+        />
       </Form.Item>
-
-      <Form.Item
-        name={"classno"}
-        label="班级"
-        rules={[{ required: true, message: "班级信息必须输入！" }]}
-      >
-        <Select placeholder="请选择专业名">
-          <Option value={seletdata + "1"}>{seletdata + "1"}</Option>
-          <Option value={seletdata + "2"}>{seletdata + "2"}</Option>
-          <Option value={seletdata + "3"}>{seletdata + "3"}</Option>
-        </Select>
+      <Form.Item name={"cname"} label="专业">
+        <Input
+          readOnly
+          placeholder="请输入专业"
+          defaultValue={tempdata.cname}
+          value={tempdata.cname}
+        />
+      </Form.Item>
+      <Form.Item name={"classno"} label="班级">
+        <Input
+          readOnly
+          placeholder="请输入班级"
+          defaultValue={tempdata.classno}
+          value={tempdata.classno}
+        />
       </Form.Item>
       <Form.Item name={"courseNo"} label="课程号" rules={[{ required: true }]}>
         <Input placeholder="请输入课程号" />
@@ -103,7 +125,7 @@ function AddDetail() {
         </Select>
       </Form.Item>
       <Form.Item name={"grade"} label="成绩">
-        <InputNumber style={{ width: 435}} placeholder="请输入成绩" />
+        <InputNumber style={{ width: 435 }} placeholder="请输入成绩" />
       </Form.Item>
       <Form.Item name={"credit"} label="学分">
         <Select placeholder="请选择">
@@ -124,7 +146,7 @@ function AddDetail() {
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
         &nbsp; &nbsp; &nbsp; &nbsp;
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" onClick={btnclick} htmlType="submit">
           信息提交
         </Button>
       </Form.Item>
@@ -133,6 +155,6 @@ function AddDetail() {
 }
 
 //updateUser
-export default connect((state: RootStateOrAny) => ({ user: state.user }), {
+export default connect((state: RootStateOrAny) => ({ grade: state.grade }), {
   addGrade,
 })(AddDetail);

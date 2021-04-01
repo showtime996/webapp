@@ -68,6 +68,7 @@ const StuInfo = (props) => {
         realName: formatedata[i].realName,
         cname: formatedata[i].cname,
         classno: formatedata[i].classno,
+        sex: formatedata[i].sex,
         phone: formatedata[i].phone,
       });
     }
@@ -89,26 +90,6 @@ const StuInfo = (props) => {
     setEditingKey("");
   };
 
-  const save = async (key) => {
-    try {
-      const row = await form.validateFields();
-      const newData = [...data];
-      const index = newData.findIndex((item) => key === item.key);
-
-      if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, { ...item, ...row });
-        setData(newData);
-        setEditingKey("");
-      } else {
-        newData.push(row);
-        setData(newData);
-        setEditingKey("");
-      }
-    } catch (errInfo) {
-      console.log("Validate Failed:", errInfo);
-    }
-  };
   const datarequest: any = async (params = {}) =>
     request<{
       data: any[];
@@ -123,7 +104,7 @@ const StuInfo = (props) => {
       .catch((info) => {
         console.log("请求数据失败", info);
       });
-
+  const [tempdata, settempdata] = useState();
   const columns = [
     {
       title: "序号",
@@ -138,6 +119,11 @@ const StuInfo = (props) => {
     {
       title: "姓名",
       dataIndex: "realName",
+      width: "7%",
+    },
+    {
+      title: "性别",
+      dataIndex: "sex",
       width: "7%",
     },
     {
@@ -163,8 +149,13 @@ const StuInfo = (props) => {
       width: "7%",
       render: (_, record) => {
         return (
-          <Typography.Link disabled={editingKey !== ""} onClick={() => record}>
-            <EditModal></EditModal>
+          <Typography.Link
+            disabled={editingKey !== ""}
+            onClick={() => {
+              settempdata(record);
+            }}
+          >
+            <EditModal tempdata={tempdata}></EditModal>
           </Typography.Link>
         );
       },
