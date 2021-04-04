@@ -1,3 +1,4 @@
+
 // 包含n个action creator
 // 异步action
 // 同步action
@@ -5,10 +6,14 @@ import {
   AUTH_SUCCESS_USER,
   ERROR_MSG_USER,
   RECEIVE_USER,
+  SEARCH_SUCCESS__USER,
   ADD_SUCCESS__GRADE,
   RESET_USER,
+  SEARCH_SUCCESS__COOKIES,
   RESET__GRADE,
   SEARCH_SUCCESS__GRADE,
+  DELETE_SUCCESS__USER,
+  DELETE_SUCCESS__GRADE,
 } from "./action-types";
 import {
   reqteacherRegister,
@@ -17,12 +22,16 @@ import {
   reqadminRegister,
   reqGradeInfo,
   reqadminLogin,
+  reqSearchstu,
+  reqTeacherUserid,
   reqstudentLogin,
   reqteacherLogin,
   reqStudentUpdate,
   reqTeacherUpdate,
   reqAdminUpdate,
   reqStudentInfo,
+  reqDeleteGrade,
+  reqDeleteStudent,
 } from "../api/index";
 
 // 授权成功的同步action
@@ -33,11 +42,18 @@ const errorMsg = (msg: string) => ({ type: ERROR_MSG_USER, data: msg });
 const receiveUser = (user) => ({ type: RECEIVE_USER, data: user });
 // 接收用户的同步action
 const receive = (user: any) => ({ type: RECEIVE_USER, data: user });
+const deletestudent = (user) => ({ type: DELETE_SUCCESS__USER, data: user });
+const deletegrade = (grade) => ({ type: DELETE_SUCCESS__GRADE, data: grade });
 // 查询用户action
 const searchgrade = (data: any) => ({
   type: SEARCH_SUCCESS__GRADE,
   data: data,
 });
+const searchuser = (data: any) => ({
+  type: SEARCH_SUCCESS__USER,
+  data: data,
+});
+
 // 重置用户的同步action
 const reset = (msg: any) => ({ type: RESET_USER, data: msg });
 // 接收用户的同步action
@@ -47,6 +63,10 @@ const resetgrade = (grade: any) => ({ type: RESET__GRADE, data: grade });
 const resetUser = (StudentInfo: any) => ({
   type: RESET_USER,
   data: StudentInfo,
+});
+const searchUserid = (data: any) => ({
+  type: SEARCH_SUCCESS__COOKIES,
+  data: data,
 });
 // 注册教务员异步action
 export const adminRegister = (user: {
@@ -254,26 +274,6 @@ export const updateAdmin = (user: any) => {
   };
 };
 
-// 查询学生信息异步action
-export const getUser = () => {
-  return async (dispatch) => {
-    // 执行异步ajax请求
-
-    const response = await reqStudentInfo();
-
-    const result = response.data;
-
-    if (result.code === 0) {
-      // 成功
-
-      dispatch(receiveUser(result.data));
-    } else {
-      // 失败
-      dispatch(resetUser(result.msg));
-    }
-  };
-};
-
 export const addGrade = (grade: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqAddGrade(grade);
@@ -296,6 +296,87 @@ export const GradeInfo = (grade: any) => {
       dispatch(searchgrade(result.data));
     } else {
       // 更新失败: msg
+      dispatch(resetgrade(result.msg));
+    }
+  };
+};
+export const TeacherUserid = (user: any) => {
+  return async (dispatch: (arg0: { type: string; data: any }) => void) => {
+    const response = await reqTeacherUserid(user);
+    const result = response.data;
+    if (result.code === 0) {
+      // 更新成功: data
+      dispatch(searchUserid(result.data));
+    } else {
+      // 更新失败: msg
+      dispatch(resetUser(result.msg));
+    }
+  };
+};
+export const InfoStu = (user: any) => {
+  return async (dispatch: (arg0: { type: string; data: any }) => void) => {
+    const response = await reqStudentInfo(user);
+    const result = response.data;
+    if (result.code === 0) {
+      // 更新成功: data
+      dispatch(receiveUser(result.data));
+    } else {
+      // 更新失败: msg
+      dispatch(resetUser(result.msg));
+    }
+  };
+};
+// 查询学生信息异步action
+export const Searchstu = (user) => {
+  return async (dispatch) => {
+    // 执行异步ajax请求
+
+    const response = await reqSearchstu(user);
+
+    const result = response.data;
+
+    if (result.code === 0) {
+      // 成功
+
+      dispatch(searchuser(result.data));
+    } else {
+      // 失败
+      dispatch(resetUser(result.msg));
+    }
+  };
+};
+export const DeleteStudent = (user) => {
+  return async (dispatch) => {
+    // 执行异步ajax请求
+
+    const response = await reqDeleteStudent(user);
+
+    const result = response.data;
+
+    if (result.code === 0) {
+      // 成功
+
+      dispatch(deletestudent(result.data));
+    } else {
+      // 失败
+      dispatch(resetUser(result.msg));
+    }
+  };
+};
+export const DeleteGrade = (user) => {
+  return async (dispatch) => {
+    // 执行异步ajax请求
+
+    const response = await reqDeleteGrade(user);
+
+    const result = response.data;
+
+    if (result.code === 0) {
+      // 成功
+
+      dispatch(deletegrade(result.data));
+    } else {
+      // 失败
       dispatch(resetgrade(result.msg));
     }
   };

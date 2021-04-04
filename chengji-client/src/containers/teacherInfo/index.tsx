@@ -18,7 +18,8 @@ function TeacherInfo(props: {
     affiliation: "",
     sex: "",
     age: "",
-
+    years: "",
+    term: "",
     duty: "",
     IDcard: "",
     startDate: "",
@@ -52,6 +53,8 @@ function TeacherInfo(props: {
       eMail: (state.eMail = values.eMail),
       department: (state.department = values.department),
       street: (state.street = values.street),
+      years: (state.years = values.years),
+      term: (state.term = values.term),
     });
 
     props.updateTeacher(state);
@@ -133,6 +136,24 @@ function TeacherInfo(props: {
             rules={[{ type: "number", min: 1, max: 100, required: true }]}
           >
             <InputNumber placeholder="年龄" />
+          </Form.Item>
+          <Form.Item label="学年">
+            <Input.Group compact>
+              <Form.Item name={"years"} noStyle>
+                <Select placeholder="请选择">
+                  <Option value="20202021">2020-2021</Option>
+                  <Option value="20192020">2019-2020</Option>
+                  <Option value="20182019">2018-2019</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item name={"term"} label="学期" noStyle>
+                <Select placeholder="请选择班级">
+                  <Option value="第一学期">第一学期</Option>
+                  <Option value="第二学期">第二学期</Option>
+                  <Option value="第三学期">第三学期</Option>
+                </Select>
+              </Form.Item>
+            </Input.Group>
           </Form.Item>
           <Form.Item
             name={"department"}

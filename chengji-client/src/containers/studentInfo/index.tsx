@@ -15,7 +15,8 @@ function StudentInfo(props: {
     sex: string;
     affiliation: string;
     age: string;
-
+    years: string;
+    term: string;
     nation: string;
     cname: string;
     classno: string;
@@ -35,7 +36,8 @@ function StudentInfo(props: {
     sex: "",
     affiliation: "",
     age: "",
-
+    years: "",
+    term: "",
     cname: "",
     classno: "",
 
@@ -51,6 +53,7 @@ function StudentInfo(props: {
   });
   const [seletdata, setselectdata] = useState();
   const [deparmentdata, setdeparmentdata] = useState();
+
   const onFinish = (values: any) => {
     setState({
       realName: (state.realName = values.realName),
@@ -69,6 +72,8 @@ function StudentInfo(props: {
       eMail: (state.eMail = values.eMail),
       street: (state.street = values.street),
       address: (state.address = values.address),
+      years: (state.years = values.years),
+      term: (state.term = values.term),
     });
     props.updateStudent(state);
   };
@@ -103,6 +108,7 @@ function StudentInfo(props: {
   const deparmentselect = (e) => {
     setdeparmentdata(e);
   };
+
   return (
     <div className={styles.container}>
       <GlobalTab></GlobalTab>
@@ -146,7 +152,24 @@ function StudentInfo(props: {
               <Option value="理学院">理学院</Option>
             </Select>
           </Form.Item>
-
+          <Form.Item label="学年">
+            <Input.Group compact>
+              <Form.Item name={"years"} noStyle>
+                <Select placeholder="请选择">
+                  <Option value="20202021">2020-2021</Option>
+                  <Option value="20192020">2019-2020</Option>
+                  <Option value="20182019">2018-2019</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item name={"term"} label="学期" noStyle>
+                <Select placeholder="请选择班级">
+                  <Option value="第一学期">第一学期</Option>
+                  <Option value="第二学期">第二学期</Option>
+                  <Option value="第三学期">第三学期</Option>
+                </Select>
+              </Form.Item>
+            </Input.Group>
+          </Form.Item>
           <Form.Item
             name={"affiliation"}
             label="政治面貌"
@@ -186,6 +209,7 @@ function StudentInfo(props: {
           <Form.Item name={"nation"} label="民族" rules={[{ required: true }]}>
             <Input placeholder="请输入民族" />
           </Form.Item>
+
           <Form.Item label="专业名">
             <Input.Group compact>
               {deparmentdata === "电子信息与工程学院" && (

@@ -8,13 +8,14 @@ import {
 } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import "./index.less";
-import { getUser } from "@/redux/actions";
+
+import { TeacherUserid } from "@/redux/actions";
 import Cookies from "js-cookie";
 import studentInfo from "@/containers/studentInfo";
 import StuInfo from "@/containers/teacher/components/stuinfo";
 import { connect, RootStateOrAny } from "react-redux";
 const { Header, Sider, Content, Footer } = Layout;
-function Teachers() {
+function Teachers(props) {
   const [state, setState] = useState({
     collapsed: false,
   });
@@ -34,6 +35,11 @@ function Teachers() {
   const menuclick = (e) => {
     setclickkey(e.key);
   };
+  const userid = Cookies.get("userid");
+  useEffect(() => {
+    props.TeacherUserid({ id: userid });
+  }, []);
+  console.log("props", props);
   return (
     <Layout>
       <Sider
@@ -42,7 +48,10 @@ function Teachers() {
         style={{ backgroundColor: "#fff" }}
         collapsed={state.collapsed}
       >
-        <div className="logo" />
+        <div className="logo">
+          {props.cooikeuserid[0]?.realName &&
+            props.cooikeuserid[0].realName + "老师你好！"}
+        </div>
         <Menu
           selectable
           theme="light"
@@ -99,7 +108,10 @@ function Teachers() {
 }
 export default connect(
   // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
-  (state: RootStateOrAny) => ({ user: state.user }),
+  (state: RootStateOrAny) => ({
+    user: state.user,
+    cooikeuserid: state.cooikeuserid,
+  }),
   //  函数确定
-  { getUser }
+  { TeacherUserid }
 )(Teachers);

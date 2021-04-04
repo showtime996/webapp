@@ -29,6 +29,12 @@ export const reqAdminUpdate = (admin: any) =>
   ajax("/adminInfoupdate", admin, "POST");
 
 //学生信息查询
-export const reqStudentInfo = () => ajax("/studentInfo");
+export const reqStudentInfo = (user: any) => ajax("/studentInfo", user, "POST");
 export const reqAddGrade = (grade: any) => ajax("/addgrade", grade, "POST");
 export const reqGradeInfo = (grade: any) => ajax("/gradeinfo", grade, "POST");
+export const reqTeacherUserid = (user: any) =>
+  ajax("/teacheruserid", user, "POST");
+export const reqSearchstu = (user: any) => ajax("/searchstu", user, "POST");
+export const reqDeleteStudent = (user: any) =>
+  ajax("/deletestudent", user, "POST");
+export const reqDeleteGrade = (grade: any) => ajax("/deletegrade", grade, "POST");

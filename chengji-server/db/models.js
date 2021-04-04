@@ -14,20 +14,21 @@ const studentSchema = mongoose.Schema({
   type: { type: String, required: true, trim: true },
   realName: { type: String },
   sex: { type: String, trim: true },
-  affiliation: { type: String, trim: true },
+  affiliation: { type: String },
   age: { type: Number },
   IDcard: { type: Number },
-  cname: { type: String, trim: true },
+  cname: { type: String },
   classno: { type: String, trim: true },
-
+  years: { type: String, trim: true },
+  term: { type: String },
   department: { type: String, trim: true },
 
   nation: { type: String, trim: true },
-  region: { type: String, trim: true },
+  region: { type: String },
   phone: { type: Number },
-  eMail: { type: String, trim: true },
-  street: { type: String, trim: true },
-  address: { type: String, trim: true },
+  eMail: { type: String },
+  street: { type: String },
+  address: { type: String },
   recommend: { type: String },
 });
 const StudentModel = mongoose.model("studentInfo", studentSchema);
@@ -39,6 +40,8 @@ const teacherSchema = mongoose.Schema({
   password: { type: String, required: true, trim: true },
   type: { type: String, required: true, trim: true },
   realName: { type: String },
+  years: { type: String },
+  term: { type: String },
   cname: { type: String, trim: true },
   classno: { type: String, trim: true },
   sex: { type: String, trim: true },
@@ -77,7 +80,6 @@ const AdminModel = mongoose.model("adminInfo", adminSchema);
 
 // 成绩
 const gradeSchema = mongoose.Schema({
-  _id: Number,
   classno: { type: String },
   username: { type: String },
   realName: { type: String },

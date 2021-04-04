@@ -27,12 +27,15 @@ const AddGrade = (props) => {
 
   return (
     <>
-      <Button type="link" onClick={showModal}>
+      <Button type="primary" onClick={showModal}>
         录入
       </Button>
       <Modal
         title="录入成绩表"
         width={700}
+        // afterClose={() => {
+        //   window.history.go(0);
+        // }}
         visible={visible}
         footer={null}
         onOk={handleOk}
@@ -48,6 +51,7 @@ const AddGrade = (props) => {
 export default connect(
   // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
   (state: RootStateOrAny) => ({ grade: state.grade }),
+
   //  函数确定
   { GradeInfo }
 )(AddGrade);

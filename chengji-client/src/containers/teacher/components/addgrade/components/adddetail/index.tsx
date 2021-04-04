@@ -24,8 +24,8 @@ function AddDetail(props) {
   const [seletdata, setselectdata] = useState();
   const [deparmentdata, setdeparmentdata] = useState();
   const { tempdata } = props;
-  const onFinish = (values: any) => {
-    setState({
+  const onFinish = async (values: any) => {
+    await setState({
       username: (state.username = tempdata.username),
       realName: (state.realName = tempdata.realName),
       cname: (state.cname = tempdata.cname),
@@ -38,9 +38,8 @@ function AddDetail(props) {
       cheat: (state.cheat = values.cheat),
     });
 
-    props.addGrade(state);
+    await props.addGrade(state);
   };
-  console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww", tempdata.cname);
 
   const layout = {
     labelCol: { span: 5 },
@@ -60,12 +59,8 @@ function AddDetail(props) {
     },
   };
   const btnclick = () => {
-    setTimeout(() => {
-      window.history.go(0)
-    }, 1000);
+    window.history.go(0);
   };
-
-  
   return (
     <Form
       {...layout}

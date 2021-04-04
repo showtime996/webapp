@@ -3,7 +3,7 @@ var router = express.Router();
 // cookie的id undefined
 // const ObjectId = require("mongodb").ObjectId;
 //加密
-const md5 = require("blueimp-md5");
+// const md5 = require("blueimp-md5");
 const {
   StudentModel,
   TeacherModel,
@@ -30,7 +30,6 @@ var i = 0;
 // for (i;i<count;i++){
 // console.log(originalArray[i]);
 // }
-
 // 教务员注册的路由
 router.post("/adminRegister", function (req, res) {
   // 读取请求参数数据
@@ -51,7 +50,7 @@ router.post("/adminRegister", function (req, res) {
         _id: originalArray[i],
         username,
         type,
-        password: md5(password),
+        password,
       }).save(function (error, user) {
         // 生成一个cookie(userid: user._id), 并交给浏览器保存
         res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
@@ -83,7 +82,7 @@ router.post("/teacherRegister", function (req, res) {
         _id: originalArray[i],
         username,
         type,
-        password: md5(password),
+        password,
       }).save(function (error, user) {
         // // 生成一个cookie(userid: user._id), 并交给浏览器保存
         res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
@@ -115,7 +114,7 @@ router.post("/studentRegister", function (req, res) {
         _id: originalArray[i],
         username,
         type,
-        password: md5(password),
+        password,
       }).save(function (error, user) {
         // // 生成一个cookie(userid: user._id), 并交给浏览器保存
         res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
@@ -132,21 +131,18 @@ router.post("/studentRegister", function (req, res) {
 router.post("/adminLogin", function (req, res) {
   const { username, password } = req.body;
   // 根据username和password查询数据库users, 如果没有, 返回提示错误的信息, 如果有, 返回登陆成功信息(包含user)
-  AdminModel.findOne(
-    { username, password: md5(password) },
-    function (err, user) {
-      if (user) {
-        // 登陆成功
-        // 生成一个cookie(userid: user._id), 并交给浏览器保存
-        res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
-        // 返回登陆成功信息(包含user)
-        res.send({ code: 0, data: user });
-      } else {
-        // 登陆失败
-        res.send({ code: 1, msg: "用户名或密码不正确!" });
-      }
+  AdminModel.findOne({ username, password }, function (err, user) {
+    if (user) {
+      // 登陆成功
+      // 生成一个cookie(userid: user._id), 并交给浏览器保存
+      res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
+      // 返回登陆成功信息(包含user)
+      res.send({ code: 0, data: user });
+    } else {
+      // 登陆失败
+      res.send({ code: 1, msg: "用户名或密码不正确!" });
     }
-  );
+  });
 });
 
 // 老师登陆的路由
@@ -154,21 +150,18 @@ router.post("/teacherLogin", function (req, res) {
   const { username, password } = req.body;
 
   // 根据username和password查询数据库users, 如果没有, 返回提示错误的信息, 如果有, 返回登陆成功信息(包含user)
-  TeacherModel.findOne(
-    { username, password: md5(password) },
-    function (err, user) {
-      if (user) {
-        // 登陆成功
-        // 生成一个cookie(userid: user._id), 并交给浏览器保存
-        res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
-        // 返回登陆成功信息(包含user)
-        res.send({ code: 0, data: user });
-      } else {
-        // 登陆失败
-        res.send({ code: 1, msg: "用户名或密码不正确!" });
-      }
+  TeacherModel.findOne({ username, password }, function (err, user) {
+    if (user) {
+      // 登陆成功
+      // 生成一个cookie(userid: user._id), 并交给浏览器保存
+      res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
+      // 返回登陆成功信息(包含user)
+      res.send({ code: 0, data: user, msg: "用户登录成功！" });
+    } else {
+      // 登陆失败
+      res.send({ code: 1, msg: "用户名或密码不正确!" });
     }
-  );
+  });
 });
 
 // 学生登陆的路由
@@ -176,21 +169,18 @@ router.post("/studentLogin", function (req, res) {
   const { username, password } = req.body;
 
   // 根据username和password查询数据库users, 如果没有, 返回提示错误的信息, 如果有, 返回登陆成功信息(包含user)
-  StudentModel.findOne(
-    { username, password: md5(password) },
-    function (err, user) {
-      if (user) {
-        // 登陆成功
-        // 生成一个cookie(userid: user._id), 并交给浏览器保存
-        res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
-        // 返回登陆成功信息(包含user)
-        res.send({ code: 0, data: user });
-      } else {
-        // 登陆失败
-        res.send({ code: 1, msg: "用户名或密码不正确!" });
-      }
+  StudentModel.findOne({ username, password }, function (err, user) {
+    if (user) {
+      // 登陆成功
+      // 生成一个cookie(userid: user._id), 并交给浏览器保存
+      res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
+      // 返回登陆成功信息(包含user)
+      res.send({ code: 0, data: user });
+    } else {
+      // 登陆失败
+      res.send({ code: 1, msg: "用户名或密码不正确!" });
     }
-  );
+  });
 });
 
 // 更新学生用户信息的路由
@@ -288,15 +278,23 @@ router.post("/adminInfoupdate", function (req, res) {
 });
 
 // 获取用户列表(根据类型)
-router.get("/studentInfo", function (req, res) {
-  const datasource = req.query;
-  StudentModel.find(datasource, function (error, users) {
-    res.status = 200;
-    res.send({ code: 0, data: users });
+router.post("/studentInfo", function (req, res) {
+  const user = req.body; // 没有_id
+
+  TeacherModel.find({ _id: user.id }, function (error, data) {
+    console.log();
+    console.log("data", data);
+
+    StudentModel.find(
+      { years: data[0].years, term: data[0].term, cname: data[0].cname },
+      function (error, newuser) {
+        res.status = 200;
+        res.send({ code: 0, data: newuser });
+      }
+    );
   });
 });
 
-// 更新老师用户信息的路由
 router.post("/addgrade", function (req, res) {
   // 从请求的cookie得到userid
   const userid = req.cookies.userid;
@@ -307,9 +305,8 @@ router.post("/addgrade", function (req, res) {
   // 存在, 根据userid更新对应的user文档数据
   // 得到提交的用户数据
   const grade = req.body; // 没有_id
-  console.log("grade", grade);
+
   GradeModel.insertMany({
-    _id: originalArray[i],
     username: grade.username,
     realName: grade.realName,
     courseNo: grade.courseNo,
@@ -320,17 +317,47 @@ router.post("/addgrade", function (req, res) {
     grade: grade.grade,
     cheat: grade.cheat,
     cname: grade.cname,
-    gpa: (grade.grade / 10 - 5).toFixed(2),
+    gpa: grade.grade >= 60 ? (grade.grade / 10 - 5).toFixed(2) : 0,
   });
 });
 
 // 更新学生用户信息的路由
 router.post("/gradeinfo", function (req, res) {
   const grade = req.body; // 没有_id
-  console.log("grade", grade);
+
   GradeModel.find({ username: grade.username }, function (error, data) {
     res.status = 200;
     res.send({ code: 0, data: data });
   }).exec();
+});
+
+router.post("/teacheruserid", function (req, res) {
+  const user = req.body; // 没有_id
+
+  TeacherModel.find({ _id: user.id }, function (error, data) {
+    res.status = 200;
+    res.send({ code: 0, data: data });
+  }).exec();
+});
+router.post("/searchstu", function (req, res) {
+  const user = req.body; // 没有_id
+
+  StudentModel.find(
+    { years: user.years, term: user.term, classno: user.classno },
+    function (error, data) {
+      res.status = 200;
+      res.send({ code: 0, data: data });
+    }
+  ).exec();
+});
+// router.post("/deletestudent", function (req, res) {
+//   const user = req.body; // 没有_id
+
+//   StudentModel.deleteOne({ username: user.username }).exec();
+// });
+router.post("/deletegrade", function (req, res) {
+  const grade = req.body; // 没有_id
+  console.log("wwwwwwwwwwwww", grade);
+  GradeModel.deleteOne({ courseNo: grade.courseNo }).exec();
 });
 module.exports = router;

@@ -7,6 +7,7 @@ import {
   Form,
   Typography,
   Button,
+  Tooltip,
 } from "antd";
 import { connect, RootStateOrAny } from "react-redux";
 import type { ActionType } from "@ant-design/pro-table";
@@ -14,11 +15,8 @@ import AddGrade from "../addgrade";
 import request from "umi-request";
 import { GradeInfo } from "@/redux/actions";
 import ProTable from "@ant-design/pro-table";
-
-import {
-  RequestData,
-  UseFetchDataAction,
-} from "@ant-design/pro-table/lib/typing";
+import DeleteModel from "../deletestudentmodel";
+import { RedoOutlined, FormOutlined } from "@ant-design/icons";
 const originData: any = [];
 
 const EditableCell = ({
@@ -79,7 +77,6 @@ const GradeEdit = (props) => {
   useEffect(() => {
     props.GradeInfo(tempdata);
   }, []);
-  console.log("GradeInfo", props);
 
   const formatedata = props.grade;
 
@@ -87,9 +84,7 @@ const GradeEdit = (props) => {
   originData.length = 0;
   if (JSON.stringify(formatedata) !== "{}") {
     for (let i = originData.length; i < temp; i++) {
-      console.log("wwwwwwwwwwwwwwwwwww", tempdata.username);
       if (tempdata.username === formatedata[i].username) {
-        console.log("formatedata", formatedata);
         originData.push({
           key: i + 1,
           username: formatedata[i].username,
@@ -218,17 +213,24 @@ const GradeEdit = (props) => {
             >
               保存
             </a>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+            <Popconfirm title="确定取消?" onConfirm={cancel}>
               <a>取消</a>
             </Popconfirm>
           </span>
         ) : (
-          <Typography.Link
-            disabled={editingKey !== ""}
-            onClick={() => edit(record)}
-          >
-            编辑
-          </Typography.Link>
+          <div>
+            <Typography.Link
+              disabled={editingKey !== ""}
+              onClick={() => edit(record)}
+            >
+              <Button type="link" icon={<FormOutlined />}>
+                编辑
+              </Button>
+            </Typography.Link>
+            <Typography.Link>
+              <DeleteModel tempdata={tempdata}></DeleteModel>
+            </Typography.Link>
+          </div>
         );
       },
     },
@@ -249,24 +251,14 @@ const GradeEdit = (props) => {
       }),
     };
   });
-  const datarequest: any = async () =>
-    request<{
-      data: any[];
-    }>("http://localhost:4000/gradeinfo")
-      .then((response) => {
-        // 将request请求的对象保存到state中
-        // setTableData(response);
-        return response;
-      })
-      .catch((info) => {
-        console.log("请求数据失败", info);
-      });
 
+  const refresh = () => {
+    window.history.go(0);
+  };
   return (
     <Form form={form} component={false}>
-      <AddGrade tempdata={tempdata}></AddGrade>
       <ProTable
-        options={{ fullScreen: true }}
+        options={{ fullScreen: true, reload: false }}
         actionRef={actionRef}
         search={false}
         components={{
@@ -274,11 +266,23 @@ const GradeEdit = (props) => {
             cell: EditableCell,
           },
         }}
-        request={datarequest}
         bordered
+        toolBarRender={() => [
+          <AddGrade tempdata={tempdata}></AddGrade>,
+
+          <Tooltip title="刷新">
+            <Button
+              style={{ border: 0 }}
+              shape="circle"
+              onClick={refresh}
+              icon={<RedoOutlined />}
+            />
+          </Tooltip>,
+        ]}
         dataSource={[...data]}
         columns={mergedColumns}
         rowClassName="editable-row"
+        headerTitle="学生成绩信息表"
         pagination={{
           onChange: cancel,
         }}

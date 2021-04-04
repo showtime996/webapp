@@ -7,10 +7,14 @@ import {
   AUTH_SUCCESS_USER,
   ERROR_MSG_USER,
   RECEIVE_USER,
+  DELETE_SUCCESS__GRADE,
   ADD_SUCCESS__GRADE,
   RESET_USER,
+  SEARCH_SUCCESS__COOKIES,
+  SEARCH_SUCCESS__USER,
   RESET__GRADE,
   SEARCH_SUCCESS__GRADE,
+  DELETE_SUCCESS__USER,
 } from "./action-types";
 const initUser = {
   username: "", // 用户名
@@ -44,6 +48,8 @@ const user = (
       return { ...state, msg: action.data };
     case RECEIVE_USER:
       return action.data;
+    case DELETE_SUCCESS__USER:
+      return action.data;
     case RESET_USER:
       return { ...initUser, msg: action.data };
 
@@ -58,7 +64,45 @@ const grade = (state = initGrade, action: { type: any; data: any }) => {
 
     case RESET__GRADE:
       return action.data;
+    case DELETE_SUCCESS__GRADE:
+      return action.data;
     case SEARCH_SUCCESS__GRADE:
+      return action.data;
+    default:
+      return state;
+  }
+};
+const initcooice = {
+  username: "",
+  password: "",
+  type: "",
+  realName: "",
+  cname: "",
+  classno: "",
+  sex: "",
+  department: "",
+  affiliation: "",
+  age: "",
+  duty: "",
+  IDcard: "",
+  nation: "",
+  region: "",
+  phone: "",
+  eMail: "",
+  street: "",
+  diploma: "",
+};
+const cooikeuserid = (state = initcooice, action: { type: any; data: any }) => {
+  switch (action.type) {
+    case SEARCH_SUCCESS__COOKIES:
+      return action.data;
+    default:
+      return state;
+  }
+};
+const stuSearch = (state = initUser, action: { type: any; data: any }) => {
+  switch (action.type) {
+    case SEARCH_SUCCESS__USER:
       return action.data;
     default:
       return state;
@@ -67,4 +111,6 @@ const grade = (state = initGrade, action: { type: any; data: any }) => {
 export default combineReducers({
   grade,
   user,
+  cooikeuserid,
+  stuSearch,
 });
