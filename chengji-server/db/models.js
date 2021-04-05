@@ -43,7 +43,7 @@ const teacherSchema = mongoose.Schema({
   years: { type: String },
   term: { type: String },
   cname: { type: String, trim: true },
-  classno: { type: String, trim: true },
+  // classno: { type: String, trim: true },
   sex: { type: String, trim: true },
   department: { type: String, trim: true },
   affiliation: { type: String, trim: true },
@@ -92,11 +92,25 @@ const gradeSchema = mongoose.Schema({
   cname: { type: String },
   gpa: { type: Number },
 });
-const GradeModel = mongoose.model("GradeManagement", gradeSchema);
 
+const GradeModel = mongoose.model("GradeManagement", gradeSchema);
+const gradetableSchema = mongoose.Schema({
+  classno: { type: String },
+  username: { type: String },
+  realName: { type: String },
+  countcredit: { type: Number },
+  averagecountcredit: { type: Number },
+ 
+  cname: { type: String },
+  count: { type: Number },
+  average: { type: Number },
+  countgpa: { type: Number },
+  averagegpa: { type: Number },
+});
+const GradeTable = mongoose.model("GradeTable", gradetableSchema);
 // 向外暴露Model
 exports.StudentModel = StudentModel;
 exports.TeacherModel = TeacherModel;
 exports.AdminModel = AdminModel;
-
+exports.GradeTable = GradeTable;
 exports.GradeModel = GradeModel;

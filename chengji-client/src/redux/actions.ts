@@ -1,4 +1,3 @@
-
 // 包含n个action creator
 // 异步action
 // 同步action
@@ -14,6 +13,8 @@ import {
   SEARCH_SUCCESS__GRADE,
   DELETE_SUCCESS__USER,
   DELETE_SUCCESS__GRADE,
+  ADD_SUCCESS__COUNT,
+  SEARCH_SUCCESS__COUNT,
 } from "./action-types";
 import {
   reqteacherRegister,
@@ -30,8 +31,11 @@ import {
   reqTeacherUpdate,
   reqAdminUpdate,
   reqStudentInfo,
+  reqTeacherGrade,
   reqDeleteGrade,
   reqDeleteStudent,
+  reqAddGradeCount,
+  reqGradeCountInfo,
 } from "../api/index";
 
 // 授权成功的同步action
@@ -49,6 +53,11 @@ const searchgrade = (data: any) => ({
   type: SEARCH_SUCCESS__GRADE,
   data: data,
 });
+// 查询用户action
+const gradecountinfo = (data: any) => ({
+  type: SEARCH_SUCCESS__COUNT,
+  data: data,
+});
 const searchuser = (data: any) => ({
   type: SEARCH_SUCCESS__USER,
   data: data,
@@ -58,6 +67,10 @@ const searchuser = (data: any) => ({
 const reset = (msg: any) => ({ type: RESET_USER, data: msg });
 // 接收用户的同步action
 const addgrade = (grade: any) => ({ type: ADD_SUCCESS__GRADE, data: grade });
+const addgradecount = (grade: any) => ({
+  type: ADD_SUCCESS__COUNT,
+  data: grade,
+});
 const resetgrade = (grade: any) => ({ type: RESET__GRADE, data: grade });
 // 查询用户action
 const resetUser = (StudentInfo: any) => ({
@@ -377,6 +390,45 @@ export const DeleteGrade = (user) => {
       dispatch(deletegrade(result.data));
     } else {
       // 失败
+      dispatch(resetgrade(result.msg));
+    }
+  };
+};
+export const GradeTeacherInfo = (grade: any) => {
+  return async (dispatch: (arg0: { type: string; data: any }) => void) => {
+    const response = await reqTeacherGrade(grade);
+    const result = response.data;
+    if (result.code === 0) {
+      // 更新成功: data
+      dispatch(searchgrade(result.data));
+    } else {
+      // 更新失败: msg
+      dispatch(resetgrade(result.msg));
+    }
+  };
+};
+export const AddGradeCount = (grade: any) => {
+  return async (dispatch: (arg0: { type: string; data: any }) => void) => {
+    const response = await reqAddGradeCount(grade);
+    const result = response.data;
+    if (result.code === 0) {
+      // 更新成功: data
+      dispatch(addgradecount(result.data));
+    } else {
+      // 更新失败: msg
+      dispatch(resetgrade(result.msg));
+    }
+  };
+};
+export const getGradeCountInfo = (grade: any) => {
+  return async (dispatch: (arg0: { type: string; data: any }) => void) => {
+    const response = await reqGradeCountInfo(grade);
+    const result = response.data;
+    if (result.code === 0) {
+      // 更新成功: data
+      dispatch(gradecountinfo(result.data));
+    } else {
+      // 更新失败: msg
       dispatch(resetgrade(result.msg));
     }
   };

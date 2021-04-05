@@ -12,7 +12,6 @@ const EditModal = (props) => {
   };
   const { tempdata } = props;
 
-
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {

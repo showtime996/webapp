@@ -25,7 +25,7 @@ function AddDetail(props) {
   const [deparmentdata, setdeparmentdata] = useState();
   const { tempdata } = props;
   const onFinish = async (values: any) => {
-    await setState({
+    setState({
       username: (state.username = tempdata.username),
       realName: (state.realName = tempdata.realName),
       cname: (state.cname = tempdata.cname),

@@ -37,4 +37,11 @@ export const reqTeacherUserid = (user: any) =>
 export const reqSearchstu = (user: any) => ajax("/searchstu", user, "POST");
 export const reqDeleteStudent = (user: any) =>
   ajax("/deletestudent", user, "POST");
-export const reqDeleteGrade = (grade: any) => ajax("/deletegrade", grade, "POST");
+export const reqDeleteGrade = (grade: any) =>
+  ajax("/deletegrade", grade, "POST");
+export const reqTeacherGrade = (grade: any) =>
+  ajax("/gradeTeacherInfo", grade, "POST");
+export const reqAddGradeCount = (grade: any) =>
+  ajax("/addgradecount", grade, "POST");
+export const reqGradeCountInfo = (grade: any) =>
+  ajax("/gradecountinfo", grade, "POST");

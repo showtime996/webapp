@@ -197,76 +197,73 @@ function TeacherInfo(props: {
             <Input placeholder="请输入民族" />
           </Form.Item>
           <Form.Item label="专业名">
-            <Input.Group compact>
-              {deparmentdata === "电子信息与工程学院" && (
-                <Form.Item name={"cname"} noStyle>
-                  <Select onChange={cnameselect} placeholder="请选择专业名">
-                    <Option value="网络工程">网络工程</Option>
-                    <Option value="计算机技术">计算机技术</Option>
-                    <Option value="电子信息工程">电子信息工程</Option>
-                    <Option value="人工智能">人工智能</Option>
-                  </Select>
-                </Form.Item>
-              )}
-              {deparmentdata === "建筑工程学院" && (
-                <Form.Item name={"cname"} noStyle>
-                  <Select onChange={cnameselect} placeholder="请选择专业名">
-                    <Option value="建筑学">建筑学</Option>
-                    <Option value="土木工程">土木工程</Option>
-                    <Option value="工程管理">工程管理</Option>
-                    <Option value="交通工程">交通工程</Option>
-                  </Select>
-                </Form.Item>
-              )}
-              {deparmentdata === "机械工程学院" && (
-                <Form.Item name={"cname"} noStyle>
-                  <Select onChange={cnameselect} placeholder="请选择专业名">
-                    <Option value="材料成型及控制工程">
-                      材料成型及控制工程
-                    </Option>
-                    <Option value="车辆工程">车辆工程</Option>
-                    <Option value="化学工程与工艺">化学工程与工艺</Option>
-                    <Option value="油气储运工程">油气储运工程</Option>
-                  </Select>
-                </Form.Item>
-              )}
-              {deparmentdata === "交通学院" && (
-                <Form.Item name={"cname"} noStyle>
-                  <Select onChange={cnameselect} placeholder="请选择专业名">
-                    <Option value="金融工程">金融工程</Option>
-                    <Option value="会计学">会计学</Option>
-                    <Option value="国际经济与贸易">国际经济与贸易</Option>
-                  </Select>
-                </Form.Item>
-              )}
-              {deparmentdata === "化学工程学院" && (
-                <Form.Item name={"cname"} noStyle>
-                  <Select onChange={cnameselect} placeholder="请选择专业名">
-                    <Option value="应用统计学">应用统计学</Option>
-                    <Option value="物流管理">物流管理</Option>
-                    <Option value="材料物理">材料物理</Option>
-                    <Option value="应用化学">应用化学</Option>
-                  </Select>
-                </Form.Item>
-              )}
-              {deparmentdata === "材料学院" && (
-                <Form.Item name={"cname"} noStyle>
-                  <Select onChange={cnameselect} placeholder="请选择专业名">
-                    <Option value="英语">英语</Option>
-                    <Option value="日语">日语</Option>
-                    <Option value="德语">德语</Option>
-                  </Select>
-                </Form.Item>
-              )}
-              {deparmentdata === "理学院" && (
-                <Form.Item name={"cname"} noStyle>
-                  <Select onChange={cnameselect} placeholder="请选择专业名">
-                    <Option value="工业设计">工业设计</Option>
-                  </Select>
-                </Form.Item>
-              )}
+            {deparmentdata === "电子信息与工程学院" && (
+              <Form.Item name={"cname"} noStyle>
+                <Select onChange={cnameselect} placeholder="请选择专业名">
+                  <Option value="网络工程">网络工程</Option>
+                  <Option value="计算机技术">计算机技术</Option>
+                  <Option value="电子信息工程">电子信息工程</Option>
+                  <Option value="人工智能">人工智能</Option>
+                </Select>
+              </Form.Item>
+            )}
+            {deparmentdata === "建筑工程学院" && (
+              <Form.Item name={"cname"} noStyle>
+                <Select onChange={cnameselect} placeholder="请选择专业名">
+                  <Option value="建筑学">建筑学</Option>
+                  <Option value="土木工程">土木工程</Option>
+                  <Option value="工程管理">工程管理</Option>
+                  <Option value="交通工程">交通工程</Option>
+                </Select>
+              </Form.Item>
+            )}
+            {deparmentdata === "机械工程学院" && (
+              <Form.Item name={"cname"} noStyle>
+                <Select onChange={cnameselect} placeholder="请选择专业名">
+                  <Option value="材料成型及控制工程">材料成型及控制工程</Option>
+                  <Option value="车辆工程">车辆工程</Option>
+                  <Option value="化学工程与工艺">化学工程与工艺</Option>
+                  <Option value="油气储运工程">油气储运工程</Option>
+                </Select>
+              </Form.Item>
+            )}
+            {deparmentdata === "交通学院" && (
+              <Form.Item name={"cname"} noStyle>
+                <Select onChange={cnameselect} placeholder="请选择专业名">
+                  <Option value="金融工程">金融工程</Option>
+                  <Option value="会计学">会计学</Option>
+                  <Option value="国际经济与贸易">国际经济与贸易</Option>
+                </Select>
+              </Form.Item>
+            )}
+            {deparmentdata === "化学工程学院" && (
+              <Form.Item name={"cname"} noStyle>
+                <Select onChange={cnameselect} placeholder="请选择专业名">
+                  <Option value="应用统计学">应用统计学</Option>
+                  <Option value="物流管理">物流管理</Option>
+                  <Option value="材料物理">材料物理</Option>
+                  <Option value="应用化学">应用化学</Option>
+                </Select>
+              </Form.Item>
+            )}
+            {deparmentdata === "材料学院" && (
+              <Form.Item name={"cname"} noStyle>
+                <Select onChange={cnameselect} placeholder="请选择专业名">
+                  <Option value="英语">英语</Option>
+                  <Option value="日语">日语</Option>
+                  <Option value="德语">德语</Option>
+                </Select>
+              </Form.Item>
+            )}
+            {deparmentdata === "理学院" && (
+              <Form.Item name={"cname"} noStyle>
+                <Select onChange={cnameselect} placeholder="请选择专业名">
+                  <Option value="工业设计">工业设计</Option>
+                </Select>
+              </Form.Item>
+            )}
 
-              <Form.Item
+            {/* <Form.Item
                 name={"classno"}
                 label="班级"
                 noStyle
@@ -277,8 +274,7 @@ function TeacherInfo(props: {
                   <Option value={seletdata + "2"}>{seletdata + "2"}</Option>
                   <Option value={seletdata + "3"}>{seletdata + "3"}</Option>
                 </Select>
-              </Form.Item>
-            </Input.Group>
+              </Form.Item> */}
           </Form.Item>
           <Form.Item label="籍贯">
             <Input.Group compact>

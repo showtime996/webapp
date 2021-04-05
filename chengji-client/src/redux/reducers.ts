@@ -15,6 +15,8 @@ import {
   RESET__GRADE,
   SEARCH_SUCCESS__GRADE,
   DELETE_SUCCESS__USER,
+  ADD_SUCCESS__COUNT,
+  SEARCH_SUCCESS__COUNT,
 } from "./action-types";
 const initUser = {
   username: "", // 用户名
@@ -72,6 +74,16 @@ const grade = (state = initGrade, action: { type: any; data: any }) => {
       return state;
   }
 };
+const gradecount = (state = initGrade, action: { type: any; data: any }) => {
+  switch (action.type) {
+    case ADD_SUCCESS__COUNT:
+      return action.data;
+    case SEARCH_SUCCESS__COUNT:
+      return action.data;
+    default:
+      return state;
+  }
+};
 const initcooice = {
   username: "",
   password: "",
@@ -92,6 +104,7 @@ const initcooice = {
   street: "",
   diploma: "",
 };
+
 const cooikeuserid = (state = initcooice, action: { type: any; data: any }) => {
   switch (action.type) {
     case SEARCH_SUCCESS__COOKIES:
@@ -113,4 +126,5 @@ export default combineReducers({
   user,
   cooikeuserid,
   stuSearch,
+  gradecount,
 });

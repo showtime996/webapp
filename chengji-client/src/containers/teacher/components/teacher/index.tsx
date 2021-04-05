@@ -11,10 +11,11 @@ import "./index.less";
 
 import { TeacherUserid } from "@/redux/actions";
 import Cookies from "js-cookie";
-import studentInfo from "@/containers/studentInfo";
+import GradeTable from "../gradetable";
 import StuInfo from "@/containers/teacher/components/stuinfo";
 import { connect, RootStateOrAny } from "react-redux";
 const { Header, Sider, Content, Footer } = Layout;
+const cookicedata: any = [];
 function Teachers(props) {
   const [state, setState] = useState({
     collapsed: false,
@@ -39,7 +40,7 @@ function Teachers(props) {
   useEffect(() => {
     props.TeacherUserid({ id: userid });
   }, []);
-  console.log("props", props);
+
   return (
     <Layout>
       <Sider
@@ -101,6 +102,7 @@ function Teachers(props) {
           }}
         >
           {clickkey === "1" && <StuInfo></StuInfo>}
+          {clickkey === "2" && <GradeTable></GradeTable>}
         </Content>
       </Layout>
     </Layout>

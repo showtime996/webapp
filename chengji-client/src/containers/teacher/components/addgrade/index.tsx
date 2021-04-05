@@ -43,7 +43,7 @@ const AddGrade = (props) => {
         onCancel={handleCancel}
         destroyOnClose={true}
       >
-        <AddDetail tempdata={tempdata}></AddDetail>
+        <AddDetail  tempdata={tempdata}></AddDetail>
       </Modal>
     </>
   );

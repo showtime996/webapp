@@ -10,6 +10,7 @@ const DeleteStudentModel = (props) => {
     setIsModalVisible(true);
   };
   const { tempdata } = props;
+
   const handleOk = () => {
     props.DeleteStudent(tempdata);
     setIsModalVisible(false);
@@ -31,7 +32,6 @@ const DeleteStudentModel = (props) => {
           删除
         </Button>
       </Popconfirm>
-      {/* <Modal visible={isModalVisible}></Modal> */}
     </>
   );
 };

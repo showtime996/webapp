@@ -8,7 +8,7 @@ const {
   StudentModel,
   TeacherModel,
   AdminModel,
-
+  GradeTable,
   GradeModel,
 } = require("../db/models");
 /* GET home page. */
@@ -350,14 +350,50 @@ router.post("/searchstu", function (req, res) {
     }
   ).exec();
 });
-// router.post("/deletestudent", function (req, res) {
-//   const user = req.body; // 没有_id
+router.post("/deletestudent", function (req, res) {
+  const user = req.body; // 没有_id
 
-//   StudentModel.deleteOne({ username: user.username }).exec();
-// });
+  StudentModel.deleteOne({ username: user.username }).exec();
+});
+
 router.post("/deletegrade", function (req, res) {
   const grade = req.body; // 没有_id
-  console.log("wwwwwwwwwwwww", grade);
-  GradeModel.deleteOne({ courseNo: grade.courseNo }).exec();
+
+  GradeModel.deleteOne({ username: grade.username }).exec();
+});
+
+router.post("/gradeTeacherInfo", function (req, res) {
+  const user = req.body; // 没有_id
+
+  GradeModel.find({ cname: user.cname }, function (error, newuser) {
+    res.status = 200;
+    res.send({ code: 0, data: newuser });
+  });
+});
+router.post("/addgradecount", function (req, res) {
+  const grade = req.body; // 没有_id
+
+  GradeTable.insertMany({
+    classno: grade.classno,
+    username: grade.username,
+    realName: grade.realName,
+    countcredit: grade.countcredit,
+    averagecountcredit: grade.averagecountcredit,
+
+    cname: grade.cname,
+    count: grade.count,
+    average: grade.average,
+    countgpa: grade.countgpa,
+    averagegpa: grade.averagegpa,
+  });
+});
+router.post("/gradecountinfo", function (req, res) {
+  const grade = req.body; // 没有_id
+  console.log("zzzzzzzzzzzzzz", grade);
+  GradeTable.find({ cname: grade.cname }, function (error, newuser) {
+    res.status = 200;
+    res.send({ code: 0, data: newuser });
+    console.log("xxxxx", newuser);
+  });
 });
 module.exports = router;

@@ -8,15 +8,16 @@ import {
   Typography,
   Button,
   Tooltip,
+  Tag,
 } from "antd";
 import { connect, RootStateOrAny } from "react-redux";
 import type { ActionType } from "@ant-design/pro-table";
 import AddGrade from "../addgrade";
 import request from "umi-request";
-import { GradeInfo } from "@/redux/actions";
+import { GradeInfo, AddGradeCount } from "@/redux/actions";
 import ProTable from "@ant-design/pro-table";
-import DeleteModel from "../deletestudentmodel";
-import { RedoOutlined, FormOutlined } from "@ant-design/icons";
+import DeleteGradeModel from "../deletegrademodel";
+import { SyncOutlined, FormOutlined } from "@ant-design/icons";
 const originData: any = [];
 
 const EditableCell = ({
@@ -228,7 +229,7 @@ const GradeEdit = (props) => {
               </Button>
             </Typography.Link>
             <Typography.Link>
-              <DeleteModel tempdata={tempdata}></DeleteModel>
+              <DeleteGradeModel tempdata={tempdata}></DeleteGradeModel>
             </Typography.Link>
           </div>
         );
@@ -251,9 +252,45 @@ const GradeEdit = (props) => {
       }),
     };
   });
+  let count = 0;
+  let average = 0;
+  let countgpa = 0;
+  let averagegpa = 0;
+  let countcredit = 0;
+  let averagecountcredit = 0;
+  let n: any;
+  if (data.length != 0) {
+    n = data.length;
+  }
+
+  for (let key in data) {
+    count = count + data[key].grade;
+    average = count / n;
+
+    countgpa = data[key].gpa + countgpa;
+    averagegpa = countgpa / n;
+    countcredit = countcredit + Number(data[key].credit);
+    averagecountcredit = countcredit / n;
+  }
+
+  const counttype = {
+    classno: originData[0]?.classno,
+    username: originData[0]?.username,
+    realName: originData[0]?.realName,
+
+    cname: originData[0]?.cname,
+    count,
+    average,
+    countgpa,
+    averagegpa,
+    countcredit,
+    averagecountcredit,
+  };
 
   const refresh = () => {
-    window.history.go(0);
+    if (JSON.stringify(counttype) !== "{}") {
+      props.AddGradeCount(counttype);
+    }
   };
   return (
     <Form form={form} component={false}>
@@ -266,16 +303,26 @@ const GradeEdit = (props) => {
             cell: EditableCell,
           },
         }}
+        footer={() => (
+          <div>
+            <Tag color="green">总分:{count}</Tag>
+            <Tag color="green">平均分:{average}</Tag>
+            <Tag color="green">总绩点:{countgpa}</Tag>
+            <Tag color="green">平均绩点:{averagegpa}</Tag>
+            <Tag color="green">总学分:{countcredit}</Tag>
+            <Tag color="green">平均学分:{averagecountcredit}</Tag>
+          </div>
+        )}
         bordered
         toolBarRender={() => [
           <AddGrade tempdata={tempdata}></AddGrade>,
 
-          <Tooltip title="刷新">
+          <Tooltip title="同步信息">
             <Button
               style={{ border: 0 }}
               shape="circle"
               onClick={refresh}
-              icon={<RedoOutlined />}
+              icon={<SyncOutlined />}
             />
           </Tooltip>,
         ]}
@@ -295,5 +342,5 @@ export default connect(
   // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
   (state: RootStateOrAny) => ({ grade: state.grade }),
   //  函数确定
-  { GradeInfo }
+  { GradeInfo, AddGradeCount }
 )(GradeEdit);

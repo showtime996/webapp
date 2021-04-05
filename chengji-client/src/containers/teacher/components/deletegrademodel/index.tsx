@@ -13,7 +13,7 @@ const DeleteGradeModel = (props) => {
   const handleOk = () => {
     props.DeleteGrade(tempdata);
     setIsModalVisible(false);
-    // window.history.go(0);
+    window.history.go(0);
   };
 
   const handleCancel = () => {

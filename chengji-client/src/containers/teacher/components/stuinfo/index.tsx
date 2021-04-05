@@ -14,7 +14,7 @@ import { SearchOutlined, RedoOutlined } from "@ant-design/icons";
 import Cookies from "js-cookie";
 import { connect, RootStateOrAny } from "react-redux";
 import { Searchstu, TeacherUserid, InfoStu } from "@/redux/actions";
-import DeleteStudentModel from "@/containers/teacher/components/deletestudentmodel";
+import DeleteStudentModel from "../deletestudentmodel";
 import ProTable from "@ant-design/pro-table";
 import type { ActionType } from "@ant-design/pro-table";
 
@@ -207,9 +207,14 @@ const StuInfo = (props) => {
               }}
             >
               <EditModal tempdata={tempdata}></EditModal>
+            </Typography.Link>
+            <Typography.Link
+              onClick={() => {
+                settempdata(record);
+              }}
+            >
               <DeleteStudentModel tempdata={tempdata}></DeleteStudentModel>
             </Typography.Link>
-            {/* <Typography.Link></Typography.Link> */}
           </div>
         );
       },
@@ -289,7 +294,7 @@ const StuInfo = (props) => {
               <Tooltip title="查找">
                 <Button
                   htmlType="submit"
-                  type="primary"
+                  style={{ border: 0 }}
                   shape="circle"
                   icon={<SearchOutlined />}
                 />
