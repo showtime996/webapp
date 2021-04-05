@@ -1,24 +1,39 @@
-import { Table, Button, Space, Tooltip, Tag, Typography } from "antd";
+import {
+  Table,
+  Button,
+  Space,
+  Tooltip,
+  Select,
+  Tag,
+  Typography,
+  Form,
+} from "antd";
 import React, { useEffect, useRef, useState } from "react";
-import { TeacherUserid, getGradeCountInfo } from "@/redux/actions";
+import {
+  TeacherUserid,
+  getGradeCountInfo,
+  getGradeCheat,
+} from "@/redux/actions";
 import { connect, RootStateOrAny } from "react-redux";
 import Cookies from "js-cookie";
 import ProTable from "@ant-design/pro-table";
 import type { ActionType } from "@ant-design/pro-table";
-import { RedoOutlined, FormOutlined } from "@ant-design/icons";
-import EditModal from "../modal";
+import { RedoOutlined, SearchOutlined } from "@ant-design/icons";
+import EditTableModal from "./components/model";
 const originData: any = [];
 const cookicedata: any = [];
+const searchdata: any = [];
+let flag = 0;
 const GradeTable = (props) => {
   const userid = Cookies.get("userid");
   useEffect(() => {
     props.TeacherUserid({ id: userid });
   }, []);
+  const { Option } = Select;
   const cookiceuserid = props.cooikeuserid;
   const cookicelength = cookiceuserid.length;
   if (JSON.stringify(cookiceuserid) !== "{}") {
     for (let i = cookicedata.length; i < cookicelength; i++) {
-      console.log("cookiceuserid", cookiceuserid);
       cookicedata.push({
         key: i + 1,
         username: cookiceuserid[i].username,
@@ -222,17 +237,46 @@ const GradeTable = (props) => {
       ellipsis: true,
     },
     {
-      title: "Action",
+      title: "操作",
       dataIndex: "",
       key: "x",
-      render: () => (
+      render: (_, record) => (
         <Typography.Link>
-          <EditModal></EditModal>
+          <EditTableModal clickdata={record}></EditTableModal>
         </Typography.Link>
       ),
     },
   ];
 
+  const onFinish = (e) => {
+    props.getGradeCheat(e);
+    console.log("eeeeeeeee", e);
+
+    flag = 1;
+  };
+  const search = props.gradecount;
+
+  const serachtemp = search.length;
+  searchdata.length = 0;
+  if (JSON.stringify(search) !== "{}") {
+    for (let i = searchdata.length; i < serachtemp; i++) {
+      searchdata.push({
+        key: i + 1,
+        username: search[i].username,
+        realName: search[i].realName,
+        cname: search[i].cname,
+        classno: search[i].classno,
+
+        countcredit: search[i].countcredit,
+        averagecountcredit: search[i].averagecountcredit,
+
+        count: search[i].count,
+        average: search[i].average,
+        countgpa: search[i].countgpa,
+        averagegpa: search[i].averagegpa,
+      });
+    }
+  }
   return (
     <>
       {/* <Space style={{ marginBottom: 16 }}>
@@ -242,13 +286,48 @@ const GradeTable = (props) => {
       </Space> */}
       <ProTable
         columns={columns}
-        dataSource={[...originData]}
+        dataSource={flag === 0 ? [...originData] : [...searchdata]}
         onChange={handleChange}
         options={{ fullScreen: true, reload: false }}
         actionRef={actionRef}
         search={false}
         bordered
         toolBarRender={() => [
+          <Form name="nest-messages" layout="inline" onFinish={onFinish}>
+            <Form.Item name={"classno"} label="班级">
+              <Select placeholder="请选择班级">
+                <Option value={cookicedata[0]?.cname + "1"}>
+                  {cookicedata[0]?.cname + "1"}
+                </Option>
+                <Option value={cookicedata[0]?.cname + "2"}>
+                  {cookicedata[0]?.cname + "2"}
+                </Option>
+                <Option value={cookicedata[0]?.cname + "3"}>
+                  {cookicedata[0]?.cname + "3"}
+                </Option>
+              </Select>
+            </Form.Item>
+            <Form.Item name={"flaggrade"} label="不及格">
+              <Select placeholder="请选择">
+                <Option value="不及格">不及格</Option>
+              </Select>
+            </Form.Item>
+            <Form.Item name={"flagcheat"} label="作弊">
+              <Select placeholder="请选择">
+                <Option value="作弊">作弊</Option>
+              </Select>
+            </Form.Item>
+            <Form.Item>
+              <Tooltip title="查找">
+                <Button
+                  htmlType="submit"
+                  style={{ border: 0 }}
+                  shape="circle"
+                  icon={<SearchOutlined />}
+                />
+              </Tooltip>
+            </Form.Item>
+          </Form>,
           <Tooltip title="刷新">
             <Button
               style={{ border: 0 }}
@@ -272,5 +351,5 @@ export default connect(
     gradecount: state.gradecount,
   }),
   //  函数确定
-  { TeacherUserid, getGradeCountInfo }
+  { TeacherUserid, getGradeCountInfo, getGradeCheat }
 )(GradeTable);

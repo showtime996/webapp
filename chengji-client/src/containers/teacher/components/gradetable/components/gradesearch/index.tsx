@@ -12,12 +12,12 @@ import {
 } from "antd";
 import { connect, RootStateOrAny } from "react-redux";
 import type { ActionType } from "@ant-design/pro-table";
-import AddGrade from "../addgrade";
+
 import request from "umi-request";
-import { GradeInfo, AddGradeCount } from "@/redux/actions";
+import { GradeInfo } from "@/redux/actions";
 import ProTable from "@ant-design/pro-table";
-import DeleteGradeModel from "../deletegrademodel";
-import { SyncOutlined, FormOutlined } from "@ant-design/icons";
+
+import { RedoOutlined } from "@ant-design/icons";
 const originData: any = [];
 let counttype = {
   classno: "",
@@ -68,13 +68,13 @@ const EditableCell = ({
   );
 };
 
-const GradeEdit = (props) => {
+const GradeTableEdit = (props) => {
   const [form] = Form.useForm();
   const [data, setData] = useState(originData);
   const [editingKey, setEditingKey] = useState("");
   const actionRef = useRef<ActionType>();
   const isEditing = (record) => record.key === editingKey;
-  const { tempdata } = props;
+  const { clickdata } = props;
   const edit = (record) => {
     form.setFieldsValue({
       name: "",
@@ -89,7 +89,7 @@ const GradeEdit = (props) => {
     setEditingKey("");
   };
   useEffect(() => {
-    props.GradeInfo(tempdata);
+    props.GradeInfo(clickdata);
   }, []);
 
   const formatedata = props.grade;
@@ -98,7 +98,7 @@ const GradeEdit = (props) => {
   originData.length = 0;
   if (JSON.stringify(formatedata) !== "{}") {
     for (let i = originData.length; i < temp; i++) {
-      if (tempdata.username === formatedata[i].username) {
+      if (clickdata.username === formatedata[i].username) {
         originData.push({
           key: i + 1,
           username: formatedata[i].username,
@@ -212,44 +212,6 @@ const GradeEdit = (props) => {
       width: "7%",
       editable: true,
     },
-    {
-      title: "操作",
-      dataIndex: "operation",
-      width: "7%",
-      render: (_, record) => {
-        const editable = isEditing(record);
-        return editable ? (
-          <span>
-            <a
-              href="javascript:;"
-              onClick={() => save(record.key)}
-              style={{
-                marginRight: 8,
-              }}
-            >
-              保存
-            </a>
-            <Popconfirm title="确定取消?" onConfirm={cancel}>
-              <a>取消</a>
-            </Popconfirm>
-          </span>
-        ) : (
-          <div>
-            <Typography.Link
-              disabled={editingKey !== ""}
-              onClick={() => edit(record)}
-            >
-              <Button type="link" icon={<FormOutlined />}>
-                编辑
-              </Button>
-            </Typography.Link>
-            <Typography.Link>
-              <DeleteGradeModel clickdata={record}></DeleteGradeModel>
-            </Typography.Link>
-          </div>
-        );
-      },
-    },
   ];
   const mergedColumns: any = columns.map((col) => {
     if (!col.editable) {
@@ -315,7 +277,9 @@ const GradeEdit = (props) => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-
+  const refresh = () => {
+    window.history.go(0);
+  };
   const handleOk = () => {
     props.AddGradeCount(counttype);
 
@@ -344,25 +308,19 @@ const GradeEdit = (props) => {
         )}
         bordered
         toolBarRender={() => [
-          <AddGrade tempdata={tempdata}></AddGrade>,
-          <Popconfirm
-            title="同步信息"
-            onConfirm={handleOk}
-            onCancel={handleCancel}
-          >
-            <Tooltip title="同步">
-              <Button
-                style={{ border: 0 }}
-                shape="circle"
-                icon={<SyncOutlined />}
-              ></Button>
-            </Tooltip>
-          </Popconfirm>,
+          <Tooltip title="刷新">
+            <Button
+              style={{ border: 0 }}
+              shape="circle"
+              onClick={refresh}
+              icon={<RedoOutlined />}
+            />
+          </Tooltip>,
         ]}
         dataSource={[...data]}
         columns={mergedColumns}
         rowClassName="editable-row"
-        headerTitle="学生成绩信息表"
+        headerTitle="成绩详情表"
         pagination={{
           onChange: cancel,
         }}
@@ -375,5 +333,5 @@ export default connect(
   // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
   (state: RootStateOrAny) => ({ grade: state.grade }),
   //  函数确定
-  { GradeInfo, AddGradeCount }
-)(GradeEdit);
+  { GradeInfo }
+)(GradeTableEdit);

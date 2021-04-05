@@ -15,6 +15,7 @@ import {
   DELETE_SUCCESS__GRADE,
   ADD_SUCCESS__COUNT,
   SEARCH_SUCCESS__COUNT,
+  SEARCH_SUCCESS__GRADECHEAT,
 } from "./action-types";
 import {
   reqteacherRegister,
@@ -36,6 +37,7 @@ import {
   reqDeleteStudent,
   reqAddGradeCount,
   reqGradeCountInfo,
+  reqSearchGradeCheat,
 } from "../api/index";
 
 // 授权成功的同步action
@@ -62,7 +64,10 @@ const searchuser = (data: any) => ({
   type: SEARCH_SUCCESS__USER,
   data: data,
 });
-
+const searchgradecheat = (data: any) => ({
+  type: SEARCH_SUCCESS__GRADECHEAT,
+  data: data,
+});
 // 重置用户的同步action
 const reset = (msg: any) => ({ type: RESET_USER, data: msg });
 // 接收用户的同步action
@@ -427,6 +432,19 @@ export const getGradeCountInfo = (grade: any) => {
     if (result.code === 0) {
       // 更新成功: data
       dispatch(gradecountinfo(result.data));
+    } else {
+      // 更新失败: msg
+      dispatch(resetgrade(result.msg));
+    }
+  };
+};
+export const getGradeCheat = (grade: any) => {
+  return async (dispatch: (arg0: { type: string; data: any }) => void) => {
+    const response = await reqSearchGradeCheat(grade);
+    const result = response.data;
+    if (result.code === 0) {
+      // 更新成功: data
+      dispatch(searchgradecheat(result.data));
     } else {
       // 更新失败: msg
       dispatch(resetgrade(result.msg));

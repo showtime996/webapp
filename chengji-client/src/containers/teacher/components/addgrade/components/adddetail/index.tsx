@@ -34,7 +34,7 @@ function AddDetail(props) {
       credit: (state.credit = values.credit),
       courseType: (state.courseType = values.courseType),
       courseName: (state.courseName = values.courseName),
-      grade: (state.grade = values.grade),
+      grade: (state.grade = values.cheat === "作弊" ? 0 : values.grade),
       cheat: (state.cheat = values.cheat),
     });
 

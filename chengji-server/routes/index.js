@@ -311,12 +311,14 @@ router.post("/addgrade", function (req, res) {
     realName: grade.realName,
     courseNo: grade.courseNo,
     classno: grade.classno,
-    credit: grade.credit,
+    credit: grade.grade >= 60 ? grade.credit : 0,
     courseType: grade.courseType,
     courseName: grade.courseName,
     grade: grade.grade,
     cheat: grade.cheat,
     cname: grade.cname,
+    flaggrade: grade.grade < 60 ? true : false,
+    flagcheat: grade.cheat === "正常" ? false : true,
     gpa: grade.grade >= 60 ? (grade.grade / 10 - 5).toFixed(2) : 0,
   });
 });
@@ -359,7 +361,7 @@ router.post("/deletestudent", function (req, res) {
 router.post("/deletegrade", function (req, res) {
   const grade = req.body; // 没有_id
 
-  GradeModel.deleteOne({ username: grade.username }).exec();
+  GradeModel.deleteOne({ courseNo: grade.courseNo }).exec();
 });
 
 router.post("/gradeTeacherInfo", function (req, res) {
@@ -370,30 +372,133 @@ router.post("/gradeTeacherInfo", function (req, res) {
     res.send({ code: 0, data: newuser });
   });
 });
+//添加班级成绩信息并且同步实时更新原来数据
 router.post("/addgradecount", function (req, res) {
-  const grade = req.body; // 没有_id
+  const getgrade = req.body;
+  console.log("getgrade", getgrade);
+  const {
+    classno,
+    username,
+    realName,
+    countcredit,
+    averagecountcredit,
+    cname,
+    count,
+    average,
+    countgpa,
+    averagegpa,
+    flaggrade,
+    flagcheat,
+  } = req.body;
+  GradeTable.findOne({ username }, function (err, oldgrade) {
+    if (oldgrade) {
+      GradeTable.findOneAndUpdate(
+        { username: oldgrade.username },
 
-  GradeTable.insertMany({
-    classno: grade.classno,
-    username: grade.username,
-    realName: grade.realName,
-    countcredit: grade.countcredit,
-    averagecountcredit: grade.averagecountcredit,
-
-    cname: grade.cname,
-    count: grade.count,
-    average: grade.average,
-    countgpa: grade.countgpa,
-    averagegpa: grade.averagegpa,
+        getgrade,
+        function (error, newgrade) {
+          res.send({ code: 0, data: newgrade });
+          console.log("newgrade", newgrade);
+        }
+      );
+    } else {
+      // 保存
+      new GradeTable({
+        // _id: originalArray[i],
+        classno,
+        username,
+        realName,
+        countcredit,
+        averagecountcredit,
+        cname,
+        count,
+        average,
+        countgpa,
+        averagegpa,
+        flaggrade,
+        flagcheat,
+      }).save(function (error, grade) {
+        res.send({ code: 0, data: grade });
+      });
+    }
   });
 });
 router.post("/gradecountinfo", function (req, res) {
   const grade = req.body; // 没有_id
-  console.log("zzzzzzzzzzzzzz", grade);
+
   GradeTable.find({ cname: grade.cname }, function (error, newuser) {
     res.status = 200;
     res.send({ code: 0, data: newuser });
-    console.log("xxxxx", newuser);
   });
+});
+
+router.post("/searchgradecheat", function (req, res) {
+  const grade = req.body; // 没有_id
+  if (grade.classno && Boolean(grade.flaggrade) && Boolean(grade.flagcheat)) {
+    GradeTable.find(
+      {
+        classno: grade.classno,
+        flagcheat: Boolean(grade.flagcheat),
+        flaggrade: Boolean(grade.flaggrade),
+      },
+      function (error, data) {
+        res.status = 200;
+        res.send({ code: 0, data: data });
+      }
+    ).exec();
+  } else if (Boolean(grade.flagcheat)) {
+    GradeTable.find(
+      {
+        flagcheat: Boolean(grade.flagcheat),
+      },
+      function (error, data) {
+        res.status = 200;
+        res.send({ code: 0, data: data });
+      }
+    ).exec();
+  } else if (Boolean(grade.flaggrade)) {
+    GradeTable.find(
+      {
+        flaggrade: Boolean(grade.flaggrade),
+      },
+      function (error, data) {
+        res.status = 200;
+        res.send({ code: 0, data: data });
+      }
+    ).exec();
+  } else if (grade.classno && Boolean(grade.flagcheat)) {
+    GradeTable.find(
+      {
+        classno: grade.classno,
+        flagcheat: Boolean(grade.flagcheat),
+      },
+      function (error, data) {
+        res.status = 200;
+        res.send({ code: 0, data: data });
+      }
+    ).exec();
+  } else if (grade.classno && Boolean(grade.flaggrade)) {
+    GradeTable.find(
+      {
+        classno: grade.classno,
+
+        flaggrade: Boolean(grade.flaggrade),
+      },
+      function (error, data) {
+        res.status = 200;
+        res.send({ code: 0, data: data });
+      }
+    ).exec();
+  } else if (grade.classno) {
+    GradeTable.find(
+      {
+        classno: grade.classno,
+      },
+      function (error, data) {
+        res.status = 200;
+        res.send({ code: 0, data: data });
+      }
+    ).exec();
+  }
 });
 module.exports = router;

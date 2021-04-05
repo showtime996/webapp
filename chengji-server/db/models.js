@@ -91,6 +91,8 @@ const gradeSchema = mongoose.Schema({
   cheat: { type: String },
   cname: { type: String },
   gpa: { type: Number },
+  flaggrade: { type: Boolean },
+  flagcheat: { type: Boolean },
 });
 
 const GradeModel = mongoose.model("GradeManagement", gradeSchema);
@@ -100,7 +102,8 @@ const gradetableSchema = mongoose.Schema({
   realName: { type: String },
   countcredit: { type: Number },
   averagecountcredit: { type: Number },
- 
+  flaggrade: { type: Boolean },
+  flagcheat: { type: Boolean },
   cname: { type: String },
   count: { type: Number },
   average: { type: Number },

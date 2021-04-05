@@ -17,6 +17,7 @@ import {
   DELETE_SUCCESS__USER,
   ADD_SUCCESS__COUNT,
   SEARCH_SUCCESS__COUNT,
+  SEARCH_SUCCESS__GRADECHEAT,
 } from "./action-types";
 const initUser = {
   username: "", // 用户名
@@ -79,6 +80,9 @@ const gradecount = (state = initGrade, action: { type: any; data: any }) => {
     case ADD_SUCCESS__COUNT:
       return action.data;
     case SEARCH_SUCCESS__COUNT:
+      return action.data;
+
+    case SEARCH_SUCCESS__GRADECHEAT:
       return action.data;
     default:
       return state;

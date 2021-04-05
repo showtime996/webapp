@@ -9,9 +9,12 @@ const DeleteGradeModel = (props) => {
   const showModal = () => {
     setIsModalVisible(true);
   };
-  const { tempdata } = props;
+  const { clickdata } = props;
+
   const handleOk = () => {
-    props.DeleteGrade(tempdata);
+    // console.log("clickdata", clickdata);
+
+    props.DeleteGrade(clickdata);
     setIsModalVisible(false);
     window.history.go(0);
   };
