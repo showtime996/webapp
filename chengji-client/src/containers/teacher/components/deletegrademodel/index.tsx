@@ -30,9 +30,20 @@ const DeleteGradeModel = (props) => {
         onConfirm={handleOk}
         onCancel={handleCancel}
       >
-        <Button type="link" icon={<DeleteOutlined />} onClick={showModal}>
-          删除
-        </Button>
+        {clickdata.flagcheat === true ? (
+          <Button
+            type="link"
+            style={{ color: "red" }}
+            icon={<DeleteOutlined />}
+            onClick={showModal}
+          >
+            删除
+          </Button>
+        ) : (
+          <Button type="link" icon={<DeleteOutlined />} onClick={showModal}>
+            删除
+          </Button>
+        )}
       </Popconfirm>
     </>
   );

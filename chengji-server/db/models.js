@@ -61,7 +61,7 @@ const TeacherModel = mongoose.model("teacherInfo", teacherSchema);
 
 const adminSchema = mongoose.Schema({
   _id: Number,
-  // type:Number, min:3, max:9, required: true
+
   username: { type: String, required: true, trim: true },
   password: { type: String, required: true, trim: true },
   type: { type: String, required: true, trim: true },
@@ -93,6 +93,7 @@ const gradeSchema = mongoose.Schema({
   gpa: { type: Number },
   flaggrade: { type: Boolean },
   flagcheat: { type: Boolean },
+  department: { type: String },
 });
 
 const GradeModel = mongoose.model("GradeManagement", gradeSchema);
@@ -105,6 +106,7 @@ const gradetableSchema = mongoose.Schema({
   flaggrade: { type: Boolean },
   flagcheat: { type: Boolean },
   cname: { type: String },
+  department: { type: String },
   count: { type: Number },
   average: { type: Number },
   countgpa: { type: Number },

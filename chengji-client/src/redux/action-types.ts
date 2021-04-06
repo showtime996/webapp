@@ -14,4 +14,5 @@ export const RESET__GRADE = "reset_grade"; // 查询成功
 export const DELETE_SUCCESS__GRADE = "delete_success_grade"; // 查询成功
 export const ADD_SUCCESS__COUNT = "delete_success_count"; // 查询成功
 export const SEARCH_SUCCESS__COUNT = "search_success_count"; // 查询成功
-export const SEARCH_SUCCESS__GRADECHEAT = "search_success_gradecheat"; 
+export const SEARCH_SUCCESS__GRADECHEAT = "search_success_gradecheat";
+export const UPDATE_SUCCESS__GRADE = "update_success_grade";

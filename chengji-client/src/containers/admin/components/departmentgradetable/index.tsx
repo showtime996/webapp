@@ -10,8 +10,8 @@ import {
 } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  TeacherUserid,
-  getGradeCountInfo,
+  AdminUserid,
+  getAdminGradeCountInfo,
   getGradeCheat,
 } from "@/redux/actions";
 import { connect, RootStateOrAny } from "react-redux";
@@ -19,65 +19,62 @@ import Cookies from "js-cookie";
 import ProTable from "@ant-design/pro-table";
 import type { ActionType } from "@ant-design/pro-table";
 import { RedoOutlined, SearchOutlined } from "@ant-design/icons";
-import EditTableModal from "./components/model";
+import DepartmentEditTableModal from "./components/model";
 const originData: any = [];
 const cookicedata: any = [];
 const searchdata: any = [];
 let flag = 0;
-const GradeTable = (props) => {
+const DepartmentGradeTable = (props) => {
   const userid = Cookies.get("userid");
   useEffect(() => {
-    props.TeacherUserid({ id: userid });
+    props.AdminUserid({ id: userid });
   }, []);
   const { Option } = Select;
-  const cookiceuserid = props.cooikeuserid;
-  const cookicelength = cookiceuserid.length;
-  if (JSON.stringify(cookiceuserid) !== "{}") {
-    for (let i = cookicedata.length; i < cookicelength; i++) {
-      cookicedata.push({
-        key: i + 1,
-        username: cookiceuserid[i].username,
-        password: cookiceuserid[i].password,
-        type: cookiceuserid[i].type,
-        realName: cookiceuserid[i].realName,
-        cname: cookiceuserid[i].cname,
 
-        sex: cookiceuserid[i].sex,
-        department: cookiceuserid[i].department,
-        affiliation: cookiceuserid[i].affiliation,
-        age: cookiceuserid[i].age,
-        duty: cookiceuserid[i].duty,
-        IDcard: cookiceuserid[i].IDcard,
-        nation: cookiceuserid[i].nation,
-        region: cookiceuserid[i].region,
-        phone: cookiceuserid[i].phone,
-        eMail: cookiceuserid[i].eMail,
-        street: cookiceuserid[i].street,
-        diploma: cookiceuserid[i].diploma,
-      });
+  const cookiceuserid = props.cooikeuserid;
+
+  const cookicelength = cookiceuserid.length;
+  if (JSON.stringify(cookiceuserid) != "{}") {
+    for (let i in cookiceuserid) {
+      if (cookiceuserid[i]) {
+        cookicedata.push({
+          key: i + 1,
+          username: cookiceuserid[i].username,
+          password: cookiceuserid[i].password,
+          type: cookiceuserid[i].type,
+          realName: cookiceuserid[i].realName,
+          sex: cookiceuserid[i].sex,
+          affiliation: cookiceuserid[i].affiliation,
+          age: cookiceuserid[i].age,
+          department: cookiceuserid[i].department,
+          duty: cookiceuserid[i].duty,
+          IDcard: cookiceuserid[i].IDcard,
+          diploma: cookiceuserid[i].diploma,
+          phone: cookiceuserid[i].phone,
+          eMail: cookiceuserid[i].eMail,
+        });
+        props.getAdminGradeCountInfo(cookicedata[0]);
+      }
     }
   }
+  useEffect(() => {}, []);
   const actionRef = useRef<ActionType>();
-  useEffect(() => {
-    props.getGradeCountInfo(cookicedata[0]);
-  }, []);
-  const formatedata = props.gradecount;
 
+  const formatedata = props.gradecount;
+  const [classnodata, setclassnodata] = useState();
   const temp = formatedata.length;
   originData.length = 0;
   if (JSON.stringify(formatedata) !== "{}") {
     for (let i = originData.length; i < temp; i++) {
       originData.push({
         key: i + 1,
-
         classno: formatedata[i].classno,
         username: formatedata[i].username,
         realName: formatedata[i].realName,
         cname: formatedata[i].cname,
-        department: formatedata[i].department,
         countcredit: formatedata[i].countcredit,
         averagecountcredit: formatedata[i].averagecountcredit,
-
+        department: formatedata[i].department,
         count: formatedata[i].count,
         average: formatedata[i].average,
         countgpa: formatedata[i].countgpa,
@@ -138,7 +135,6 @@ const GradeTable = (props) => {
       onFilter: (value, record) => record.username.includes(value),
       //   sorter: (a, b) => a.username.length - b.username.length,
       sortOrder: sortedInfo.columnKey === "username" && sortedInfo.order,
-      ellipsis: true,
     },
     {
       title: "姓名",
@@ -149,7 +145,6 @@ const GradeTable = (props) => {
       onFilter: (value, record) => record.realName.includes(value),
       //   sorter: (a, b) => a.realName.length - b.realName.length,
       sortOrder: sortedInfo.columnKey === "realName" && sortedInfo.order,
-      ellipsis: true,
     },
     {
       title: "学院",
@@ -160,18 +155,41 @@ const GradeTable = (props) => {
       onFilter: (value, record) => record.department.includes(value),
       //   sorter: (a, b) => a.cname.length - b.cname.length,
       sortOrder: sortedInfo.columnKey === "department" && sortedInfo.order,
-      ellipsis: true,
     },
     {
       title: "专业",
       dataIndex: "cname",
       key: "cname",
-
+      filters: [
+        {
+          text: originData[0]?.cname,
+          value: originData[0]?.cname,
+        },
+        {
+          text: originData[1]?.cname,
+          value: originData[1]?.cname,
+        },
+        {
+          text: originData[2]?.cname,
+          value: originData[2]?.cname,
+        },
+        {
+          text: originData[3]?.cname,
+          value: originData[3]?.cname,
+        },
+        {
+          text: originData[4]?.cname,
+          value: originData[4]?.cname,
+        },
+        {
+          text: originData[5]?.cname,
+          value: originData[5]?.cname,
+        },
+      ],
       filteredValue: filteredInfo.cname || null,
       onFilter: (value, record) => record.cname.includes(value),
       //   sorter: (a, b) => a.cname.length - b.cname.length,
       sortOrder: sortedInfo.columnKey === "cname" && sortedInfo.order,
-      ellipsis: true,
     },
     {
       title: "班级",
@@ -179,23 +197,34 @@ const GradeTable = (props) => {
       key: "classno",
       filters: [
         {
-          text: cookicedata[0].cname + "1",
-          value: cookicedata[0].cname + "1",
+          text: originData[0]?.classno,
+          value: originData[0]?.classno,
         },
         {
-          text: cookicedata[0].cname + "2",
-          value: cookicedata[0].cname + "2",
+          text: originData[1]?.classno,
+          value: originData[1]?.classno,
         },
         {
-          text: cookicedata[0].cname + "3",
-          value: cookicedata[0].cname + "3",
+          text: originData[2]?.classno,
+          value: originData[2]?.classno,
+        },
+        {
+          text: originData[3]?.classno,
+          value: originData[3]?.classno,
+        },
+        {
+          text: originData[4]?.classno,
+          value: originData[4]?.classno,
+        },
+        {
+          text: originData[5]?.classno,
+          value: originData[5]?.classno,
         },
       ],
       filteredValue: filteredInfo.classno || null,
       onFilter: (value, record) => record.classno.includes(value),
       //   sorter: (a, b) => a.classno.length - b.classno.length,
       sortOrder: sortedInfo.columnKey === "classno" && sortedInfo.order,
-      ellipsis: true,
     },
 
     {
@@ -204,7 +233,6 @@ const GradeTable = (props) => {
       key: "countcredit",
       //   sorter: (a, b) => a.countcredit - b.countcredit,
       sortOrder: sortedInfo.columnKey === "countcredit" && sortedInfo.order,
-      ellipsis: true,
     },
     {
       title: "平均学分",
@@ -213,7 +241,6 @@ const GradeTable = (props) => {
       sorter: (a, b) => a.averagecountcredit - b.averagecountcredit,
       sortOrder:
         sortedInfo.columnKey === "averagecountcredit" && sortedInfo.order,
-      ellipsis: true,
     },
     {
       title: "总分",
@@ -221,7 +248,6 @@ const GradeTable = (props) => {
       key: "count",
       sorter: (a, b) => a.count - b.count,
       sortOrder: sortedInfo.columnKey === "count" && sortedInfo.order,
-      ellipsis: true,
     },
     {
       title: "平均分",
@@ -229,7 +255,6 @@ const GradeTable = (props) => {
       key: "average",
       sorter: (a, b) => a.average - b.average,
       sortOrder: sortedInfo.columnKey === "average" && sortedInfo.order,
-      ellipsis: true,
     },
     {
       title: "总绩点",
@@ -237,7 +262,6 @@ const GradeTable = (props) => {
       key: "countgpa",
       //   sorter: (a, b) => a.countgpa - b.countgpa,
       sortOrder: sortedInfo.columnKey === "countgpa" && sortedInfo.order,
-      ellipsis: true,
     },
     {
       title: "平均绩点",
@@ -245,7 +269,6 @@ const GradeTable = (props) => {
       key: "averagegpa",
       sorter: (a, b) => a.averagegpa - b.averagegpa,
       sortOrder: sortedInfo.columnKey === "averagegpa" && sortedInfo.order,
-      ellipsis: true,
     },
     {
       title: "操作",
@@ -254,7 +277,9 @@ const GradeTable = (props) => {
       align: "center",
       render: (_, record) => (
         <Typography.Link>
-          <EditTableModal clickdata={record}></EditTableModal>
+          <DepartmentEditTableModal
+            clickdata={record}
+          ></DepartmentEditTableModal>
         </Typography.Link>
       ),
     },
@@ -262,7 +287,6 @@ const GradeTable = (props) => {
 
   const onFinish = (e) => {
     props.getGradeCheat(e);
-    console.log("eeeeeeeee", e);
 
     flag = 1;
   };
@@ -278,7 +302,7 @@ const GradeTable = (props) => {
         realName: search[i].realName,
         cname: search[i].cname,
         classno: search[i].classno,
-
+        department: search[i].department,
         countcredit: search[i].countcredit,
         averagecountcredit: search[i].averagecountcredit,
 
@@ -291,11 +315,6 @@ const GradeTable = (props) => {
   }
   return (
     <>
-      {/* <Space style={{ marginBottom: 16 }}>
-        <Button onClick={setAgeSort}>Sort age</Button>
-        <Button onClick={clearFilters}>Clear filters</Button>
-        <Button onClick={clearAll}>Clear filters and sorters</Button>
-      </Space> */}
       <ProTable
         columns={columns}
         dataSource={flag === 0 ? [...originData] : [...searchdata]}
@@ -308,14 +327,14 @@ const GradeTable = (props) => {
           <Form name="nest-messages" layout="inline" onFinish={onFinish}>
             <Form.Item name={"classno"} label="班级">
               <Select placeholder="请选择班级">
-                <Option value={cookicedata[0]?.cname + "1"}>
-                  {cookicedata[0]?.cname + "1"}
+                <Option value={originData[0]?.classno}>
+                  {originData[0]?.classno}
                 </Option>
-                <Option value={cookicedata[0]?.cname + "2"}>
-                  {cookicedata[0]?.cname + "2"}
+                <Option value={originData[0]?.cname + "2"}>
+                  {originData[0]?.cname + "2"}
                 </Option>
-                <Option value={cookicedata[0]?.cname + "3"}>
-                  {cookicedata[0]?.cname + "3"}
+                <Option value={originData[0]?.cname + "3"}>
+                  {originData[0]?.cname + "3"}
                 </Option>
               </Select>
             </Form.Item>
@@ -349,7 +368,7 @@ const GradeTable = (props) => {
             />
           </Tooltip>,
         ]}
-        headerTitle="班级成绩信息表"
+        headerTitle="学院成绩信息表"
       />
     </>
   );
@@ -363,5 +382,5 @@ export default connect(
     gradecount: state.gradecount,
   }),
   //  函数确定
-  { TeacherUserid, getGradeCountInfo, getGradeCheat }
-)(GradeTable);
+  { AdminUserid, getAdminGradeCountInfo, getGradeCheat }
+)(DepartmentGradeTable);

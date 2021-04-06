@@ -4,12 +4,10 @@ import React, { useState } from "react";
 import { connect, RootStateOrAny } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Form, Input, InputNumber, Button, Radio, Select } from "antd";
-import styles from "@/assets/css/global.module.less";
-import GlobalTab from "@/components/tabNav";
-import selfStyles from "./index.module.less";
-import { addGrade } from "@/redux/actions";
+
+import { UpdateGradeData } from "@/redux/actions";
 import { LikeOutlined } from "@ant-design/icons";
-function AddDetail(props) {
+function UpdateGrade(props) {
   const [state, setState] = useState({
     username: "",
     realName: "",
@@ -25,7 +23,9 @@ function AddDetail(props) {
   });
   const [seletdata, setselectdata] = useState();
   const [deparmentdata, setdeparmentdata] = useState();
+
   const { tempdata } = props;
+
   const onFinish = async (values: any) => {
     setState({
       department: (state.department = tempdata.department),
@@ -33,15 +33,16 @@ function AddDetail(props) {
       realName: (state.realName = tempdata.realName),
       cname: (state.cname = tempdata.cname),
       classno: (state.classno = tempdata.classno),
-      courseNo: (state.courseNo = values.courseNo),
-      credit: (state.credit = values.credit),
-      courseType: (state.courseType = values.courseType),
-      courseName: (state.courseName = values.courseName),
-      grade: (state.grade = values.cheat === "作弊" ? 0 : values.grade),
-      cheat: (state.cheat = values.cheat),
+      courseNo: (state.courseNo = tempdata.courseNo),
+      credit: (state.credit = values.credit || tempdata.credit),
+      courseType: (state.courseType = values.courseType || tempdata.courseType),
+      courseName: (state.courseName = values.courseName || tempdata.courseName),
+      grade: (state.grade =
+        values.cheat === "作弊" ? 0 : values.grade || tempdata.grade),
+      cheat: (state.cheat = values.cheat || tempdata.cheat),
     });
 
-    await props.addGrade(state);
+    await props.UpdateGradeData(state);
   };
 
   const layout = {
@@ -112,18 +113,14 @@ function AddDetail(props) {
           value={tempdata.classno}
         />
       </Form.Item>
-      <Form.Item name={"courseNo"} label="课程号" rules={[{ required: true }]}>
-        <Input placeholder="请输入课程号" />
+      <Form.Item name={"courseNo"} label="课程号">
+        <Input readOnly defaultValue={tempdata.courseNo} />
       </Form.Item>
-      <Form.Item
-        name={"courseName"}
-        label="课程名称"
-        rules={[{ required: true }]}
-      >
-        <Input placeholder="请输入课程名称" />
+      <Form.Item name={"courseName"} label="课程名称">
+        <Input defaultValue={tempdata.courseName} />
       </Form.Item>
       <Form.Item name={"courseType"} label="课程类型">
-        <Select placeholder="请选择">
+        <Select defaultValue={tempdata.courseType}>
           <Option value="公共课">公共课</Option>
           <Option value="选修课">选修课</Option>
           <Option value="必修课">必修课</Option>
@@ -131,10 +128,10 @@ function AddDetail(props) {
         </Select>
       </Form.Item>
       <Form.Item name={"grade"} label="成绩">
-        <InputNumber style={{ width: 435 }} placeholder="请输入成绩" />
+        <InputNumber style={{ width: 435 }} defaultValue={tempdata.grade} />
       </Form.Item>
       <Form.Item name={"credit"} label="学分">
-        <Select placeholder="请选择">
+        <Select defaultValue={tempdata.credit}>
           <Option value="1.0">1.0</Option>
           <Option value="1.5">1.5</Option>
           <Option value="2.0">2.0</Option>
@@ -143,7 +140,7 @@ function AddDetail(props) {
         </Select>
       </Form.Item>
       <Form.Item name={"cheat"} label="作弊">
-        <Select placeholder="请选择">
+        <Select defaultValue={tempdata.cheat}>
           <Option value="作弊">作弊</Option>
           <Option value="正常">正常</Option>
         </Select>
@@ -167,5 +164,5 @@ function AddDetail(props) {
 
 //updateUser
 export default connect((state: RootStateOrAny) => ({ grade: state.grade }), {
-  addGrade,
-})(AddDetail);
+  UpdateGradeData,
+})(UpdateGrade);

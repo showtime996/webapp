@@ -137,7 +137,7 @@ router.post("/adminLogin", function (req, res) {
       // 生成一个cookie(userid: user._id), 并交给浏览器保存
       res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
       // 返回登陆成功信息(包含user)
-      res.send({ code: 0, data: user });
+      res.send({ code: 0, data: user, msg: "用户名登入成功！" });
     } else {
       // 登陆失败
       res.send({ code: 1, msg: "用户名或密码不正确!" });
@@ -236,8 +236,8 @@ router.post("/teacherInfoupdate", function (req, res) {
         res.send({ code: 1, msg: "请先登陆" });
       } else {
         // 准备一个返回的user数据对象
-        const { id, username, type } = oldUser;
-        const data = Object.assign({ id, username, type }, user);
+
+        const data = Object.assign(oldUser, user);
         // 返回
         res.send({ code: 0, data });
       }
@@ -310,6 +310,7 @@ router.post("/addgrade", function (req, res) {
     username: grade.username,
     realName: grade.realName,
     courseNo: grade.courseNo,
+    department: grade.department,
     classno: grade.classno,
     credit: grade.grade >= 60 ? grade.credit : 0,
     courseType: grade.courseType,
@@ -323,7 +324,6 @@ router.post("/addgrade", function (req, res) {
   });
 });
 
-// 更新学生用户信息的路由
 router.post("/gradeinfo", function (req, res) {
   const grade = req.body; // 没有_id
 
@@ -386,6 +386,7 @@ router.post("/addgradecount", function (req, res) {
     count,
     average,
     countgpa,
+    department,
     averagegpa,
     flaggrade,
     flagcheat,
@@ -398,13 +399,11 @@ router.post("/addgradecount", function (req, res) {
         getgrade,
         function (error, newgrade) {
           res.send({ code: 0, data: newgrade });
-          console.log("newgrade", newgrade);
         }
       );
     } else {
       // 保存
       new GradeTable({
-        // _id: originalArray[i],
         classno,
         username,
         realName,
@@ -417,6 +416,7 @@ router.post("/addgradecount", function (req, res) {
         averagegpa,
         flaggrade,
         flagcheat,
+        department,
       }).save(function (error, grade) {
         res.send({ code: 0, data: grade });
       });
@@ -500,5 +500,52 @@ router.post("/searchgradecheat", function (req, res) {
       }
     ).exec();
   }
+});
+
+router.post("/updategrade", function (req, res) {
+  const grade = req.body;
+
+  GradeModel.findOneAndUpdate(
+    { username: grade.username, courseNo: grade.courseNo },
+    {
+      username: grade.username,
+      realName: grade.realName,
+      department: grade.department,
+      courseNo: grade.courseNo,
+      classno: grade.classno,
+      credit: grade.grade >= 60 ? grade.credit : 0,
+      courseType: grade.courseType,
+      courseName: grade.courseName,
+      grade: grade.grade,
+      cheat: grade.cheat,
+      cname: grade.cname,
+      flaggrade: grade.grade < 60 ? true : false,
+      flagcheat: grade.cheat === "正常" ? false : true,
+      gpa: grade.grade >= 60 ? (grade.grade / 10 - 5).toFixed(2) : 0,
+    },
+    function (error, oldGrade) {
+      const data = Object.assign(oldGrade, grade);
+      // 返回
+      res.send({ code: 0, data });
+    }
+  );
+});
+router.post("/adminuserid", function (req, res) {
+  const user = req.body; // 没有_id
+
+  AdminModel.find({ _id: user.id }, function (error, data) {
+    res.status = 200;
+    res.send({ code: 0, data: data });
+  }).exec();
+});
+router.post("/admingradecountinfo", function (req, res) {
+  const grade = req.body; // 没有_id
+  console.log("zzzzz", grade);
+  
+  GradeTable.find({ department: grade.department }, function (error, newuser) {
+    res.status = 200;
+    res.send({ code: 0, data: newuser });
+    console.log("wwwwww", newuser);
+  }).exec();
 });
 module.exports = router;

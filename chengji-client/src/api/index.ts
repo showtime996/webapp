@@ -47,3 +47,7 @@ export const reqGradeCountInfo = (grade: any) =>
   ajax("/gradecountinfo", grade, "POST");
 export const reqSearchGradeCheat = (grade: any) =>
   ajax("/searchgradecheat", grade, "POST");
+export const reqEditGrade = (grade: any) => ajax("/updategrade", grade, "POST");
+export const reqAdminUserid = (user: any) => ajax("/adminuserid", user, "POST");
+export const reqAdminGradeCountInfo = (grade: any) =>
+  ajax("/admingradecountinfo", grade, "POST");

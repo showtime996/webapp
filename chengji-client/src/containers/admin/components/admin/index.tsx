@@ -3,17 +3,29 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
+  CalendarOutlined,
+  MediumOutlined,
+  PoweroffOutlined,
 } from "@ant-design/icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.less";
+import DepartmentGradeTable from "../departmentgradetable";
+import { AdminUserid } from "@/redux/actions";
 import Cookies from "js-cookie";
+import AdminPerson from "../personinfo";
+import { connect, RootStateOrAny } from "react-redux";
 const { Header, Sider, Content, Footer } = Layout;
-export default function Teachers() {
+const cookicedata: any = [];
+function Administer(props) {
+  const userid = Cookies.get("userid");
+  useEffect(() => {
+    props.AdminUserid({ id: userid });
+  }, []);
+
   const [state, setState] = useState({
     collapsed: false,
   });
+  const [clickkey, setclickkey] = useState("1");
 
   const toggle = () => {
     setState({
@@ -23,6 +35,10 @@ export default function Teachers() {
   const btnclearcookie = () => {
     Cookies.remove("userid");
   };
+  const menuclick = (e) => {
+    setclickkey(e.key);
+  };
+
   return (
     <Layout>
       <Sider
@@ -31,15 +47,22 @@ export default function Teachers() {
         style={{ backgroundColor: "#fff" }}
         collapsed={state.collapsed}
       >
-        <div className="logo" />
-        <Menu theme="light" mode="inline" defaultSelectedKeys={["1"]}>
-          <Menu.Item key="1" icon={<UserOutlined />}>
-            成绩管理
+        <div className="logo">
+          {props.cooikeuserid[0]?.realName &&
+            props.cooikeuserid[0].realName + "你好！"}
+        </div>
+        <Menu
+          selectable
+          theme="light"
+          onClick={menuclick}
+          mode="inline"
+          selectedKeys={[clickkey]}
+          defaultSelectedKeys={[clickkey]}
+        >
+          <Menu.Item key="1" icon={<CalendarOutlined />}>
+            学院成绩表
           </Menu.Item>
-          <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-            成绩表
-          </Menu.Item>
-          <Menu.Item key="3" icon={<UploadOutlined />}>
+          <Menu.Item key="2" icon={<UserOutlined />}>
             个人信息
           </Menu.Item>
         </Menu>
@@ -61,7 +84,7 @@ export default function Teachers() {
               onClick: toggle,
             }
           )}
-          <Button onClick={btnclearcookie} href="/login" danger>
+          <Button icon={<PoweroffOutlined />} href="/login" danger>
             退出
           </Button>
         </Header>
@@ -73,9 +96,19 @@ export default function Teachers() {
             minHeight: 618,
           }}
         >
-          Content
+          {clickkey === "1" && <DepartmentGradeTable></DepartmentGradeTable>}
+          {clickkey === "2" && <AdminPerson></AdminPerson>}
         </Content>
       </Layout>
     </Layout>
   );
 }
+export default connect(
+  // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
+  (state: RootStateOrAny) => ({
+    user: state.user,
+    cooikeuserid: state.cooikeuserid,
+  }),
+  //  函数确定
+  { AdminUserid }
+)(Administer);

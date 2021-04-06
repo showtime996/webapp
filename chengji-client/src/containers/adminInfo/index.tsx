@@ -7,6 +7,7 @@ import {
   RootStateOrAny,
   useSelector,
 } from "react-redux";
+import { LikeOutlined } from "@ant-design/icons";
 import { Redirect } from "react-router-dom";
 import { Form, Input, InputNumber, Button, Radio, Select } from "antd";
 import styles from "@/assets/css/global.module.less";
@@ -20,7 +21,7 @@ function AdminInfo(props: {
     realName: string;
     affiliation: string;
     age: string;
-
+    sex: string;
     phone: string;
     IDcard: string;
     eMail: string;
@@ -37,7 +38,7 @@ function AdminInfo(props: {
     phone: "",
     IDcard: "",
     eMail: "",
-
+    sex: "",
     department: "",
     duty: "",
   });
@@ -76,7 +77,7 @@ function AdminInfo(props: {
       phone: (state.phone = values.phone),
       IDcard: (state.IDcard = values.IDcard),
       eMail: (state.eMail = values.eMail),
-
+      sex: (state.sex = values.sex),
       department: (state.department = values.department),
       duty: (state.duty = values.duty),
     });
@@ -191,7 +192,7 @@ function AdminInfo(props: {
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" icon={<LikeOutlined />} htmlType="submit">
               信息提交
             </Button>
           </Form.Item>

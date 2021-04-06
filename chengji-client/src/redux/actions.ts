@@ -16,6 +16,7 @@ import {
   ADD_SUCCESS__COUNT,
   SEARCH_SUCCESS__COUNT,
   SEARCH_SUCCESS__GRADECHEAT,
+  UPDATE_SUCCESS__GRADE,
 } from "./action-types";
 import {
   reqteacherRegister,
@@ -38,6 +39,9 @@ import {
   reqAddGradeCount,
   reqGradeCountInfo,
   reqSearchGradeCheat,
+  reqEditGrade,
+  reqAdminUserid,
+  reqAdminGradeCountInfo,
 } from "../api/index";
 
 // 授权成功的同步action
@@ -53,6 +57,11 @@ const deletegrade = (grade) => ({ type: DELETE_SUCCESS__GRADE, data: grade });
 // 查询用户action
 const searchgrade = (data: any) => ({
   type: SEARCH_SUCCESS__GRADE,
+  data: data,
+});
+
+const updategrade = (data: any) => ({
+  type: UPDATE_SUCCESS__GRADE,
   data: data,
 });
 // 查询用户action
@@ -445,6 +454,45 @@ export const getGradeCheat = (grade: any) => {
     if (result.code === 0) {
       // 更新成功: data
       dispatch(searchgradecheat(result.data));
+    } else {
+      // 更新失败: msg
+      dispatch(resetgrade(result.msg));
+    }
+  };
+};
+export const UpdateGradeData = (grade: any) => {
+  return async (dispatch: (arg0: { type: string; data: any }) => void) => {
+    const response = await reqEditGrade(grade);
+    const result = response.data;
+    if (result.code === 0) {
+      // 更新成功: data
+      dispatch(updategrade(result.data));
+    } else {
+      // 更新失败: msg
+      dispatch(resetgrade(result.msg));
+    }
+  };
+};
+export const AdminUserid = (user: any) => {
+  return async (dispatch: (arg0: { type: string; data: any }) => void) => {
+    const response = await reqAdminUserid(user);
+    const result = response.data;
+    if (result.code === 0) {
+      // 更新成功: data
+      dispatch(searchUserid(result.data));
+    } else {
+      // 更新失败: msg
+      dispatch(resetUser(result.msg));
+    }
+  };
+};
+export const getAdminGradeCountInfo = (grade: any) => {
+  return async (dispatch: (arg0: { type: string; data: any }) => void) => {
+    const response = await reqAdminGradeCountInfo(grade);
+    const result = response.data;
+    if (result.code === 0) {
+      // 更新成功: data
+      dispatch(gradecountinfo(result.data));
     } else {
       // 更新失败: msg
       dispatch(resetgrade(result.msg));

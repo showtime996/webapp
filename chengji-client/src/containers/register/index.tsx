@@ -88,7 +88,10 @@ function Register(props) {
             rules={[
               {
                 required: true,
-                
+                message: "密码不允许少于6位大于11位",
+
+                min: 6,
+                max: 11,
               },
             ]}
           >
@@ -105,7 +108,7 @@ function Register(props) {
               {
                 required: true,
                 message: "密码不允许少于6位大于11位",
-               
+
                 min: 6,
                 max: 11,
               },

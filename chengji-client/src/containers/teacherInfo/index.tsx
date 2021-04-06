@@ -8,7 +8,7 @@ import styles from "@/assets/css/global.module.less";
 import GlobalTab from "@/components/tabNav";
 import selfStyles from "./index.module.less";
 import { updateTeacher } from "../../redux/actions";
-
+import { LikeOutlined } from "@ant-design/icons";
 function TeacherInfo(props: {
   updateTeacher: (arg0: any) => void;
   user: { IDcard: any; type: any };
@@ -280,35 +280,35 @@ function TeacherInfo(props: {
             <Input.Group compact>
               <Form.Item name={"region"} noStyle>
                 <Select placeholder="请选择省份">
-                  <Option value="hb">河北</Option>
-                  <Option value="sx">山西</Option>
-                  <Option value="ln">辽宁</Option>
-                  <Option value="jl">吉林</Option>
-                  <Option value="hlj">黑龙江</Option>
-                  <Option value="js">江苏</Option>
-                  <Option value="zj">浙江</Option>
-                  <Option value="ah">安徽</Option>
-                  <Option value="fj">福建</Option>
-                  <Option value="jx">江西</Option>
-                  <Option value="sd">山东</Option>
-                  <Option value="hna">河南</Option>
-                  <Option value="hb">湖北</Option>
-                  <Option value="hnb">湖南</Option>
-                  <Option value="gd">广东</Option>
-                  <Option value="hnc">海南</Option>
-                  <Option value="sc">四川</Option>
-                  <Option value="gz">贵州</Option>
-                  <Option value="nmg">内蒙古</Option>
-                  <Option value="gx">广西壮族</Option>
-                  <Option value="xz">西藏</Option>
-                  <Option value="nx">宁夏回族</Option>
-                  <Option value="xj">新疆维吾尔</Option>
-                  <Option value="bj">北京</Option>
-                  <Option value="tj">天津</Option>
-                  <Option value="sh">上海</Option>
-                  <Option value="cq">重庆</Option>
-                  <Option value="xg">香港</Option>
-                  <Option value="am">澳门</Option>
+                  <Option value="河北">河北</Option>
+                  <Option value="山西">山西</Option>
+                  <Option value="辽宁">辽宁</Option>
+                  <Option value="吉林">吉林</Option>
+                  <Option value="黑龙江">黑龙江</Option>
+                  <Option value="江苏">江苏</Option>
+                  <Option value="浙江">浙江</Option>
+                  <Option value="安徽">安徽</Option>
+                  <Option value="福建">福建</Option>
+                  <Option value="江西">江西</Option>
+                  <Option value="山东">山东</Option>
+                  <Option value="河南">河南</Option>
+                  <Option value="湖北">湖北</Option>
+                  <Option value="湖南">湖南</Option>
+                  <Option value="广东">广东</Option>
+                  <Option value="海南">海南</Option>
+                  <Option value="四川">四川</Option>
+                  <Option value="贵州">贵州</Option>
+                  <Option value="内蒙古">内蒙古</Option>
+                  <Option value="广西壮族">广西壮族</Option>
+                  <Option value="西藏">西藏</Option>
+                  <Option value="宁夏回族">宁夏回族</Option>
+                  <Option value="新疆维吾尔">新疆维吾尔</Option>
+                  <Option value="北京">北京</Option>
+                  <Option value="天津">天津</Option>
+                  <Option value="上海">上海</Option>
+                  <Option value="重庆">重庆</Option>
+                  <Option value="香港">香港</Option>
+                  <Option value="澳门">澳门</Option>
                 </Select>
               </Form.Item>
               <Form.Item
@@ -347,7 +347,7 @@ function TeacherInfo(props: {
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" icon={<LikeOutlined />} htmlType="submit">
               信息提交
             </Button>
           </Form.Item>

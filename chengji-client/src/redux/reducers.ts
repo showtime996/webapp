@@ -18,6 +18,7 @@ import {
   ADD_SUCCESS__COUNT,
   SEARCH_SUCCESS__COUNT,
   SEARCH_SUCCESS__GRADECHEAT,
+  UPDATE_SUCCESS__GRADE,
 } from "./action-types";
 const initUser = {
   username: "", // 用户名
@@ -64,12 +65,13 @@ const grade = (state = initGrade, action: { type: any; data: any }) => {
   switch (action.type) {
     case ADD_SUCCESS__GRADE: // data是user
       return action.data;
-
     case RESET__GRADE:
       return action.data;
     case DELETE_SUCCESS__GRADE:
       return action.data;
     case SEARCH_SUCCESS__GRADE:
+      return action.data;
+    case UPDATE_SUCCESS__GRADE:
       return action.data;
     default:
       return state;
@@ -88,6 +90,7 @@ const gradecount = (state = initGrade, action: { type: any; data: any }) => {
       return state;
   }
 };
+
 const initcooice = {
   username: "",
   password: "",

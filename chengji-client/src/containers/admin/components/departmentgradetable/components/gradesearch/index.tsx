@@ -12,20 +12,17 @@ import {
 } from "antd";
 import { connect, RootStateOrAny } from "react-redux";
 import type { ActionType } from "@ant-design/pro-table";
-import AddGrade from "../addgrade";
+
 import request from "umi-request";
-import { GradeInfo, AddGradeCount } from "@/redux/actions";
+import { GradeInfo } from "@/redux/actions";
 import ProTable from "@ant-design/pro-table";
-import DeleteGradeModel from "../deletegrademodel";
-import styles from "./index.module.less";
-import EditModel from "./components/editmodel";
-import { SyncOutlined, FormOutlined } from "@ant-design/icons";
+
+import { RedoOutlined } from "@ant-design/icons";
 const originData: any = [];
 let counttype = {
   classno: "",
   username: "",
   realName: "",
-  department: "",
   flaggrade: false,
   flagcheat: false,
   cname: "",
@@ -35,6 +32,7 @@ let counttype = {
   averagegpa: 0,
   countcredit: 0,
   averagecountcredit: 0,
+  department: "",
 };
 const EditableCell = ({
   editing,
@@ -71,19 +69,18 @@ const EditableCell = ({
   );
 };
 
-const GradeEdit = (props) => {
+const DepartmentGradeTableEdit = (props) => {
   const [form] = Form.useForm();
   const [data, setData] = useState(originData);
   const [editingKey, setEditingKey] = useState("");
   const actionRef = useRef<ActionType>();
   const isEditing = (record) => record.key === editingKey;
-  const { tempdata } = props;
+  const { clickdata } = props;
   const edit = (record) => {
     form.setFieldsValue({
-      grade: "",
-      credit: "",
-      gpa: "",
-      cheat: "",
+      name: "",
+      age: "",
+      address: "",
       ...record,
     });
     setEditingKey(record.key);
@@ -93,7 +90,7 @@ const GradeEdit = (props) => {
     setEditingKey("");
   };
   useEffect(() => {
-    props.GradeInfo(tempdata);
+    props.GradeInfo(clickdata);
   }, []);
 
   const formatedata = props.grade;
@@ -102,15 +99,15 @@ const GradeEdit = (props) => {
   originData.length = 0;
   if (JSON.stringify(formatedata) !== "{}") {
     for (let i = originData.length; i < temp; i++) {
-      if (tempdata.username === formatedata[i].username) {
+      if (clickdata.username === formatedata[i].username) {
         originData.push({
           key: i + 1,
           username: formatedata[i].username,
           realName: formatedata[i].realName,
+          department: formatedata[i].department,
           cname: formatedata[i].cname,
           classno: formatedata[i].classno,
           courseNo: formatedata[i].courseNo,
-          department: formatedata[i].department,
           courseName: formatedata[i].courseName,
           courseType: formatedata[i].courseType,
           grade: formatedata[i].grade,
@@ -133,7 +130,6 @@ const GradeEdit = (props) => {
         const item = newData[index];
         newData.splice(index, 1, { ...item, ...row });
         setData(newData);
-
         setEditingKey("");
       } else {
         newData.push(row);
@@ -150,46 +146,55 @@ const GradeEdit = (props) => {
       title: "序号",
       dataIndex: "key",
       width: "7%",
+      editable: true,
     },
     {
       title: "学号",
       dataIndex: "username",
       width: "7%",
+      editable: true,
     },
     {
       title: "姓名",
       dataIndex: "realName",
       width: "7%",
+      editable: true,
     },
     {
       title: "学院",
       dataIndex: "department",
       width: "7%",
+      editable: true,
     },
     {
       title: "专业名",
       dataIndex: "cname",
       width: "7%",
+      editable: true,
     },
     {
       title: "班级号",
       dataIndex: "classno",
       width: "7%",
+      editable: true,
     },
     {
       title: "课程号",
       dataIndex: "courseNo",
       width: "7%",
+      editable: true,
     },
     {
       title: "课程名称",
       dataIndex: "courseName",
       width: "7%",
+      editable: true,
     },
     {
       title: "课程类型",
       dataIndex: "courseType",
       width: "7%",
+      editable: true,
     },
     {
       title: "成绩",
@@ -207,58 +212,13 @@ const GradeEdit = (props) => {
       title: "绩点",
       dataIndex: "gpa",
       width: "7%",
+      editable: true,
     },
     {
       title: "作弊",
       dataIndex: "cheat",
       width: "7%",
-    },
-    {
-      title: "操作",
-      dataIndex: "operation",
-      width: "7%",
-      align: "center",
-      render: (_, record) => {
-        const editable = isEditing(record);
-        return editable ? (
-          <span>
-            <a
-              href="javascript:;"
-              onClick={() => save(record.key)}
-              style={{
-                marginRight: 8,
-              }}
-            >
-              保存
-            </a>
-            <Popconfirm title="确定取消?" onConfirm={cancel}>
-              <a>取消</a>
-            </Popconfirm>
-          </span>
-        ) : (
-          <div>
-            {record.flagcheat === true ? (
-              <Typography.Link disabled>
-                <Button
-                  type="link"
-                  style={{ color: "#ccc" }}
-                  icon={<FormOutlined />}
-                >
-                  编辑
-                </Button>
-              </Typography.Link>
-            ) : (
-              <Typography.Link disabled={editingKey !== ""}>
-                <EditModel record={record}></EditModel>
-              </Typography.Link>
-            )}
-
-            <Typography.Link>
-              <DeleteGradeModel clickdata={record}></DeleteGradeModel>
-            </Typography.Link>
-          </div>
-        );
-      },
+      editable: true,
     },
   ];
   const mergedColumns: any = columns.map((col) => {
@@ -270,7 +230,7 @@ const GradeEdit = (props) => {
       ...col,
       onCell: (record) => ({
         record,
-        inputType: col.dataIndex === "grade" ? "number" : "text",
+        inputType: col.dataIndex === "age" ? "number" : "text",
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
@@ -326,13 +286,14 @@ const GradeEdit = (props) => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-
+  const refresh = () => {
+    window.history.go(0);
+  };
   const handleOk = () => {
     props.AddGradeCount(counttype);
 
     window.history.go(0);
   };
-
   return (
     <Form form={form} component={false}>
       <ProTable
@@ -356,24 +317,19 @@ const GradeEdit = (props) => {
         )}
         bordered
         toolBarRender={() => [
-          <AddGrade tempdata={tempdata}></AddGrade>,
-          <Popconfirm
-            title="同步信息"
-            onConfirm={handleOk}
-            onCancel={handleCancel}
-          >
-            <Tooltip title="同步">
-              <Button
-                style={{ border: 0 }}
-                shape="circle"
-                icon={<SyncOutlined />}
-              ></Button>
-            </Tooltip>
-          </Popconfirm>,
+          <Tooltip title="刷新">
+            <Button
+              style={{ border: 0 }}
+              shape="circle"
+              onClick={refresh}
+              icon={<RedoOutlined />}
+            />
+          </Tooltip>,
         ]}
         dataSource={[...data]}
         columns={mergedColumns}
-        headerTitle="学生成绩信息表"
+        rowClassName="editable-row"
+        headerTitle="成绩详情表"
         pagination={{
           onChange: cancel,
         }}
@@ -386,5 +342,5 @@ export default connect(
   // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
   (state: RootStateOrAny) => ({ grade: state.grade }),
   //  函数确定
-  { GradeInfo, AddGradeCount }
-)(GradeEdit);
+  { GradeInfo }
+)(DepartmentGradeTableEdit);

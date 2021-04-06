@@ -3,12 +3,13 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
+  CalendarOutlined,
+  MediumOutlined,
+  PoweroffOutlined,
 } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import "./index.less";
-
+import TeacherPerson from "../person";
 import { TeacherUserid } from "@/redux/actions";
 import Cookies from "js-cookie";
 import GradeTable from "../gradetable";
@@ -51,7 +52,7 @@ function Teachers(props) {
       >
         <div className="logo">
           {props.cooikeuserid[0]?.realName &&
-            props.cooikeuserid[0].realName + "老师你好！"}
+            props.cooikeuserid[0].realName + "你好！"}
         </div>
         <Menu
           selectable
@@ -61,13 +62,13 @@ function Teachers(props) {
           selectedKeys={[clickkey]}
           defaultSelectedKeys={[clickkey]}
         >
-          <Menu.Item key="1" icon={<UserOutlined />}>
+          <Menu.Item key="1" icon={<MediumOutlined />}>
             成绩管理
           </Menu.Item>
-          <Menu.Item key="2" icon={<VideoCameraOutlined />}>
+          <Menu.Item key="2" icon={<CalendarOutlined />}>
             成绩表
           </Menu.Item>
-          <Menu.Item key="3" icon={<UploadOutlined />}>
+          <Menu.Item key="3" icon={<UserOutlined />}>
             个人信息
           </Menu.Item>
         </Menu>
@@ -89,7 +90,7 @@ function Teachers(props) {
               onClick: toggle,
             }
           )}
-          <Button onClick={btnclearcookie} href="/login" danger>
+          <Button icon={<PoweroffOutlined />} href="/login" danger>
             退出
           </Button>
         </Header>
@@ -103,6 +104,7 @@ function Teachers(props) {
         >
           {clickkey === "1" && <StuInfo></StuInfo>}
           {clickkey === "2" && <GradeTable></GradeTable>}
+          {clickkey === "3" && <TeacherPerson></TeacherPerson>}
         </Content>
       </Layout>
     </Layout>

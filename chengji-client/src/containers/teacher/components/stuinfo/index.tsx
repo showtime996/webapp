@@ -117,6 +117,7 @@ const StuInfo = (props) => {
         key: i + 1,
         username: formatedata[i].username,
         realName: formatedata[i].realName,
+        department: formatedata[i].department,
         cname: formatedata[i].cname,
         classno: formatedata[i].classno,
         sex: formatedata[i].sex,
@@ -145,7 +146,7 @@ const StuInfo = (props) => {
   const [tempsearch, settempsearch]: any = useState([]);
 
   const [tempdata, settempdata] = useState();
-  const columns = [
+  const columns: any = [
     {
       title: "序号",
       dataIndex: "key",
@@ -177,6 +178,11 @@ const StuInfo = (props) => {
       width: "7%",
     },
     {
+      title: "学院",
+      dataIndex: "department",
+      width: "7%",
+    },
+    {
       title: "专业名",
       dataIndex: "cname",
       width: "7%",
@@ -197,6 +203,7 @@ const StuInfo = (props) => {
       title: "操作",
       dataIndex: "operation",
       width: "7%",
+      align: "center",
       render: (_, record) => {
         return (
           <div>
@@ -237,6 +244,7 @@ const StuInfo = (props) => {
         username: search[i].username,
         realName: search[i].realName,
         cname: search[i].cname,
+        department: search[i].department,
         classno: search[i].classno,
         sex: search[i].sex,
         phone: search[i].phone,

@@ -8,7 +8,7 @@ import styles from "@/assets/css/global.module.less";
 import GlobalTab from "@/components/tabNav";
 import selfStyles from "./index.module.less";
 import { updateStudent } from "../../redux/actions";
-
+import { LikeOutlined } from "@ant-design/icons";
 function StudentInfo(props: {
   updateStudent: (arg0: {
     realName: string;
@@ -376,7 +376,7 @@ function StudentInfo(props: {
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" icon={<LikeOutlined />} htmlType="submit">
               信息提交
             </Button>
           </Form.Item>
