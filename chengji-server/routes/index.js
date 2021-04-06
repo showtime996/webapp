@@ -434,72 +434,29 @@ router.post("/gradecountinfo", function (req, res) {
 
 router.post("/searchgradecheat", function (req, res) {
   const grade = req.body; // 没有_id
-  if (grade.classno && Boolean(grade.flaggrade) && Boolean(grade.flagcheat)) {
-    GradeTable.find(
-      {
-        classno: grade.classno,
-        flagcheat: Boolean(grade.flagcheat),
-        flaggrade: Boolean(grade.flaggrade),
-      },
-      function (error, data) {
-        res.status = 200;
-        res.send({ code: 0, data: data });
-      }
-    ).exec();
-  } else if (Boolean(grade.flagcheat)) {
-    GradeTable.find(
-      {
-        flagcheat: Boolean(grade.flagcheat),
-      },
-      function (error, data) {
-        res.status = 200;
-        res.send({ code: 0, data: data });
-      }
-    ).exec();
-  } else if (Boolean(grade.flaggrade)) {
-    GradeTable.find(
-      {
-        flaggrade: Boolean(grade.flaggrade),
-      },
-      function (error, data) {
-        res.status = 200;
-        res.send({ code: 0, data: data });
-      }
-    ).exec();
-  } else if (grade.classno && Boolean(grade.flagcheat)) {
-    GradeTable.find(
-      {
-        classno: grade.classno,
-        flagcheat: Boolean(grade.flagcheat),
-      },
-      function (error, data) {
-        res.status = 200;
-        res.send({ code: 0, data: data });
-      }
-    ).exec();
-  } else if (grade.classno && Boolean(grade.flaggrade)) {
-    GradeTable.find(
-      {
-        classno: grade.classno,
 
-        flaggrade: Boolean(grade.flaggrade),
-      },
-      function (error, data) {
-        res.status = 200;
-        res.send({ code: 0, data: data });
-      }
-    ).exec();
-  } else if (grade.classno) {
-    GradeTable.find(
-      {
-        classno: grade.classno,
-      },
-      function (error, data) {
-        res.status = 200;
-        res.send({ code: 0, data: data });
-      }
-    ).exec();
-  }
+  GradeTable.find(
+    {
+      $or: [
+        { classno: grade.classno },
+        { classno: grade.classno, flaggrade: Boolean(grade.flaggrade) },
+        {
+          classno: grade.classno,
+          flagcheat: Boolean(grade.flagcheat),
+        },
+        {
+          classno: grade.classno,
+
+          flaggrade: Boolean(grade.flaggrade),
+          flagcheat: Boolean(grade.flagcheat),
+        },
+      ],
+    },
+    function (error, data) {
+      res.status = 200;
+      res.send({ code: 0, data: data });
+    }
+  );
 });
 
 router.post("/updategrade", function (req, res) {
@@ -540,12 +497,27 @@ router.post("/adminuserid", function (req, res) {
 });
 router.post("/admingradecountinfo", function (req, res) {
   const grade = req.body; // 没有_id
-  console.log("zzzzz", grade);
-  
+
   GradeTable.find({ department: grade.department }, function (error, newuser) {
     res.status = 200;
     res.send({ code: 0, data: newuser });
-    console.log("wwwwww", newuser);
+  }).exec();
+});
+router.post("/studentuserid", function (req, res) {
+  const user = req.body; // 没有_id
+  console.log("user", user);
+  StudentModel.find({ _id: user.id }, function (error, data) {
+    res.status = 200;
+    res.send({ code: 0, data: data });
+    console.log("data", data);
+  }).exec();
+});
+router.post("/studentgradecountinfo", function (req, res) {
+  const grade = req.body; // 没有_id
+
+  GradeTable.find({ username: grade.username }, function (error, newuser) {
+    res.status = 200;
+    res.send({ code: 0, data: newuser });
   }).exec();
 });
 module.exports = router;

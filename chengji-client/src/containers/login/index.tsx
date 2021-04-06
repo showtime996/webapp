@@ -12,6 +12,14 @@ import { Redirect } from "react-router-dom";
 // 通过异步action实现交互后台的数据 普通的ui不能得使用函数方式
 import { connect, RootStateOrAny } from "react-redux";
 import { adminLogin, studentLogin, teacherLogin } from "../../redux/actions";
+import { Carousel } from "antd";
+const contentStyle: any = {
+  height: "100%",
+  color: "#fff",
+  lineHeight: "100%",
+  textAlign: "center",
+  background: "#364d79",
+};
 function Login(props: any) {
   const [state, setState] = useState({
     username: "", // 用户名
@@ -41,91 +49,354 @@ function Login(props: any) {
   if (redirectTo) {
     return <Redirect to={redirectTo} />;
   }
+
   return (
     <div>
       {/* 头部部分 */}
-      <Header></Header>
-      {/* 中间主体部分 */}
-      <div className={bj.logo}>
-        <Form
-          name="normal_login"
-          className="login-form"
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
-        >
-          <Form.Item>
-            {msg ? <span className="errorMsg">{msg}</span> : null}
-            <div className="login-form-title">用户登入</div>
-          </Form.Item>
+      {/* <Header></Header> */}
+      <Carousel autoplay effect="fade">
+        <div>
+          <h3 style={contentStyle}>
+            <div className={bj.logo}>
+              <Form
+                name="normal_login"
+                className="login-form"
+                initialValues={{
+                  remember: true,
+                }}
+                onFinish={onFinish}
+              >
+                <Form.Item>
+                  {msg ? <span className="errorMsg">{msg}</span> : null}
+                  <div className="login-form-title">用户登入</div>
+                </Form.Item>
 
-          <Form.Item
-            name="username"
-            rules={[
-              {
-                required: true,
-                message: "请输入用户名!",
-              },
-            ]}
-          >
-            <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              // onChange={val => { this.handleChange('username', val) }}
-              placeholder="学号/职工号/教工号"
-            />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "请输入密码!",
-              },
-            ]}
-          >
-            <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="密码"
-              // onChange={val => { this.handleChange('password', val) }}
-            />
-          </Form.Item>
+                <Form.Item
+                  name="username"
+                  rules={[
+                    {
+                      required: true,
+                      message: "请输入用户名!",
+                    },
+                  ]}
+                >
+                  <Input
+                    prefix={<UserOutlined className="site-form-item-icon" />}
+                    // onChange={val => { this.handleChange('username', val) }}
+                    placeholder="学号/职工号/教工号"
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: "请输入密码!",
+                    },
+                  ]}
+                >
+                  <Input
+                    prefix={<LockOutlined className="site-form-item-icon" />}
+                    type="password"
+                    placeholder="密码"
+                    // onChange={val => { this.handleChange('password', val) }}
+                  />
+                </Form.Item>
 
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-            >
-              登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;入
-            </Button>
+                <Form.Item>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    className="login-form-button"
+                  >
+                    登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;入
+                  </Button>
 
-            <p
-              className="login-form-registerLogin"
-              style={{ marginTop: "10px" }}
-            >
-              教务员没有账号？ <a onClick={toRegister}>请点击注册!</a>
-            </p>
+                  <p
+                    className="login-form-registerLogin"
+                    style={{ marginTop: "10px" }}
+                  >
+                    教务员没有账号？ <a onClick={toRegister}>请点击注册!</a>
+                  </p>
 
-            <div
-              className="login-form-registerLogin"
-              style={{
-                backgroundColor: "#CCC",
-                width: "100%",
-                height: "42px",
-                position: "absolute",
-                bottom: "-26px",
-              }}
-            >
-              <span className="login-form-registerLogin-txt">温馨提示:</span>
-              学生账号为学号,老师账号为职工号，教务员账号为教工号！
+                  <div
+                    className="login-form-registerLogin"
+                    style={{
+                      backgroundColor: "#CCC",
+                      width: "100%",
+                      height: "42px",
+                      position: "absolute",
+                      bottom: "-26px",
+                    }}
+                  >
+                    <span className="login-form-registerLogin-txt">
+                      温馨提示:
+                    </span>
+                    学生账号为学号,老师账号为职工号，教务员账号为教工号！
+                  </div>
+                </Form.Item>
+              </Form>
             </div>
-          </Form.Item>
-        </Form>
-      </div>
+          </h3>
+        </div>
+
+        <div>
+          <h3 style={contentStyle}>
+            <div className={bj.logo1}>
+              <Form
+                name="normal_login"
+                className="login-form"
+                initialValues={{
+                  remember: true,
+                }}
+                onFinish={onFinish}
+              >
+                <Form.Item>
+                  {msg ? <span className="errorMsg">{msg}</span> : null}
+                  <div className="login-form-title">用户登入</div>
+                </Form.Item>
+
+                <Form.Item
+                  name="username"
+                  rules={[
+                    {
+                      required: true,
+                      message: "请输入用户名!",
+                    },
+                  ]}
+                >
+                  <Input
+                    prefix={<UserOutlined className="site-form-item-icon" />}
+                    // onChange={val => { this.handleChange('username', val) }}
+                    placeholder="学号/职工号/教工号"
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: "请输入密码!",
+                    },
+                  ]}
+                >
+                  <Input
+                    prefix={<LockOutlined className="site-form-item-icon" />}
+                    type="password"
+                    placeholder="密码"
+                    // onChange={val => { this.handleChange('password', val) }}
+                  />
+                </Form.Item>
+
+                <Form.Item>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    className="login-form-button"
+                  >
+                    登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;入
+                  </Button>
+
+                  <p
+                    className="login-form-registerLogin"
+                    style={{ marginTop: "10px" }}
+                  >
+                    教务员没有账号？ <a onClick={toRegister}>请点击注册!</a>
+                  </p>
+
+                  <div
+                    className="login-form-registerLogin"
+                    style={{
+                      backgroundColor: "#CCC",
+                      width: "100%",
+                      height: "42px",
+                      position: "absolute",
+                      bottom: "-26px",
+                    }}
+                  >
+                    <span className="login-form-registerLogin-txt">
+                      温馨提示:
+                    </span>
+                    学生账号为学号,老师账号为职工号，教务员账号为教工号！
+                  </div>
+                </Form.Item>
+              </Form>
+            </div>
+          </h3>
+        </div>
+        <div>
+          <h3 style={contentStyle}>
+            <div className={bj.logo2}>
+              <Form
+                name="normal_login"
+                className="login-form"
+                initialValues={{
+                  remember: true,
+                }}
+                onFinish={onFinish}
+              >
+                <Form.Item>
+                  {msg ? <span className="errorMsg">{msg}</span> : null}
+                  <div className="login-form-title">用户登入</div>
+                </Form.Item>
+
+                <Form.Item
+                  name="username"
+                  rules={[
+                    {
+                      required: true,
+                      message: "请输入用户名!",
+                    },
+                  ]}
+                >
+                  <Input
+                    prefix={<UserOutlined className="site-form-item-icon" />}
+                    // onChange={val => { this.handleChange('username', val) }}
+                    placeholder="学号/职工号/教工号"
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: "请输入密码!",
+                    },
+                  ]}
+                >
+                  <Input
+                    prefix={<LockOutlined className="site-form-item-icon" />}
+                    type="password"
+                    placeholder="密码"
+                    // onChange={val => { this.handleChange('password', val) }}
+                  />
+                </Form.Item>
+
+                <Form.Item>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    className="login-form-button"
+                  >
+                    登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;入
+                  </Button>
+
+                  <p
+                    className="login-form-registerLogin"
+                    style={{ marginTop: "10px" }}
+                  >
+                    教务员没有账号？ <a onClick={toRegister}>请点击注册!</a>
+                  </p>
+
+                  <div
+                    className="login-form-registerLogin"
+                    style={{
+                      backgroundColor: "#CCC",
+                      width: "100%",
+                      height: "42px",
+                      position: "absolute",
+                      bottom: "-26px",
+                    }}
+                  >
+                    <span className="login-form-registerLogin-txt">
+                      温馨提示:
+                    </span>
+                    学生账号为学号,老师账号为职工号，教务员账号为教工号！
+                  </div>
+                </Form.Item>
+              </Form>
+            </div>
+          </h3>
+        </div>
+        <div>
+          <h3 style={contentStyle}>
+            <div className={bj.logo3}>
+              <Form
+                name="normal_login"
+                className="login-form"
+                initialValues={{
+                  remember: true,
+                }}
+                onFinish={onFinish}
+              >
+                <Form.Item>
+                  {msg ? <span className="errorMsg">{msg}</span> : null}
+                  <div className="login-form-title">用户登入</div>
+                </Form.Item>
+
+                <Form.Item
+                  name="username"
+                  rules={[
+                    {
+                      required: true,
+                      message: "请输入用户名!",
+                    },
+                  ]}
+                >
+                  <Input
+                    prefix={<UserOutlined className="site-form-item-icon" />}
+                    // onChange={val => { this.handleChange('username', val) }}
+                    placeholder="学号/职工号/教工号"
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: "请输入密码!",
+                    },
+                  ]}
+                >
+                  <Input
+                    prefix={<LockOutlined className="site-form-item-icon" />}
+                    type="password"
+                    placeholder="密码"
+                    // onChange={val => { this.handleChange('password', val) }}
+                  />
+                </Form.Item>
+
+                <Form.Item>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    className="login-form-button"
+                  >
+                    登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;入
+                  </Button>
+
+                  <p
+                    className="login-form-registerLogin"
+                    style={{ marginTop: "10px" }}
+                  >
+                    教务员没有账号？ <a onClick={toRegister}>请点击注册!</a>
+                  </p>
+
+                  <div
+                    className="login-form-registerLogin"
+                    style={{
+                      backgroundColor: "#CCC",
+                      width: "100%",
+                      height: "42px",
+                      position: "absolute",
+                      bottom: "-26px",
+                    }}
+                  >
+                    <span className="login-form-registerLogin-txt">
+                      温馨提示:
+                    </span>
+                    学生账号为学号,老师账号为职工号，教务员账号为教工号！
+                  </div>
+                </Form.Item>
+              </Form>
+            </div>
+          </h3>
+        </div>
+      </Carousel>
+      {/* 中间主体部分 */}
+
       {/* 底部部分 */}
-      <Fonter></Fonter>
+      {/* <Fonter></Fonter> */}
     </div>
   );
 }

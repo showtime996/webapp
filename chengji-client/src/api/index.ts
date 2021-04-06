@@ -51,3 +51,7 @@ export const reqEditGrade = (grade: any) => ajax("/updategrade", grade, "POST");
 export const reqAdminUserid = (user: any) => ajax("/adminuserid", user, "POST");
 export const reqAdminGradeCountInfo = (grade: any) =>
   ajax("/admingradecountinfo", grade, "POST");
+export const reqStudentUserid = (user: any) =>
+  ajax("/studentuserid", user, "POST");
+export const reqStudentGrade= (user: any) =>
+  ajax("/studentgradecountinfo", user, "POST");

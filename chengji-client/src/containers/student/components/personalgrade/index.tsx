@@ -10,8 +10,8 @@ import {
 } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  AdminUserid,
-  getAdminGradeCountInfo,
+  StudentUserid,
+  getStuGradeCountInfo,
   getGradeCheat,
 } from "@/redux/actions";
 import { connect, RootStateOrAny } from "react-redux";
@@ -19,66 +19,71 @@ import Cookies from "js-cookie";
 import ProTable from "@ant-design/pro-table";
 import type { ActionType } from "@ant-design/pro-table";
 import { RedoOutlined, SearchOutlined } from "@ant-design/icons";
-import DepartmentEditTableModal from "./components/model";
+import PersonalEditTableModal from "./components/model";
 const originData: any = [];
 const cookicedata: any = [];
 const searchdata: any = [];
 let flag = 0;
-const DepartmentGradeTable = (props) => {
+const PersonalGradeTable = (props) => {
   const userid = Cookies.get("userid");
   useEffect(() => {
-    props.AdminUserid({ id: userid });
+    props.StudentUserid({ id: userid });
   }, []);
   const { Option } = Select;
-
   const cookiceuserid = props.cooikeuserid;
-
   const cookicelength = cookiceuserid.length;
+
   if (JSON.stringify(cookiceuserid) !== "{}") {
     for (let i = cookicedata.length; i < cookicelength; i++) {
       cookicedata.push({
         key: i + 1,
+
         username: cookiceuserid[i].username,
         password: cookiceuserid[i].password,
-        type: cookiceuserid[i].type,
         realName: cookiceuserid[i].realName,
         sex: cookiceuserid[i].sex,
         affiliation: cookiceuserid[i].affiliation,
-        age: cookiceuserid[i].age,
-        department: cookiceuserid[i].department,
-        duty: cookiceuserid[i].duty,
         IDcard: cookiceuserid[i].IDcard,
-        diploma: cookiceuserid[i].diploma,
+        cname: cookiceuserid[i].cname,
+        classno: cookiceuserid[i].classno,
+        years: cookiceuserid[i].years,
+        term: cookiceuserid[i].term,
+        department: cookiceuserid[i].department,
+        nation: cookiceuserid[i].nation,
+        region: cookiceuserid[i].region,
         phone: cookiceuserid[i].phone,
         eMail: cookiceuserid[i].eMail,
+        street: cookiceuserid[i].street,
+        address: cookiceuserid[i].address,
+        recommend: cookiceuserid[i].recommend,
       });
-      props.getAdminGradeCountInfo(cookicedata[0]);
+      props.getStuGradeCountInfo(cookicedata[0]);
     }
   }
-  useEffect(() => {}, []);
   const actionRef = useRef<ActionType>();
-
+  useEffect(() => {}, []);
   const formatedata = props.gradecount;
-  const [classnodata, setclassnodata] = useState();
+
   const temp = formatedata.length;
   originData.length = 0;
   if (JSON.stringify(formatedata) !== "{}") {
     for (let i = originData.length; i < temp; i++) {
       originData.push({
         key: i + 1,
+
         classno: formatedata[i].classno,
         username: formatedata[i].username,
         realName: formatedata[i].realName,
         cname: formatedata[i].cname,
+        department: formatedata[i].department,
         countcredit: formatedata[i].countcredit,
         averagecountcredit: formatedata[i].averagecountcredit,
-        department: formatedata[i].department,
+        flaggrade: formatedata[i].flaggrade,
+        flagcheat: formatedata[i].flagcheat,
         count: formatedata[i].count,
         average: formatedata[i].average,
         countgpa: formatedata[i].countgpa,
         averagegpa: formatedata[i].averagegpa,
-        flaggrade: formatedata[i].flaggrade,
-        flagcheat: formatedata[i].flagcheat,
       });
     }
   }
@@ -126,6 +131,7 @@ const DepartmentGradeTable = (props) => {
       dataIndex: "key",
       key: "key",
     },
+
     {
       title: "学号",
       dataIndex: "username",
@@ -135,6 +141,7 @@ const DepartmentGradeTable = (props) => {
       onFilter: (value, record) => record.username.includes(value),
       //   sorter: (a, b) => a.username.length - b.username.length,
       sortOrder: sortedInfo.columnKey === "username" && sortedInfo.order,
+      ellipsis: true,
     },
     {
       title: "姓名",
@@ -145,6 +152,7 @@ const DepartmentGradeTable = (props) => {
       onFilter: (value, record) => record.realName.includes(value),
       //   sorter: (a, b) => a.realName.length - b.realName.length,
       sortOrder: sortedInfo.columnKey === "realName" && sortedInfo.order,
+      ellipsis: true,
     },
     {
       title: "学院",
@@ -155,76 +163,29 @@ const DepartmentGradeTable = (props) => {
       onFilter: (value, record) => record.department.includes(value),
       //   sorter: (a, b) => a.cname.length - b.cname.length,
       sortOrder: sortedInfo.columnKey === "department" && sortedInfo.order,
+      ellipsis: true,
     },
     {
       title: "专业",
       dataIndex: "cname",
       key: "cname",
-      filters: [
-        {
-          text: originData[0]?.cname,
-          value: originData[0]?.cname,
-        },
-        {
-          text: originData[1]?.cname,
-          value: originData[1]?.cname,
-        },
-        {
-          text: originData[2]?.cname,
-          value: originData[2]?.cname,
-        },
-        {
-          text: originData[3]?.cname,
-          value: originData[3]?.cname,
-        },
-        {
-          text: originData[4]?.cname,
-          value: originData[4]?.cname,
-        },
-        {
-          text: originData[5]?.cname,
-          value: originData[5]?.cname,
-        },
-      ],
+
       filteredValue: filteredInfo.cname || null,
       onFilter: (value, record) => record.cname.includes(value),
       //   sorter: (a, b) => a.cname.length - b.cname.length,
       sortOrder: sortedInfo.columnKey === "cname" && sortedInfo.order,
+      ellipsis: true,
     },
     {
       title: "班级",
       dataIndex: "classno",
       key: "classno",
-      filters: [
-        {
-          text: originData[0]?.classno,
-          value: originData[0]?.classno,
-        },
-        {
-          text: originData[1]?.classno,
-          value: originData[1]?.classno,
-        },
-        {
-          text: originData[2]?.classno,
-          value: originData[2]?.classno,
-        },
-        {
-          text: originData[3]?.classno,
-          value: originData[3]?.classno,
-        },
-        {
-          text: originData[4]?.classno,
-          value: originData[4]?.classno,
-        },
-        {
-          text: originData[5]?.classno,
-          value: originData[5]?.classno,
-        },
-      ],
+
       filteredValue: filteredInfo.classno || null,
       onFilter: (value, record) => record.classno.includes(value),
       //   sorter: (a, b) => a.classno.length - b.classno.length,
       sortOrder: sortedInfo.columnKey === "classno" && sortedInfo.order,
+      ellipsis: true,
     },
 
     {
@@ -233,6 +194,7 @@ const DepartmentGradeTable = (props) => {
       key: "countcredit",
       //   sorter: (a, b) => a.countcredit - b.countcredit,
       sortOrder: sortedInfo.columnKey === "countcredit" && sortedInfo.order,
+      ellipsis: true,
     },
     {
       title: "平均学分",
@@ -241,6 +203,7 @@ const DepartmentGradeTable = (props) => {
       sorter: (a, b) => a.averagecountcredit - b.averagecountcredit,
       sortOrder:
         sortedInfo.columnKey === "averagecountcredit" && sortedInfo.order,
+      ellipsis: true,
     },
     {
       title: "总分",
@@ -248,6 +211,7 @@ const DepartmentGradeTable = (props) => {
       key: "count",
       sorter: (a, b) => a.count - b.count,
       sortOrder: sortedInfo.columnKey === "count" && sortedInfo.order,
+      ellipsis: true,
     },
     {
       title: "平均分",
@@ -255,6 +219,7 @@ const DepartmentGradeTable = (props) => {
       key: "average",
       sorter: (a, b) => a.average - b.average,
       sortOrder: sortedInfo.columnKey === "average" && sortedInfo.order,
+      ellipsis: true,
     },
     {
       title: "总绩点",
@@ -262,6 +227,7 @@ const DepartmentGradeTable = (props) => {
       key: "countgpa",
       //   sorter: (a, b) => a.countgpa - b.countgpa,
       sortOrder: sortedInfo.columnKey === "countgpa" && sortedInfo.order,
+      ellipsis: true,
     },
     {
       title: "平均绩点",
@@ -269,6 +235,7 @@ const DepartmentGradeTable = (props) => {
       key: "averagegpa",
       sorter: (a, b) => a.averagegpa - b.averagegpa,
       sortOrder: sortedInfo.columnKey === "averagegpa" && sortedInfo.order,
+      ellipsis: true,
     },
     {
       title: "操作",
@@ -277,9 +244,7 @@ const DepartmentGradeTable = (props) => {
       align: "center",
       render: (_, record) => (
         <Typography.Link>
-          <DepartmentEditTableModal
-            clickdata={record}
-          ></DepartmentEditTableModal>
+          <PersonalEditTableModal clickdata={record}></PersonalEditTableModal>
         </Typography.Link>
       ),
     },
@@ -287,6 +252,7 @@ const DepartmentGradeTable = (props) => {
 
   const onFinish = (e) => {
     props.getGradeCheat(e);
+    console.log("eeeeeeeee", e);
 
     flag = 1;
   };
@@ -302,7 +268,7 @@ const DepartmentGradeTable = (props) => {
         realName: search[i].realName,
         cname: search[i].cname,
         classno: search[i].classno,
-        department: search[i].department,
+
         countcredit: search[i].countcredit,
         averagecountcredit: search[i].averagecountcredit,
 
@@ -315,6 +281,11 @@ const DepartmentGradeTable = (props) => {
   }
   return (
     <>
+      {/* <Space style={{ marginBottom: 16 }}>
+        <Button onClick={setAgeSort}>Sort age</Button>
+        <Button onClick={clearFilters}>Clear filters</Button>
+        <Button onClick={clearAll}>Clear filters and sorters</Button>
+      </Space> */}
       <ProTable
         columns={columns}
         dataSource={flag === 0 ? [...originData] : [...searchdata]}
@@ -324,41 +295,41 @@ const DepartmentGradeTable = (props) => {
         search={false}
         bordered
         toolBarRender={() => [
-          <Form name="nest-messages" layout="inline" onFinish={onFinish}>
-            <Form.Item name={"classno"} label="班级">
-              <Select placeholder="请选择班级">
-                <Option value={originData[0]?.classno}>
-                  {originData[0]?.classno}
-                </Option>
-                <Option value={originData[0]?.cname + "2"}>
-                  {originData[0]?.cname + "2"}
-                </Option>
-                <Option value={originData[0]?.cname + "3"}>
-                  {originData[0]?.cname + "3"}
-                </Option>
-              </Select>
-            </Form.Item>
-            <Form.Item name={"flaggrade"} label="不及格">
-              <Select placeholder="请选择">
-                <Option value="不及格">不及格</Option>
-              </Select>
-            </Form.Item>
-            <Form.Item name={"flagcheat"} label="作弊">
-              <Select placeholder="请选择">
-                <Option value="作弊">作弊</Option>
-              </Select>
-            </Form.Item>
-            <Form.Item>
-              <Tooltip title="查找">
-                <Button
-                  htmlType="submit"
-                  style={{ border: 0 }}
-                  shape="circle"
-                  icon={<SearchOutlined />}
-                />
-              </Tooltip>
-            </Form.Item>
-          </Form>,
+          // <Form name="nest-messages" layout="inline" onFinish={onFinish}>
+          //   <Form.Item name={"classno"} label="班级">
+          //     <Select placeholder="请选择班级">
+          //       <Option value={cookicedata[0]?.cname + "1"}>
+          //         {cookicedata[0]?.cname + "1"}
+          //       </Option>
+          //       <Option value={cookicedata[0]?.cname + "2"}>
+          //         {cookicedata[0]?.cname + "2"}
+          //       </Option>
+          //       <Option value={cookicedata[0]?.cname + "3"}>
+          //         {cookicedata[0]?.cname + "3"}
+          //       </Option>
+          //     </Select>
+          //   </Form.Item>
+          //   <Form.Item name={"flaggrade"} label="不及格">
+          //     <Select placeholder="请选择">
+          //       <Option value="不及格">不及格</Option>
+          //     </Select>
+          //   </Form.Item>
+          //   <Form.Item name={"flagcheat"} label="作弊">
+          //     <Select placeholder="请选择">
+          //       <Option value="作弊">作弊</Option>
+          //     </Select>
+          //   </Form.Item>
+          //   <Form.Item>
+          //     <Tooltip title="查找">
+          //       <Button
+          //         htmlType="submit"
+          //         style={{ border: 0 }}
+          //         shape="circle"
+          //         icon={<SearchOutlined />}
+          //       />
+          //     </Tooltip>
+          //   </Form.Item>
+          // </Form>,
           <Tooltip title="刷新">
             <Button
               style={{ border: 0 }}
@@ -368,7 +339,7 @@ const DepartmentGradeTable = (props) => {
             />
           </Tooltip>,
         ]}
-        headerTitle="学院成绩信息表"
+        headerTitle="成绩信息表"
       />
     </>
   );
@@ -382,5 +353,5 @@ export default connect(
     gradecount: state.gradecount,
   }),
   //  函数确定
-  { AdminUserid, getAdminGradeCountInfo, getGradeCheat }
-)(DepartmentGradeTable);
+  { StudentUserid, getStuGradeCountInfo, getGradeCheat }
+)(PersonalGradeTable);

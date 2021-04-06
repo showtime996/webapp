@@ -42,6 +42,8 @@ import {
   reqEditGrade,
   reqAdminUserid,
   reqAdminGradeCountInfo,
+  reqStudentUserid,
+  reqStudentGrade,
 } from "../api/index";
 
 // 授权成功的同步action
@@ -489,6 +491,32 @@ export const AdminUserid = (user: any) => {
 export const getAdminGradeCountInfo = (grade: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqAdminGradeCountInfo(grade);
+    const result = response.data;
+    if (result.code === 0) {
+      // 更新成功: data
+      dispatch(gradecountinfo(result.data));
+    } else {
+      // 更新失败: msg
+      dispatch(resetgrade(result.msg));
+    }
+  };
+};
+export const StudentUserid = (user: any) => {
+  return async (dispatch: (arg0: { type: string; data: any }) => void) => {
+    const response = await reqStudentUserid(user);
+    const result = response.data;
+    if (result.code === 0) {
+      // 更新成功: data
+      dispatch(searchUserid(result.data));
+    } else {
+      // 更新失败: msg
+      dispatch(resetUser(result.msg));
+    }
+  };
+};
+export const getStuGradeCountInfo = (grade: any) => {
+  return async (dispatch: (arg0: { type: string; data: any }) => void) => {
+    const response = await reqStudentGrade(grade);
     const result = response.data;
     if (result.code === 0) {
       // 更新成功: data

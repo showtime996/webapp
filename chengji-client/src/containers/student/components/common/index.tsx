@@ -1,11 +1,23 @@
 import { Layout, Menu, Breadcrumb, Button } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./index.less";
+import { StudentUserid } from "@/redux/actions";
 import Cookies from "js-cookie";
-export default function CommonLayout() {
+import PersonalGradeTable from "../personalgrade";
+import { connect, RootStateOrAny } from "react-redux";
+import StudentPerson from "../personanl";
+function PersonalCommonL(props) {
   const { Header, Footer, Sider, Content } = Layout;
   const btnclearcookie = () => {
     Cookies.remove("userid");
+  };
+  const userid = Cookies.get("userid");
+  useEffect(() => {
+    props.StudentUserid({ id: userid });
+  }, []);
+  const [state, setState] = useState("1");
+  const clickkey = (e) => {
+    setState(e.key);
   };
   return (
     <Layout className="layout">
@@ -17,28 +29,42 @@ export default function CommonLayout() {
           backgroundColor: "#fff",
         }}
       >
-        <div className="logo" />
-
-        <Menu theme="light" mode="horizontal" defaultSelectedKeys={["2"]}>
-          <Menu.Item key="1">nav 1</Menu.Item>
-          <Menu.Item key="2">nav 2</Menu.Item>
-          <Menu.Item key="3">nav 3</Menu.Item>
+        <div>
+          {props.cooikeuserid[0]?.realName &&
+            props.cooikeuserid[0].realName + "你好！"}
+        </div>
+        <Menu
+          theme="light"
+          onClick={clickkey}
+          mode="horizontal"
+          defaultValue={state}
+          selectedKeys={[state]}
+          defaultSelectedKeys={[state]}
+        >
+          <Menu.Item key="1">个人成绩表</Menu.Item>
+          <Menu.Item key="2">个人信息</Menu.Item>
         </Menu>
         <Button onClick={btnclearcookie} href="/login" danger>
           退出
         </Button>
       </Header>
-      <Content style={{ padding: "0 50px" }}>
-        <Breadcrumb style={{ margin: "16px 0" }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb>
-        <div className="site-layout-content">Content</div>
+      <Content style={{ padding: "0 50px", minHeight: 590 }}>
+        <Breadcrumb style={{ margin: "16px 0" }}></Breadcrumb>
+        {state === "1" && <PersonalGradeTable></PersonalGradeTable>}
+        {state === "2" && <StudentPerson></StudentPerson>}
       </Content>
+
       <Footer style={{ textAlign: "center" }}>
-        Ant Design ©2018 Created by Ant UED
+        成绩管理系统 ©2021 Created by 许浩然
       </Footer>
     </Layout>
   );
 }
+export default connect(
+  // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
+  (state: RootStateOrAny) => ({
+    cooikeuserid: state.cooikeuserid,
+  }),
+  //  函数确定
+  { StudentUserid }
+)(PersonalCommonL);
