@@ -132,9 +132,9 @@ function AdminInfo(props: {
             name={"department"}
             label="学院"
             hasFeedback
-            rules={[{ required: true, message: "请输入你负责的学院" }]}
+            rules={[{ required: true, message: "请选择学院" }]}
           >
-            <Select placeholder="请输入你负责的学院">
+            <Select placeholder="请选择学院">
               <Option value="电子信息与工程学院">电子信息与工程学院</Option>
               <Option value="建筑工程学院">建筑工程学院</Option>
               <Option value="机械工程学院">机械工程学院</Option>

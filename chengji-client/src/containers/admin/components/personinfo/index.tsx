@@ -109,45 +109,45 @@ function AdminPerson(props) {
           validateMessages={validateMessages}
         >
           <Form.Item name={"username"} label="学号">
-            {cookicedata[0].username}
+            {cookicedata[0]?.username}
           </Form.Item>
           <Form.Item name={"realName"} label="真实姓名">
-            {cookicedata[0].realName}
+            {cookicedata[0]?.realName}
           </Form.Item>
           <Form.Item name={"sex"} label=" 性别：">
-            {cookicedata[0].sex}
+            {cookicedata[0]?.sex}
           </Form.Item>
           <Form.Item name={"password"} label="密码">
-            <Input defaultValue={cookicedata[0].password} />
+            <Input defaultValue={cookicedata[0]?.password} />
           </Form.Item>
           <Form.Item name={"affiliation"} label="政治面貌">
-            {cookicedata[0].affiliation === "DY" ? "党员" : "群众"}
+            {cookicedata[0]?.affiliation === "DY" ? "党员" : "群众"}
           </Form.Item>
           <Form.Item name={"age"} label="年龄">
-            {cookicedata[0].age}
+            {cookicedata[0]?.age}
           </Form.Item>
 
           <Form.Item name={"department"} label="学院" hasFeedback>
-            {cookicedata[0].department}
+            {cookicedata[0]?.department}
           </Form.Item>
           <Form.Item name={"diploma"} label="学历" hasFeedback>
-            {cookicedata[0].diploma}
+            {cookicedata[0]?.diploma}
           </Form.Item>
 
           <Form.Item name={"IDcard"} label="身份证号码">
-            {cookicedata[0].IDcard}
+            {cookicedata[0]?.IDcard}
           </Form.Item>
 
           <Form.Item name={"phone"} label="手机号码">
-            <Input defaultValue={cookicedata[0].phone} />
+            <Input defaultValue={cookicedata[0]?.phone} />
           </Form.Item>
           <Form.Item name={"eMail"} label="Email">
-            <Input defaultValue={cookicedata[0].eMail} />
+            <Input defaultValue={cookicedata[0]?.eMail} />
           </Form.Item>
 
           <Form.Item name={"duty"} label="职责">
             <Input.TextArea
-              defaultValue={cookicedata[0].duty}
+              defaultValue={cookicedata[0]?.duty}
               style={{ resize: "none" }}
             />
           </Form.Item>

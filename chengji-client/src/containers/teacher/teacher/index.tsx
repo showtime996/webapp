@@ -5,31 +5,26 @@ import {
   UserOutlined,
   CalendarOutlined,
   MediumOutlined,
-  MailOutlined,
   PoweroffOutlined,
 } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import "./index.less";
-import DepartmentGradeTable from "../departmentgradetable";
-import { AdminUserid } from "@/redux/actions";
+import TeacherPerson from "../components/person";
+import { TeacherUserid } from "@/redux/actions";
 import Cookies from "js-cookie";
-import AdminPerson from "../personinfo";
+import GradeTable from "../components/gradetable";
+import StuInfo from "@/containers/teacher/components/stuinfo";
 import { connect, RootStateOrAny } from "react-redux";
-import SubMenu from "antd/lib/menu/SubMenu";
-import Studentinfomation from "../addstudent";
-import Teacherinfomation from "../addteacher";
 const { Header, Sider, Content, Footer } = Layout;
 const cookicedata: any = [];
-function Administer(props) {
-  const userid = Cookies.get("userid");
-  useEffect(() => {
-    props.AdminUserid({ id: userid });
-  }, []);
-
+function Teachers(props) {
   const [state, setState] = useState({
     collapsed: false,
   });
   const [clickkey, setclickkey] = useState("1");
+  // useEffect(() => {
+  //   props.getUser();
+  // }, [StuInfo]);
 
   const toggle = () => {
     setState({
@@ -42,6 +37,10 @@ function Administer(props) {
   const menuclick = (e) => {
     setclickkey(e.key);
   };
+  const userid = Cookies.get("userid");
+  useEffect(() => {
+    props.TeacherUserid({ id: userid });
+  }, []);
 
   return (
     <Layout>
@@ -63,16 +62,15 @@ function Administer(props) {
           selectedKeys={[clickkey]}
           defaultSelectedKeys={[clickkey]}
         >
-          <Menu.Item key="1" icon={<CalendarOutlined />}>
-            学院成绩表
+          <Menu.Item key="1" icon={<MediumOutlined />}>
+            成绩管理
           </Menu.Item>
-          <Menu.Item key="2" icon={<UserOutlined />}>
+          <Menu.Item key="2" icon={<CalendarOutlined />}>
+            成绩表
+          </Menu.Item>
+          <Menu.Item key="3" icon={<UserOutlined />}>
             个人信息
           </Menu.Item>
-          <SubMenu key="sub1" icon={<MailOutlined />} title="账号管理">
-            <Menu.Item key="3">学生信息</Menu.Item>
-            <Menu.Item key="4">教师信息</Menu.Item>
-          </SubMenu>
         </Menu>
       </Sider>
       <Layout className="site-layout">
@@ -104,10 +102,9 @@ function Administer(props) {
             minHeight: 618,
           }}
         >
-          {clickkey === "1" && <DepartmentGradeTable></DepartmentGradeTable>}
-          {clickkey === "2" && <AdminPerson></AdminPerson>}
-          {clickkey === "3" && <Studentinfomation></Studentinfomation>}
-          {clickkey === "4" && <Teacherinfomation></Teacherinfomation>}
+          {clickkey === "1" && <StuInfo></StuInfo>}
+          {clickkey === "2" && <GradeTable></GradeTable>}
+          {clickkey === "3" && <TeacherPerson></TeacherPerson>}
         </Content>
       </Layout>
     </Layout>
@@ -120,5 +117,5 @@ export default connect(
     cooikeuserid: state.cooikeuserid,
   }),
   //  函数确定
-  { AdminUserid }
-)(Administer);
+  { TeacherUserid }
+)(Teachers);

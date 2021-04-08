@@ -13,13 +13,13 @@ import {
 import { SearchOutlined, RedoOutlined } from "@ant-design/icons";
 import Cookies from "js-cookie";
 import { connect, RootStateOrAny } from "react-redux";
-import { Searchstu, TeacherUserid, InfoStu } from "@/redux/actions";
-import DeleteStudentModel from "../deletestudentmodel";
+import { AdminSearchtea, AdminUserid, addTeacher } from "@/redux/actions";
+import DeleteTeacherModel from "./components/deleteteacher";
 import ProTable from "@ant-design/pro-table";
 import type { ActionType } from "@ant-design/pro-table";
 
 import request from "umi-request";
-import EditModal from "../modal";
+import EditTeacherModal from "./components/modal";
 import {
   RequestData,
   UseFetchDataAction,
@@ -64,7 +64,7 @@ const EditableCell = ({
   );
 };
 
-const StuInfo = (props) => {
+const Teacherinfomation = (props) => {
   const actionRef = useRef<ActionType>();
   const [form] = Form.useForm();
   const [data, setData]: any[] = useState(originData);
@@ -73,7 +73,7 @@ const StuInfo = (props) => {
   const isEditing = (record) => record.key === editingKey;
   const userid = Cookies.get("userid");
   useEffect(() => {
-    props.TeacherUserid({ id: userid });
+    props.AdminUserid({ id: userid });
   }, []);
   const cookiceuserid = props.cooikeuserid;
   const cookicelength = cookiceuserid.length;
@@ -86,44 +86,51 @@ const StuInfo = (props) => {
         password: cookiceuserid[i].password,
         type: cookiceuserid[i].type,
         realName: cookiceuserid[i].realName,
-        cname: cookiceuserid[i].cname,
 
         sex: cookiceuserid[i].sex,
         department: cookiceuserid[i].department,
-        affiliation: cookiceuserid[i].affiliation,
+
         age: cookiceuserid[i].age,
         duty: cookiceuserid[i].duty,
         IDcard: cookiceuserid[i].IDcard,
-        nation: cookiceuserid[i].nation,
-        region: cookiceuserid[i].region,
+
         phone: cookiceuserid[i].phone,
         eMail: cookiceuserid[i].eMail,
-        street: cookiceuserid[i].street,
+
         diploma: cookiceuserid[i].diploma,
       });
     }
   }
   useEffect(() => {
-    props.InfoStu({ id: userid });
+    props.addTeacher({ id: userid });
   }, []);
 
-  const formatedata = props.user;
+  const formatedata = props.stuSearch;
   const { Option } = Select;
   const temp = formatedata.length;
 
+  console.log("props", formatedata);
   if (JSON.stringify(formatedata) !== "{}") {
     for (let i = originData.length; i < temp; i++) {
       originData.push({
         key: i + 1,
         username: formatedata[i].username,
+        password: formatedata[i].password,
+        type: formatedata[i].type,
         realName: formatedata[i].realName,
-        department: formatedata[i].department,
         cname: formatedata[i].cname,
-        classno: formatedata[i].classno,
         sex: formatedata[i].sex,
+        department: formatedata[i].department,
+        affiliation: formatedata[i].affiliation,
+        age: formatedata[i].age,
+        duty: formatedata[i].duty,
+        IDcard: formatedata[i].IDcard,
+        nation: formatedata[i].nation,
+        region: formatedata[i].region,
         phone: formatedata[i].phone,
-        years: formatedata[i].years,
-        term: formatedata[i].term,
+        eMail: formatedata[i].eMail,
+        street: formatedata[i].street,
+        diploma: formatedata[i].diploma,
       });
     }
   }
@@ -152,16 +159,7 @@ const StuInfo = (props) => {
       dataIndex: "key",
       width: "7%",
     },
-    {
-      title: "学年",
-      dataIndex: "years",
-      width: "7%",
-    },
-    {
-      title: "学期",
-      dataIndex: "term",
-      width: "7%",
-    },
+
     {
       title: "学号",
       dataIndex: "username",
@@ -189,16 +187,15 @@ const StuInfo = (props) => {
     },
 
     {
-      title: "班级",
-      dataIndex: "classno",
-      width: "7%",
-    },
-    {
       title: "电话",
       dataIndex: "phone",
       width: "7%",
     },
-
+    {
+      title: "邮件",
+      dataIndex: "eMail",
+      width: "7%",
+    },
     {
       title: "操作",
       dataIndex: "operation",
@@ -206,30 +203,20 @@ const StuInfo = (props) => {
       align: "center",
       render: (_, record) => {
         return (
-          <div>
-            <Typography.Link
-              disabled={editingKey !== ""}
-              onClick={() => {
-                settempdata(record);
-              }}
-            >
-              <EditModal tempdata={tempdata}></EditModal>
-            </Typography.Link>
-            <Typography.Link
-              onClick={() => {
-                settempdata(record);
-              }}
-            >
-              <DeleteStudentModel tempdata={tempdata}></DeleteStudentModel>
-            </Typography.Link>
-          </div>
+          <Typography.Link
+            onClick={() => {
+              settempdata(record);
+            }}
+          >
+            <DeleteTeacherModel tempdata={tempdata}></DeleteTeacherModel>
+          </Typography.Link>
         );
       },
     },
   ];
 
   const onFinish = (e) => {
-    props.Searchstu(e);
+    props.AdminSearchtea(e);
     flag = 1;
   };
 
@@ -241,15 +228,23 @@ const StuInfo = (props) => {
     for (let i = searchdata.length; i < serachtemp; i++) {
       searchdata.push({
         key: i + 1,
-        username: search[i].username,
         realName: search[i].realName,
+        username: search[i].username,
+        password: search[i].password,
+        type: search[i].realName,
         cname: search[i].cname,
-        department: search[i].department,
-        classno: search[i].classno,
         sex: search[i].sex,
+        department: search[i].department,
+        affiliation: search[i].affiliation,
+        age: search[i].age,
+        duty: search[i].duty,
+        IDcard: search[i].IDcard,
+        nation: search[i].nation,
+        region: search[i].region,
         phone: search[i].phone,
-        years: search[i].years,
-        term: search[i].term,
+        eMail: search[i].eMail,
+        street: search[i].street,
+        diploma: search[i].diploma,
       });
     }
   }
@@ -268,33 +263,22 @@ const StuInfo = (props) => {
           },
         }}
         bordered={true}
-        headerTitle="学生信息表"
+        headerTitle="教师信息表"
         toolBarRender={() => [
           <Form name="nest-messages" layout="inline" onFinish={onFinish}>
-            <Form.Item name={"years"} label="学年">
-              <Select placeholder="请选择学年">
-                <Option value="20202021">2020-2021</Option>
-                <Option value="20192020">2019-2020</Option>
-                <Option value="20182019">2018-2019</Option>
-              </Select>
-            </Form.Item>
-            <Form.Item name={"term"} label="学期">
-              <Select placeholder="请选择学期">
-                <Option value="第一学期">第一学期</Option>
-                <Option value="第二学期">第二学期</Option>
-                <Option value="第三学期">第三学期</Option>
-              </Select>
-            </Form.Item>
-            <Form.Item name={"classno"} label="班级">
-              <Select placeholder="请选择班级">
-                <Option value={cookicedata[0]?.cname + "1"}>
-                  {cookicedata[0]?.cname + "1"}
+            <Form.Item name={"cname"} label="专业名">
+              <Select placeholder="请选择专业">
+                <Option value={formatedata[0]?.cname}>
+                  {formatedata[0]?.cname}
                 </Option>
-                <Option value={cookicedata[0]?.cname + "2"}>
-                  {cookicedata[0]?.cname + "2"}
+                <Option value={formatedata[1]?.cname}>
+                  {formatedata[1]?.cname}
                 </Option>
-                <Option value={cookicedata[0]?.cname + "3"}>
-                  {cookicedata[0]?.cname + "3"}
+                <Option value={formatedata[2]?.cname}>
+                  {formatedata[2]?.cname}
+                </Option>
+                <Option value={formatedata[3]?.cname}>
+                  {formatedata[3]?.cname}
                 </Option>
               </Select>
             </Form.Item>
@@ -309,6 +293,8 @@ const StuInfo = (props) => {
               </Tooltip>
             </Form.Item>
           </Form>,
+          <EditTeacherModal></EditTeacherModal>,
+
           <Tooltip title="刷新">
             <Button
               style={{ border: 0 }}
@@ -333,12 +319,11 @@ const StuInfo = (props) => {
   );
 };
 export default connect(
-  // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
   (state: RootStateOrAny) => ({
     user: state.user,
     cooikeuserid: state.cooikeuserid,
     stuSearch: state.stuSearch,
   }),
-  //  函数确定
-  { Searchstu, TeacherUserid, InfoStu }
-)(StuInfo);
+
+  { AdminSearchtea, AdminUserid, addTeacher }
+)(Teacherinfomation);

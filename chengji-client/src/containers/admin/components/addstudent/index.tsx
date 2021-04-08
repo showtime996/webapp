@@ -13,13 +13,13 @@ import {
 import { SearchOutlined, RedoOutlined } from "@ant-design/icons";
 import Cookies from "js-cookie";
 import { connect, RootStateOrAny } from "react-redux";
-import { Searchstu, TeacherUserid, InfoStu } from "@/redux/actions";
-import DeleteStudentModel from "../deletestudentmodel";
+import { AdminSearchstu, AdminUserid, addstudent } from "@/redux/actions";
+import DeleteStudentModel from "@/containers/teacher/components/deletestudentmodel";
 import ProTable from "@ant-design/pro-table";
 import type { ActionType } from "@ant-design/pro-table";
 
 import request from "umi-request";
-import EditModal from "../modal";
+import EditStudentModal from "./components/modal";
 import {
   RequestData,
   UseFetchDataAction,
@@ -64,7 +64,7 @@ const EditableCell = ({
   );
 };
 
-const StuInfo = (props) => {
+const Studentinfomation = (props) => {
   const actionRef = useRef<ActionType>();
   const [form] = Form.useForm();
   const [data, setData]: any[] = useState(originData);
@@ -73,7 +73,7 @@ const StuInfo = (props) => {
   const isEditing = (record) => record.key === editingKey;
   const userid = Cookies.get("userid");
   useEffect(() => {
-    props.TeacherUserid({ id: userid });
+    props.AdminUserid({ id: userid });
   }, []);
   const cookiceuserid = props.cooikeuserid;
   const cookicelength = cookiceuserid.length;
@@ -86,31 +86,30 @@ const StuInfo = (props) => {
         password: cookiceuserid[i].password,
         type: cookiceuserid[i].type,
         realName: cookiceuserid[i].realName,
-        cname: cookiceuserid[i].cname,
 
         sex: cookiceuserid[i].sex,
         department: cookiceuserid[i].department,
-        affiliation: cookiceuserid[i].affiliation,
+
         age: cookiceuserid[i].age,
         duty: cookiceuserid[i].duty,
         IDcard: cookiceuserid[i].IDcard,
-        nation: cookiceuserid[i].nation,
-        region: cookiceuserid[i].region,
+
         phone: cookiceuserid[i].phone,
         eMail: cookiceuserid[i].eMail,
-        street: cookiceuserid[i].street,
+
         diploma: cookiceuserid[i].diploma,
       });
     }
   }
   useEffect(() => {
-    props.InfoStu({ id: userid });
+    props.addstudent({ id: userid });
   }, []);
 
-  const formatedata = props.user;
+  const formatedata = props.stuSearch;
   const { Option } = Select;
   const temp = formatedata.length;
 
+  console.log("props", formatedata);
   if (JSON.stringify(formatedata) !== "{}") {
     for (let i = originData.length; i < temp; i++) {
       originData.push({
@@ -206,30 +205,20 @@ const StuInfo = (props) => {
       align: "center",
       render: (_, record) => {
         return (
-          <div>
-            <Typography.Link
-              disabled={editingKey !== ""}
-              onClick={() => {
-                settempdata(record);
-              }}
-            >
-              <EditModal tempdata={tempdata}></EditModal>
-            </Typography.Link>
-            <Typography.Link
-              onClick={() => {
-                settempdata(record);
-              }}
-            >
-              <DeleteStudentModel tempdata={tempdata}></DeleteStudentModel>
-            </Typography.Link>
-          </div>
+          <Typography.Link
+            onClick={() => {
+              settempdata(record);
+            }}
+          >
+            <DeleteStudentModel tempdata={tempdata}></DeleteStudentModel>
+          </Typography.Link>
         );
       },
     },
   ];
 
   const onFinish = (e) => {
-    props.Searchstu(e);
+    props.AdminSearchstu(e);
     flag = 1;
   };
 
@@ -285,17 +274,15 @@ const StuInfo = (props) => {
                 <Option value="第三学期">第三学期</Option>
               </Select>
             </Form.Item>
-            <Form.Item name={"classno"} label="班级">
-              <Select placeholder="请选择班级">
-                <Option value={cookicedata[0]?.cname + "1"}>
-                  {cookicedata[0]?.cname + "1"}
-                </Option>
-                <Option value={cookicedata[0]?.cname + "2"}>
-                  {cookicedata[0]?.cname + "2"}
-                </Option>
-                <Option value={cookicedata[0]?.cname + "3"}>
-                  {cookicedata[0]?.cname + "3"}
-                </Option>
+            <Form.Item name={"department"} label="学院">
+              <Select placeholder="请选择学院">
+                <Option value="电子信息与工程学院">电子信息与工程学院</Option>
+                <Option value="建筑工程学院">建筑工程学院</Option>
+                <Option value="机械工程学院">机械工程学院</Option>
+                <Option value="交通学院">交通学院</Option>
+                <Option value="化学工程学院">化学工程学院</Option>
+                <Option value="材料学院">材料学院</Option>
+                <Option value="理学院">理学院</Option>
               </Select>
             </Form.Item>
             <Form.Item>
@@ -309,6 +296,8 @@ const StuInfo = (props) => {
               </Tooltip>
             </Form.Item>
           </Form>,
+          <EditStudentModal></EditStudentModal>,
+
           <Tooltip title="刷新">
             <Button
               style={{ border: 0 }}
@@ -333,12 +322,11 @@ const StuInfo = (props) => {
   );
 };
 export default connect(
-  // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
   (state: RootStateOrAny) => ({
     user: state.user,
     cooikeuserid: state.cooikeuserid,
     stuSearch: state.stuSearch,
   }),
-  //  函数确定
-  { Searchstu, TeacherUserid, InfoStu }
-)(StuInfo);
+
+  { AdminSearchstu, AdminUserid, addstudent }
+)(Studentinfomation);

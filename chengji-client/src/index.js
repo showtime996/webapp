@@ -13,11 +13,10 @@ ReactDOM.render(
   <Provider store={store}>
     <HashRouter>
       <Switch>
-        <Route path="/adminRegister" component={Register}></Route>
+        <Route path="/register" component={Register}></Route>
         <Route path="/login" component={Login}></Route>
         {/* 默认的组件 */}
         <Route component={Main}></Route>
-       
       </Switch>
     </HashRouter>
   </Provider>,

@@ -17,6 +17,14 @@ import {
   teacherRegister,
   studentRegister,
 } from "../../redux/actions";
+import { Carousel } from "antd";
+const contentStyle: any = {
+  height: "100%",
+  color: "#fff",
+  lineHeight: "100%",
+  textAlign: "center",
+  background: "#364d79",
+};
 function Register(props) {
   const [state, setState] = useState({
     username: "", // 用户名
@@ -64,123 +72,476 @@ function Register(props) {
     required: "账号或密码必须填写!",
   };
   return (
-    <div>
-      {/* 头部部分 */}
-      <Header></Header>
-      {/* 中间主体部分 */}
-      <div className={bj.logo}>
-        <Form
-          name="normal_login"
-          className="login-form"
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
-          validateMessages={validateMessages}
-        >
-          <Form.Item>
-            {msg ? <span className="errorMsg">{msg}</span> : null}
-            <div className="login-form-title">用户注册</div>
-          </Form.Item>
-
-          <Form.Item
-            name="username"
-            rules={[
-              {
-                required: true,
-                message: "密码不允许少于6位大于11位",
-
-                min: 6,
-                max: 11,
-              },
-            ]}
-          >
-            <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              // onChange={val => { this.handleChange('username', val) }}
-              placeholder="学号/职工号/教工号"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "密码不允许少于6位大于11位",
-
-                min: 6,
-                max: 11,
-              },
-            ]}
-          >
-            <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="密码"
-              // onChange={val => { this.handleChange('password', val) }}
-            />
-          </Form.Item>
-          <Form.Item
-            name="password2"
-            rules={[
-              {
-                required: true,
-                message: "密码不允许少于6位大于11位",
-
-                min: 6,
-                max: 11,
-              },
-            ]}
-          >
-            <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="确认密码"
-              // onChange={val => { this.handleChange('password2', val) }}
-            />
-          </Form.Item>
-          <Form.Item name="type">
-            <Radio.Group>
-              <Radio value="admin">教务员</Radio>
-              <Radio value="student">学生</Radio>
-              <Radio value="teacher">老师</Radio>
-            </Radio.Group>
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-            >
-              注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;册
-            </Button>
-            <div
-              className="login-form-registerLogin"
-              style={{ marginTop: "10px", marginBottom: "10px" }}
-            >
-              <a onClick={toLogin}>已是账号---请点击登入!</a>
-            </div>
-
-            <div
-              className="login-form-registerLogin"
-              style={{
-                backgroundColor: "#CCC",
-                width: "100%",
-                height: "32px",
-                position: "absolute",
-                bottom: "-24px",
+    <Carousel autoplay effect="fade">
+      <div>
+        <h3 style={contentStyle}>
+          <div className={bj.logo}>
+            <Form
+              name="normal_login"
+              className="login-form"
+              initialValues={{
+                remember: true,
               }}
+              onFinish={onFinish}
+              validateMessages={validateMessages}
             >
-              <span className="login-form-registerLogin-txt">温馨提示:</span>
-              教务员账号为教工号！
-            </div>
-          </Form.Item>
-        </Form>
+              <Form.Item>
+                {msg ? <span className="errorMsg">{msg}</span> : null}
+                <div className="login-form-title">用户注册</div>
+              </Form.Item>
+
+              <Form.Item
+                name="username"
+                rules={[
+                  {
+                    required: true,
+                    message: "学号不允许少于6位大于11位",
+
+                    min: 6,
+                    max: 11,
+                  },
+                ]}
+              >
+                <Input
+                  prefix={<UserOutlined className="site-form-item-icon" />}
+                  // onChange={val => { this.handleChange('username', val) }}
+                  placeholder="学号/职工号/教工号"
+                />
+              </Form.Item>
+
+              <Form.Item
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "密码不允许少于6位大于11位",
+
+                    min: 6,
+                    max: 11,
+                  },
+                ]}
+              >
+                <Input
+                  prefix={<LockOutlined className="site-form-item-icon" />}
+                  type="password"
+                  placeholder="密码"
+                  // onChange={val => { this.handleChange('password', val) }}
+                />
+              </Form.Item>
+              <Form.Item
+                name="password2"
+                rules={[
+                  {
+                    required: true,
+                    message: "密码不允许少于6位大于11位",
+
+                    min: 6,
+                    max: 11,
+                  },
+                ]}
+              >
+                <Input
+                  prefix={<LockOutlined className="site-form-item-icon" />}
+                  type="password"
+                  placeholder="确认密码"
+                  // onChange={val => { this.handleChange('password2', val) }}
+                />
+              </Form.Item>
+              <Form.Item name="type">
+                <Radio.Group>
+                  <Radio value="admin">教务员</Radio>
+                  <Radio value="student">学生</Radio>
+                  <Radio value="teacher">老师</Radio>
+                </Radio.Group>
+              </Form.Item>
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="login-form-button"
+                >
+                  注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;册
+                </Button>
+                <p
+                  className="login-form-registerLogin"
+                  style={{ marginTop: "10px" }}
+                >
+                  &nbsp;&nbsp;&nbsp;&nbsp;已有账号？{" "}
+                  <a onClick={toLogin}>请点击登入！</a>
+                </p>
+
+                <div
+                  className="login-form-registerLogin"
+                  style={{
+                    backgroundColor: "#CCC",
+                    width: "100%",
+                    height: "42px",
+                    position: "absolute",
+                    bottom: "-26px",
+                  }}
+                >
+                  <span className="login-form-registerLogin-txt">
+                    温馨提示:
+                  </span>
+                  学生学号老师职工号教务员教工号！
+                </div>
+              </Form.Item>
+            </Form>
+          </div>
+        </h3>
       </div>
-      {/* 底部部分 */}
-      <Fonter></Fonter>
-    </div>
+      <div>
+        <h3 style={contentStyle}>
+          <div className={bj.logo1}>
+            <Form
+              name="normal_login"
+              className="login-form"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={onFinish}
+              validateMessages={validateMessages}
+            >
+              <Form.Item>
+                {msg ? <span className="errorMsg">{msg}</span> : null}
+                <div className="login-form-title">用户注册</div>
+              </Form.Item>
+
+              <Form.Item
+                name="username"
+                rules={[
+                  {
+                    required: true,
+                    message: "学号不允许少于6位大于11位",
+
+                    min: 6,
+                    max: 11,
+                  },
+                ]}
+              >
+                <Input
+                  prefix={<UserOutlined className="site-form-item-icon" />}
+                  // onChange={val => { this.handleChange('username', val) }}
+                  placeholder="学号/职工号/教工号"
+                />
+              </Form.Item>
+
+              <Form.Item
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "密码不允许少于6位大于11位",
+
+                    min: 6,
+                    max: 11,
+                  },
+                ]}
+              >
+                <Input
+                  prefix={<LockOutlined className="site-form-item-icon" />}
+                  type="password"
+                  placeholder="密码"
+                  // onChange={val => { this.handleChange('password', val) }}
+                />
+              </Form.Item>
+              <Form.Item
+                name="password2"
+                rules={[
+                  {
+                    required: true,
+                    message: "密码不允许少于6位大于11位",
+
+                    min: 6,
+                    max: 11,
+                  },
+                ]}
+              >
+                <Input
+                  prefix={<LockOutlined className="site-form-item-icon" />}
+                  type="password"
+                  placeholder="确认密码"
+                  // onChange={val => { this.handleChange('password2', val) }}
+                />
+              </Form.Item>
+              <Form.Item name="type">
+                <Radio.Group>
+                  <Radio value="admin">教务员</Radio>
+                  <Radio value="student">学生</Radio>
+                  <Radio value="teacher">老师</Radio>
+                </Radio.Group>
+              </Form.Item>
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="login-form-button"
+                >
+                  注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;册
+                </Button>
+                <p
+                  className="login-form-registerLogin"
+                  style={{ marginTop: "10px" }}
+                >
+                  &nbsp;&nbsp;&nbsp;&nbsp;已有账号？{" "}
+                  <a onClick={toLogin}>请点击登入！</a>
+                </p>
+
+                <div
+                  className="login-form-registerLogin"
+                  style={{
+                    backgroundColor: "#CCC",
+                    width: "100%",
+                    height: "42px",
+                    position: "absolute",
+                    bottom: "-26px",
+                  }}
+                >
+                  <span className="login-form-registerLogin-txt">
+                    温馨提示:
+                  </span>
+                  学生学号老师职工号教务员教工号！
+                </div>
+              </Form.Item>
+            </Form>
+          </div>
+        </h3>
+      </div>
+      <div>
+        <h3 style={contentStyle}>
+          <div className={bj.logo2}>
+            <Form
+              name="normal_login"
+              className="login-form"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={onFinish}
+              validateMessages={validateMessages}
+            >
+              <Form.Item>
+                {msg ? <span className="errorMsg">{msg}</span> : null}
+                <div className="login-form-title">用户注册</div>
+              </Form.Item>
+
+              <Form.Item
+                name="username"
+                rules={[
+                  {
+                    required: true,
+                    message: "学号不允许少于6位大于11位",
+
+                    min: 6,
+                    max: 11,
+                  },
+                ]}
+              >
+                <Input
+                  prefix={<UserOutlined className="site-form-item-icon" />}
+                  // onChange={val => { this.handleChange('username', val) }}
+                  placeholder="学号/职工号/教工号"
+                />
+              </Form.Item>
+
+              <Form.Item
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "密码不允许少于6位大于11位",
+
+                    min: 6,
+                    max: 11,
+                  },
+                ]}
+              >
+                <Input
+                  prefix={<LockOutlined className="site-form-item-icon" />}
+                  type="password"
+                  placeholder="密码"
+                  // onChange={val => { this.handleChange('password', val) }}
+                />
+              </Form.Item>
+              <Form.Item
+                name="password2"
+                rules={[
+                  {
+                    required: true,
+                    message: "密码不允许少于6位大于11位",
+
+                    min: 6,
+                    max: 11,
+                  },
+                ]}
+              >
+                <Input
+                  prefix={<LockOutlined className="site-form-item-icon" />}
+                  type="password"
+                  placeholder="确认密码"
+                  // onChange={val => { this.handleChange('password2', val) }}
+                />
+              </Form.Item>
+              <Form.Item name="type">
+                <Radio.Group>
+                  <Radio value="admin">教务员</Radio>
+                  <Radio value="student">学生</Radio>
+                  <Radio value="teacher">老师</Radio>
+                </Radio.Group>
+              </Form.Item>
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="login-form-button"
+                >
+                  注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;册
+                </Button>
+                <p
+                  className="login-form-registerLogin"
+                  style={{ marginTop: "10px" }}
+                >
+                  &nbsp;&nbsp;&nbsp;&nbsp;已有账号？{" "}
+                  <a onClick={toLogin}>请点击登入！</a>
+                </p>
+
+                <div
+                  className="login-form-registerLogin"
+                  style={{
+                    backgroundColor: "#CCC",
+                    width: "100%",
+                    height: "42px",
+                    position: "absolute",
+                    bottom: "-26px",
+                  }}
+                >
+                  <span className="login-form-registerLogin-txt">
+                    温馨提示:
+                  </span>
+                  学生学号老师职工号教务员教工号！
+                </div>
+              </Form.Item>
+            </Form>
+          </div>
+        </h3>
+      </div>
+      <div>
+        <h3 style={contentStyle}>
+          <div className={bj.logo3}>
+            <Form
+              name="normal_login"
+              className="login-form"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={onFinish}
+              validateMessages={validateMessages}
+            >
+              <Form.Item>
+                {msg ? <span className="errorMsg">{msg}</span> : null}
+                <div className="login-form-title">用户注册</div>
+              </Form.Item>
+
+              <Form.Item
+                name="username"
+                rules={[
+                  {
+                    required: true,
+                    message: "学号不允许少于6位大于11位",
+
+                    min: 6,
+                    max: 11,
+                  },
+                ]}
+              >
+                <Input
+                  prefix={<UserOutlined className="site-form-item-icon" />}
+                  // onChange={val => { this.handleChange('username', val) }}
+                  placeholder="学号/职工号/教工号"
+                />
+              </Form.Item>
+
+              <Form.Item
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "密码不允许少于6位大于11位",
+
+                    min: 6,
+                    max: 11,
+                  },
+                ]}
+              >
+                <Input
+                  prefix={<LockOutlined className="site-form-item-icon" />}
+                  type="password"
+                  placeholder="密码"
+                  // onChange={val => { this.handleChange('password', val) }}
+                />
+              </Form.Item>
+              <Form.Item
+                name="password2"
+                rules={[
+                  {
+                    required: true,
+                    message: "密码不允许少于6位大于11位",
+
+                    min: 6,
+                    max: 11,
+                  },
+                ]}
+              >
+                <Input
+                  prefix={<LockOutlined className="site-form-item-icon" />}
+                  type="password"
+                  placeholder="确认密码"
+                  // onChange={val => { this.handleChange('password2', val) }}
+                />
+              </Form.Item>
+              <Form.Item name="type">
+                <Radio.Group>
+                  <Radio value="admin">教务员</Radio>
+                  <Radio value="student">学生</Radio>
+                  <Radio value="teacher">老师</Radio>
+                </Radio.Group>
+              </Form.Item>
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="login-form-button"
+                >
+                  注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;册
+                </Button>
+                <p
+                  className="login-form-registerLogin"
+                  style={{ marginTop: "10px" }}
+                >
+                  &nbsp;&nbsp;&nbsp;&nbsp;已有账号？{" "}
+                  <a onClick={toLogin}>请点击登入！</a>
+                </p>
+
+                <div
+                  className="login-form-registerLogin"
+                  style={{
+                    backgroundColor: "#CCC",
+                    width: "100%",
+                    height: "42px",
+                    position: "absolute",
+                    bottom: "-26px",
+                  }}
+                >
+                  <span className="login-form-registerLogin-txt">
+                    温馨提示:
+                  </span>
+                  学生学号老师职工号教务员教工号！
+                </div>
+              </Form.Item>
+            </Form>
+          </div>
+        </h3>
+      </div>
+    </Carousel>
   );
 }
 

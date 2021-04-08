@@ -41,7 +41,7 @@ function Login(props: any) {
   // 点击登入调用
 
   const toRegister = () => {
-    props.history.replace("/adminRegister");
+    props.history.replace("/register");
   };
 
   const { msg, redirectTo } = props.user;
@@ -116,7 +116,8 @@ function Login(props: any) {
                     className="login-form-registerLogin"
                     style={{ marginTop: "10px" }}
                   >
-                    教务员没有账号？ <a onClick={toRegister}>请点击注册!</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;没有账号？{" "}
+                    <a onClick={toRegister}>请点击注册!</a>
                   </p>
 
                   <div
@@ -132,7 +133,7 @@ function Login(props: any) {
                     <span className="login-form-registerLogin-txt">
                       温馨提示:
                     </span>
-                    学生账号为学号,老师账号为职工号，教务员账号为教工号！
+                    学生学号老师职工号教务员教工号！
                   </div>
                 </Form.Item>
               </Form>
@@ -201,7 +202,8 @@ function Login(props: any) {
                     className="login-form-registerLogin"
                     style={{ marginTop: "10px" }}
                   >
-                    教务员没有账号？ <a onClick={toRegister}>请点击注册!</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;没有账号？
+                    <a onClick={toRegister}>请点击注册!</a>
                   </p>
 
                   <div
@@ -217,7 +219,7 @@ function Login(props: any) {
                     <span className="login-form-registerLogin-txt">
                       温馨提示:
                     </span>
-                    学生账号为学号,老师账号为职工号，教务员账号为教工号！
+                    学生学号老师职工号教务员教工号！
                   </div>
                 </Form.Item>
               </Form>
@@ -285,7 +287,8 @@ function Login(props: any) {
                     className="login-form-registerLogin"
                     style={{ marginTop: "10px" }}
                   >
-                    教务员没有账号？ <a onClick={toRegister}>请点击注册!</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp; 没有账号？{" "}
+                    <a onClick={toRegister}>请点击注册!</a>
                   </p>
 
                   <div
@@ -301,7 +304,7 @@ function Login(props: any) {
                     <span className="login-form-registerLogin-txt">
                       温馨提示:
                     </span>
-                    学生账号为学号,老师账号为职工号，教务员账号为教工号！
+                    学生学号老师职工号教务员教工号！
                   </div>
                 </Form.Item>
               </Form>
@@ -369,7 +372,8 @@ function Login(props: any) {
                     className="login-form-registerLogin"
                     style={{ marginTop: "10px" }}
                   >
-                    教务员没有账号？ <a onClick={toRegister}>请点击注册!</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp; 没有账号？{" "}
+                    <a onClick={toRegister}>请点击注册!</a>
                   </p>
 
                   <div
@@ -385,7 +389,7 @@ function Login(props: any) {
                     <span className="login-form-registerLogin-txt">
                       温馨提示:
                     </span>
-                    学生账号为学号,老师账号为职工号，教务员账号为教工号！
+                    学生学号老师职工号教务员教工号！
                   </div>
                 </Form.Item>
               </Form>

@@ -345,7 +345,14 @@ router.post("/searchstu", function (req, res) {
   const user = req.body; // 没有_id
 
   StudentModel.find(
-    { years: user.years, term: user.term, classno: user.classno },
+    {
+      $or: [
+        { years: user.years, term: user.term, classno: user.classno },
+        { years: user.years },
+        { term: user.term },
+        { classno: user.classno },
+      ],
+    },
     function (error, data) {
       res.status = 200;
       res.send({ code: 0, data: data });
@@ -519,5 +526,67 @@ router.post("/studentgradecountinfo", function (req, res) {
     res.status = 200;
     res.send({ code: 0, data: newuser });
   }).exec();
+});
+
+router.post("/studentinfomation", function (req, res) {
+  const user = req.body; // 没有_id
+
+  AdminModel.find({ _id: user.id }, function (error, data) {
+    StudentModel.find(
+      { department: data[0].department },
+      function (error, newuser) {
+        res.status = 200;
+        res.send({ code: 0, data: newuser });
+      }
+    );
+  });
+});
+router.post("/adminsearchstu", function (req, res) {
+  const user = req.body;
+
+  StudentModel.find(
+    {
+      $or: [
+        { years: user.years, term: user.term, department: user.department },
+        { years: user.years },
+        { term: user.term },
+        { department: user.department },
+      ],
+    },
+    function (error, data) {
+      res.status = 200;
+      res.send({ code: 0, data: data });
+    }
+  ).exec();
+});
+router.post("/teacherinfomation", function (req, res) {
+  const user = req.body; // 没有_id
+
+  AdminModel.find({ _id: user.id }, function (error, data) {
+    TeacherModel.find(
+      { department: data[0].department },
+      function (error, newuser) {
+        res.status = 200;
+        res.send({ code: 0, data: newuser });
+      }
+    );
+  });
+});
+router.post("/deleteteacher", function (req, res) {
+  const grade = req.body; // 没有_id
+  TeacherModel.deleteOne({ username: grade.username }).exec();
+});
+router.post("/adminsearchtea", function (req, res) {
+  const user = req.body;
+
+  TeacherModel.find(
+    {
+      cname: user.cname,
+    },
+    function (error, data) {
+      res.status = 200;
+      res.send({ code: 0, data: data });
+    }
+  ).exec();
 });
 module.exports = router;
