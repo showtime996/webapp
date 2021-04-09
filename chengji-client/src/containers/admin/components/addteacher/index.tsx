@@ -161,7 +161,7 @@ const Teacherinfomation = (props) => {
     },
 
     {
-      title: "学号",
+      title: "教工号",
       dataIndex: "username",
       width: "7%",
     },

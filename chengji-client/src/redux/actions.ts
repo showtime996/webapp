@@ -33,7 +33,6 @@ import {
   reqTeacherUpdate,
   reqAdminUpdate,
   reqStudentInfo,
-  reqTeacherGrade,
   reqDeleteGrade,
   reqDeleteStudent,
   reqAddGradeCount,
@@ -416,19 +415,7 @@ export const DeleteGrade = (user) => {
     }
   };
 };
-export const GradeTeacherInfo = (grade: any) => {
-  return async (dispatch: (arg0: { type: string; data: any }) => void) => {
-    const response = await reqTeacherGrade(grade);
-    const result = response.data;
-    if (result.code === 0) {
-      // 更新成功: data
-      dispatch(searchgrade(result.data));
-    } else {
-      // 更新失败: msg
-      dispatch(resetgrade(result.msg));
-    }
-  };
-};
+
 export const AddGradeCount = (grade: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqAddGradeCount(grade);

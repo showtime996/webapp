@@ -147,7 +147,7 @@ function TeacherInfo(props: {
                 </Select>
               </Form.Item>
               <Form.Item name={"term"} label="学期" noStyle>
-                <Select placeholder="请选择班级">
+                <Select placeholder="请选择学期">
                   <Option value="第一学期">第一学期</Option>
                   <Option value="第二学期">第二学期</Option>
                   <Option value="第三学期">第三学期</Option>

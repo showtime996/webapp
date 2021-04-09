@@ -39,8 +39,7 @@ export const reqDeleteStudent = (user: any) =>
   ajax("/deletestudent", user, "POST");
 export const reqDeleteGrade = (grade: any) =>
   ajax("/deletegrade", grade, "POST");
-export const reqTeacherGrade = (grade: any) =>
-  ajax("/gradeTeacherInfo", grade, "POST");
+
 export const reqAddGradeCount = (grade: any) =>
   ajax("/addgradecount", grade, "POST");
 export const reqGradeCountInfo = (grade: any) =>
@@ -57,8 +56,11 @@ export const reqStudentGrade = (user: any) =>
   ajax("/studentgradecountinfo", user, "POST");
 export const reqStudentInformation = (user: any) =>
   ajax("/studentinfomation", user, "POST");
-export const reqAdminSearchstu = (user: any) => ajax("/adminsearchstu", user, "POST");
+export const reqAdminSearchstu = (user: any) =>
+  ajax("/adminsearchstu", user, "POST");
 export const reqTeacherInformation = (user: any) =>
   ajax("/teacherinfomation", user, "POST");
-export const reqDeleteTeacher = (user: any) => ajax("/deleteteacher", user, "POST");
-export const reqAdminSearchtea = (user: any) => ajax("/adminsearchtea", user, "POST");
+export const reqDeleteTeacher = (user: any) =>
+  ajax("/deleteteacher", user, "POST");
+export const reqAdminSearchtea = (user: any) =>
+  ajax("/adminsearchtea", user, "POST");
