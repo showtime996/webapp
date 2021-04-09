@@ -2,7 +2,6 @@
 
 import { combineReducers } from "redux";
 import { getRedirectTo } from "../utils/path";
-
 import {
   AUTH_SUCCESS_USER,
   ERROR_MSG_USER,
@@ -39,6 +38,27 @@ const initGrade = {
   cheat: "",
   pass: "",
 };
+
+const initcooice = {
+  username: "",
+  password: "",
+  type: "",
+  realName: "",
+  cname: "",
+  classno: "",
+  sex: "",
+  department: "",
+  affiliation: "",
+  age: "",
+  duty: "",
+  IDcard: "",
+  nation: "",
+  region: "",
+  phone: "",
+  eMail: "",
+  street: "",
+  diploma: "",
+};
 // 产生user状态的reducer
 const user = (
   state = initUser,
@@ -61,6 +81,7 @@ const user = (
       return state;
   }
 };
+// 成绩
 const grade = (state = initGrade, action: { type: any; data: any }) => {
   switch (action.type) {
     case ADD_SUCCESS__GRADE: // data是user
@@ -77,6 +98,7 @@ const grade = (state = initGrade, action: { type: any; data: any }) => {
       return state;
   }
 };
+// 成绩表
 const gradecount = (state = initGrade, action: { type: any; data: any }) => {
   switch (action.type) {
     case ADD_SUCCESS__COUNT:
@@ -91,27 +113,7 @@ const gradecount = (state = initGrade, action: { type: any; data: any }) => {
   }
 };
 
-const initcooice = {
-  username: "",
-  password: "",
-  type: "",
-  realName: "",
-  cname: "",
-  classno: "",
-  sex: "",
-  department: "",
-  affiliation: "",
-  age: "",
-  duty: "",
-  IDcard: "",
-  nation: "",
-  region: "",
-  phone: "",
-  eMail: "",
-  street: "",
-  diploma: "",
-};
-
+// 用户的cooike
 const cooikeuserid = (state = initcooice, action: { type: any; data: any }) => {
   switch (action.type) {
     case SEARCH_SUCCESS__COOKIES:
@@ -120,6 +122,7 @@ const cooikeuserid = (state = initcooice, action: { type: any; data: any }) => {
       return state;
   }
 };
+// 查询
 const stuSearch = (state = initUser, action: { type: any; data: any }) => {
   switch (action.type) {
     case SEARCH_SUCCESS__USER:

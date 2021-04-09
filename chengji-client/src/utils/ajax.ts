@@ -4,12 +4,13 @@
 
 import axios from "axios";
 const baseUrl = "";
-// const baseUrl = 'http://localhost:4000'
+
 export default function ajax(url: string, data: any = {}, type = "GET") {
   url = baseUrl + url;
   if (type === "GET") {
-    // 发送GET请求
+    // 发送GET请求 对数据data格式化处理
     let paramStr = "";
+    //返回数组方法遍历
     Object.keys(data).forEach((key) => {
       paramStr += key + "=" + data[key] + "&";
     });

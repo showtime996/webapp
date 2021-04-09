@@ -1,12 +1,7 @@
 //学生信息完善的路由容器组件
 
 import React, { useState } from "react";
-import {
-  connect,
-  DefaultRootState,
-  RootStateOrAny,
-  useSelector,
-} from "react-redux";
+import { connect, RootStateOrAny } from "react-redux";
 import { LikeOutlined } from "@ant-design/icons";
 import { Redirect } from "react-router-dom";
 import { Form, Input, InputNumber, Button, Radio, Select } from "antd";

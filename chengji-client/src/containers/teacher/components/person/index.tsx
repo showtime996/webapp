@@ -1,6 +1,7 @@
 //学生信息完善的路由容器组件
 
 import React, { useEffect, useState } from "react";
+
 import { connect, RootStateOrAny } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Form, Input, InputNumber, Button, Radio, Select } from "antd";
@@ -8,6 +9,7 @@ import styles from "@/assets/css/global.module.less";
 import Cookies from "js-cookie";
 import { LikeOutlined, ReloadOutlined } from "@ant-design/icons";
 import { updateTeacher, TeacherUserid } from "@/redux/actions";
+
 const cookicedata: any = [];
 function TeacherPerson(props) {
   const [state, setState] = useState({
@@ -32,10 +34,13 @@ function TeacherPerson(props) {
     username: "",
     password: "",
   });
+
   const userid = Cookies.get("userid");
+  const [requestdata, setrequestdata] = useState();
   useEffect(() => {
     props.TeacherUserid({ id: userid });
   }, []);
+
   const cookiceuserid = props.cooikeuserid;
   const cookicelength = cookiceuserid.length;
   if (JSON.stringify(cookiceuserid) !== "{}") {

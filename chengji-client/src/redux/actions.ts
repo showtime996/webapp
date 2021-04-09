@@ -58,50 +58,59 @@ const errorMsg = (msg: string) => ({ type: ERROR_MSG_USER, data: msg });
 const receiveUser = (user) => ({ type: RECEIVE_USER, data: user });
 // 接收用户的同步action
 const receive = (user: any) => ({ type: RECEIVE_USER, data: user });
+//删除学生
 const deletestudent = (user) => ({ type: DELETE_SUCCESS__USER, data: user });
+//删除老师
 const deleteteacher = (user) => ({ type: DELETE_SUCCESS__USER, data: user });
+//删除成绩
 const deletegrade = (grade) => ({ type: DELETE_SUCCESS__GRADE, data: grade });
-// 查询用户action
+// 查询成绩
 const searchgrade = (data: any) => ({
   type: SEARCH_SUCCESS__GRADE,
   data: data,
 });
-
+// 修改成绩
 const updategrade = (data: any) => ({
   type: UPDATE_SUCCESS__GRADE,
   data: data,
 });
-// 查询用户action
+// 查询成绩表
 const gradecountinfo = (data: any) => ({
   type: SEARCH_SUCCESS__COUNT,
   data: data,
 });
+// 查询用户
 const searchuser = (data: any) => ({
   type: SEARCH_SUCCESS__USER,
   data: data,
 });
+// 查询作弊不及格
 const searchgradecheat = (data: any) => ({
   type: SEARCH_SUCCESS__GRADECHEAT,
   data: data,
 });
 // 重置用户的同步action
 const reset = (msg: any) => ({ type: RESET_USER, data: msg });
-// 接收用户的同步action
+//录入成绩
 const addgrade = (grade: any) => ({ type: ADD_SUCCESS__GRADE, data: grade });
+//同步成绩表
 const addgradecount = (grade: any) => ({
   type: ADD_SUCCESS__COUNT,
   data: grade,
 });
+//重置成绩
 const resetgrade = (grade: any) => ({ type: RESET__GRADE, data: grade });
-// 查询用户action
+// 重置用户
 const resetUser = (StudentInfo: any) => ({
   type: RESET_USER,
   data: StudentInfo,
 });
+//查询用户cooide
 const searchUserid = (data: any) => ({
   type: SEARCH_SUCCESS__COOKIES,
   data: data,
 });
+
 // 注册教务员异步action
 export const adminRegister = (user: {
   username: any;
@@ -123,7 +132,7 @@ export const adminRegister = (user: {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     // 发送注册的异步ajax请求
     const response = await reqadminRegister({ username, password, type });
-    const result = response.data; //  {code: 0/1, data: user, msg: ''}
+    const result = response.data;
     if (result.code === 0) {
       // 成功
       // 分发授权成功的同步action
@@ -135,7 +144,7 @@ export const adminRegister = (user: {
     }
   };
 };
-// 等待教务员注册完成 接口已经封装完成
+
 
 // 注册老师异步action
 export const teacherRegister = (user) => {
@@ -153,7 +162,7 @@ export const teacherRegister = (user) => {
   return async (dispatch) => {
     // 发送注册的异步ajax请求
     const response = await reqteacherRegister({ username, password, type });
-    const result = response.data; //  {code: 0/1, data: user, msg: ''}
+    const result = response.data; 
     if (result.code === 0) {
       // 成功
       // 分发授权成功的同步action
@@ -182,7 +191,7 @@ export const studentRegister = (user) => {
   return async (dispatch) => {
     // 发送注册的异步ajax请求
     const response = await reqstudentRegister({ username, password, type });
-    const result = response.data; //  {code: 0/1, data: user, msg: ''}
+    const result = response.data; 
     if (result.code === 0) {
       // 成功
       // 分发授权成功的同步action
@@ -195,7 +204,7 @@ export const studentRegister = (user) => {
   };
 };
 
-// 登陆异步action
+// 教务员登陆异步action
 export const adminLogin = (user: { username: any; password: any }) => {
   const { username, password } = user;
   // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
@@ -218,7 +227,7 @@ export const adminLogin = (user: { username: any; password: any }) => {
     }
   };
 };
-
+// 学生登陆异步action
 export const studentLogin = (user: { username: any; password: any }) => {
   const { username, password } = user;
   // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
@@ -241,7 +250,7 @@ export const studentLogin = (user: { username: any; password: any }) => {
     }
   };
 };
-
+// 老师登陆异步action
 export const teacherLogin = (user: { username: any; password: any }) => {
   const { username, password } = user;
   // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
@@ -279,7 +288,6 @@ export const updateStudent = (user: any) => {
     }
   };
 };
-// 更新用户异步action
 export const updateTeacher = (user: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqTeacherUpdate(user);
@@ -293,7 +301,6 @@ export const updateTeacher = (user: any) => {
     }
   };
 };
-// 更新用户异步action
 export const updateAdmin = (user: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqAdminUpdate(user);
@@ -307,7 +314,7 @@ export const updateAdmin = (user: any) => {
     }
   };
 };
-
+// 录入成绩异步action
 export const addGrade = (grade: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqAddGrade(grade);
@@ -321,6 +328,7 @@ export const addGrade = (grade: any) => {
     }
   };
 };
+// 获取成绩信息action
 export const GradeInfo = (grade: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqGradeInfo(grade);
@@ -334,6 +342,7 @@ export const GradeInfo = (grade: any) => {
     }
   };
 };
+// 教师信息cooikeaction
 export const TeacherUserid = (user: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqTeacherUserid(user);
@@ -347,6 +356,7 @@ export const TeacherUserid = (user: any) => {
     }
   };
 };
+// 获取学生信息action
 export const InfoStu = (user: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqStudentInfo(user);
@@ -360,7 +370,7 @@ export const InfoStu = (user: any) => {
     }
   };
 };
-// 查询学生信息异步action
+//  老师查询学生信息异步action
 export const Searchstu = (user) => {
   return async (dispatch) => {
     // 执行异步ajax请求
@@ -379,6 +389,7 @@ export const Searchstu = (user) => {
     }
   };
 };
+// 删除学生
 export const DeleteStudent = (user) => {
   return async (dispatch) => {
     // 执行异步ajax请求
@@ -397,6 +408,7 @@ export const DeleteStudent = (user) => {
     }
   };
 };
+// 删除成绩
 export const DeleteGrade = (user) => {
   return async (dispatch) => {
     // 执行异步ajax请求
@@ -415,7 +427,7 @@ export const DeleteGrade = (user) => {
     }
   };
 };
-
+// 同步成绩表
 export const AddGradeCount = (grade: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqAddGradeCount(grade);
@@ -429,6 +441,7 @@ export const AddGradeCount = (grade: any) => {
     }
   };
 };
+// 老师获取成绩表信息
 export const getGradeCountInfo = (grade: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqGradeCountInfo(grade);
@@ -442,6 +455,7 @@ export const getGradeCountInfo = (grade: any) => {
     }
   };
 };
+// 老师获取成绩表作弊不及格信息
 export const getGradeCheat = (grade: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqSearchGradeCheat(grade);
@@ -455,6 +469,7 @@ export const getGradeCheat = (grade: any) => {
     }
   };
 };
+// 修改成绩数据
 export const UpdateGradeData = (grade: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqEditGrade(grade);
@@ -468,6 +483,7 @@ export const UpdateGradeData = (grade: any) => {
     }
   };
 };
+// 获取教务员的cooike
 export const AdminUserid = (user: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqAdminUserid(user);
@@ -481,6 +497,7 @@ export const AdminUserid = (user: any) => {
     }
   };
 };
+// 教务员获取成绩表
 export const getAdminGradeCountInfo = (grade: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqAdminGradeCountInfo(grade);
@@ -494,6 +511,7 @@ export const getAdminGradeCountInfo = (grade: any) => {
     }
   };
 };
+// 获取学生的cooike
 export const StudentUserid = (user: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqStudentUserid(user);
@@ -507,6 +525,7 @@ export const StudentUserid = (user: any) => {
     }
   };
 };
+// 学生获取学生成绩表
 export const getStuGradeCountInfo = (grade: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqStudentGrade(grade);
@@ -520,6 +539,7 @@ export const getStuGradeCountInfo = (grade: any) => {
     }
   };
 };
+// 录入学生
 export const addstudent = (user) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqStudentInformation(user);
@@ -535,7 +555,7 @@ export const addstudent = (user) => {
     }
   };
 };
-// 查询学生信息异步action
+// 教务员查询学生信息异步action
 export const AdminSearchstu = (user) => {
   return async (dispatch) => {
     // 执行异步ajax请求
@@ -554,6 +574,7 @@ export const AdminSearchstu = (user) => {
     }
   };
 };
+// 录入老师
 export const addTeacher = (user) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqTeacherInformation(user);
@@ -569,6 +590,7 @@ export const addTeacher = (user) => {
     }
   };
 };
+// 删除老师
 export const DeleteTeacher = (user) => {
   return async (dispatch) => {
     // 执行异步ajax请求
@@ -587,7 +609,7 @@ export const DeleteTeacher = (user) => {
     }
   };
 };
-// 查询学生信息异步action
+// 教务员查询老师信息异步action
 export const AdminSearchtea = (user) => {
   return async (dispatch) => {
     // 执行异步ajax请求

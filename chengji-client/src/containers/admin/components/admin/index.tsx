@@ -18,12 +18,25 @@ import { connect, RootStateOrAny } from "react-redux";
 import SubMenu from "antd/lib/menu/SubMenu";
 import Studentinfomation from "../addstudent";
 import Teacherinfomation from "../addteacher";
+import request from "umi-request";
 const { Header, Sider, Content, Footer } = Layout;
 const cookicedata: any = [];
-function Administer(props) {
+function Administer() {
   const userid = Cookies.get("userid");
+  const [requestdata, setrequestdata]: any = useState();
   useEffect(() => {
-    props.AdminUserid({ id: userid });
+    request
+      .post("teacheruserid", {
+        data: {
+          id: userid,
+        },
+      })
+      .then(function (response) {
+        setrequestdata(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
 
   const [state, setState] = useState({
@@ -52,8 +65,7 @@ function Administer(props) {
         collapsed={state.collapsed}
       >
         <div className="logo">
-          {props.cooikeuserid[0]?.realName &&
-            props.cooikeuserid[0].realName + "你好！"}
+          {requestdata != undefined && requestdata[0].realName + "你好！"}
         </div>
         <Menu
           selectable
@@ -117,7 +129,6 @@ export default connect(
   // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
   (state: RootStateOrAny) => ({
     user: state.user,
-    cooikeuserid: state.cooikeuserid,
   }),
   //  函数确定
   { AdminUserid }

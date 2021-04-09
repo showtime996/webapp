@@ -10,21 +10,19 @@ import {
 import React, { useEffect, useState } from "react";
 import "./index.less";
 import TeacherPerson from "../person";
-import { TeacherUserid } from "@/redux/actions";
+
 import Cookies from "js-cookie";
 import GradeTable from "../gradetable";
 import StuInfo from "@/containers/teacher/components/stuinfo";
+import request from "umi-request";
 import { connect, RootStateOrAny } from "react-redux";
 const { Header, Sider, Content, Footer } = Layout;
 const cookicedata: any = [];
-function Teachers(props) {
+function Teachers() {
   const [state, setState] = useState({
     collapsed: false,
   });
   const [clickkey, setclickkey] = useState("1");
-  // useEffect(() => {
-  //   props.getUser();
-  // }, [StuInfo]);
 
   const toggle = () => {
     setState({
@@ -38,8 +36,20 @@ function Teachers(props) {
     setclickkey(e.key);
   };
   const userid = Cookies.get("userid");
+  const [requestdata, setrequestdata]: any = useState();
   useEffect(() => {
-    props.TeacherUserid({ id: userid });
+    request
+      .post("teacheruserid", {
+        data: {
+          id: userid,
+        },
+      })
+      .then(function (response) {
+        setrequestdata(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
 
   return (
@@ -51,8 +61,7 @@ function Teachers(props) {
         collapsed={state.collapsed}
       >
         <div className="logo">
-          {props.cooikeuserid[0]?.realName &&
-            props.cooikeuserid[0].realName + "你好！"}
+          {requestdata != undefined && requestdata[0].realName + "你好！"}
         </div>
         <Menu
           selectable
@@ -114,8 +123,6 @@ export default connect(
   // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
   (state: RootStateOrAny) => ({
     user: state.user,
-    cooikeuserid: state.cooikeuserid,
-  }),
+  })
   //  函数确定
-  { TeacherUserid }
 )(Teachers);

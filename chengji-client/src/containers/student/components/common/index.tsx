@@ -6,14 +6,27 @@ import Cookies from "js-cookie";
 import PersonalGradeTable from "../personalgrade";
 import { connect, RootStateOrAny } from "react-redux";
 import StudentPerson from "../personanl";
-function PersonalCommonL(props) {
+import request from "umi-request";
+function PersonalCommonL() {
   const { Header, Footer, Sider, Content } = Layout;
   const btnclearcookie = () => {
     Cookies.remove("userid");
   };
   const userid = Cookies.get("userid");
+  const [requestdata, setrequestdata]: any = useState();
   useEffect(() => {
-    props.StudentUserid({ id: userid });
+    request
+      .post("teacheruserid", {
+        data: {
+          id: userid,
+        },
+      })
+      .then(function (response) {
+        setrequestdata(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
   const [state, setState] = useState("1");
   const clickkey = (e) => {
@@ -30,8 +43,7 @@ function PersonalCommonL(props) {
         }}
       >
         <div>
-          {props.cooikeuserid[0]?.realName &&
-            props.cooikeuserid[0].realName + "你好！"}
+          {requestdata != undefined && requestdata[0].realName + "你好！"}
         </div>
         <Menu
           theme="light"

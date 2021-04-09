@@ -5,8 +5,7 @@ import "@/assets/css/loginForm.less";
 import bj from "@/assets/css/bj.module.less";
 import { Form, Input, Button, Radio } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import Header from "@/components/header";
-import Fonter from "@/components/fonter";
+
 // 引入重定向路由
 import { Redirect } from "react-router-dom";
 // 通过异步action实现交互后台的数据 普通的ui不能得使用函数方式
@@ -52,8 +51,6 @@ function Login(props: any) {
 
   return (
     <div>
-      {/* 头部部分 */}
-      {/* <Header></Header> */}
       <Carousel autoplay effect="fade">
         <div>
           <h3 style={contentStyle}>
@@ -397,10 +394,6 @@ function Login(props: any) {
           </h3>
         </div>
       </Carousel>
-      {/* 中间主体部分 */}
-
-      {/* 底部部分 */}
-      {/* <Fonter></Fonter> */}
     </div>
   );
 }

@@ -5,8 +5,6 @@ import "@/assets/css/loginForm.less";
 import bj from "@/assets/css/bj.module.less";
 import { Form, Input, Button, Radio } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import Header from "@/components/header/index.tsx";
-import Fonter from "@/components/fonter/index.tsx";
 
 // 通过异步action实现交互后台的数据 普通的ui不能得使用函数方式
 import { connect, RootStateOrAny } from "react-redux";
@@ -48,7 +46,7 @@ function Register(props) {
       password2: (state.password2 = values.password2),
       type: (state.type = values.type),
     });
-    //调用redux action中的register方法，判断是否可以注册
+    //调用redux action中的register方法，
     if (state.type === "student") {
       props.studentRegister(state);
     } else if (state.type === "admin") {
@@ -104,7 +102,7 @@ function Register(props) {
               >
                 <Input
                   prefix={<UserOutlined className="site-form-item-icon" />}
-                  // onChange={val => { this.handleChange('username', val) }}
+                 
                   placeholder="学号/职工号/教工号"
                 />
               </Form.Item>
