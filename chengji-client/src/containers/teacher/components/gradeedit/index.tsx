@@ -13,7 +13,7 @@ import {
 import { connect, RootStateOrAny } from "react-redux";
 import type { ActionType } from "@ant-design/pro-table";
 import AddGrade from "../addgrade";
-import request from "umi-request";
+
 import { GradeInfo, AddGradeCount } from "@/redux/actions";
 import ProTable from "@ant-design/pro-table";
 import DeleteGradeModel from "../deletegrademodel";

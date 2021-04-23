@@ -105,7 +105,7 @@ const Teacherinfomation = (props) => {
     props.addTeacher({ id: userid });
   }, []);
 
-  const formatedata = props.stuSearch;
+  const formatedata = props.stuSearchtea;
   const { Option } = Select;
   const temp = formatedata.length;
 
@@ -280,6 +280,15 @@ const Teacherinfomation = (props) => {
                 <Option value={formatedata[3]?.cname}>
                   {formatedata[3]?.cname}
                 </Option>
+                <Option value={formatedata[4]?.cname}>
+                  {formatedata[4]?.cname}
+                </Option>
+                <Option value={formatedata[5]?.cname}>
+                  {formatedata[5]?.cname}
+                </Option>
+                <Option value={formatedata[6]?.cname}>
+                  {formatedata[6]?.cname}
+                </Option>
               </Select>
             </Form.Item>
             <Form.Item>
@@ -323,6 +332,7 @@ export default connect(
     user: state.user,
     cooikeuserid: state.cooikeuserid,
     stuSearch: state.stuSearch,
+    stuSearchtea: state.stuSearchtea,
   }),
 
   { AdminSearchtea, AdminUserid, addTeacher }

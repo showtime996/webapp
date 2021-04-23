@@ -1,4 +1,4 @@
-import { Button, Layout, Menu } from "antd";
+import { Button, Layout, Menu, Tooltip } from "antd";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -19,25 +19,40 @@ import SubMenu from "antd/lib/menu/SubMenu";
 import Studentinfomation from "../addstudent";
 import Teacherinfomation from "../addteacher";
 import request from "umi-request";
+
 const { Header, Sider, Content, Footer } = Layout;
 const cookicedata: any = [];
-function Administer() {
+function Administer(props) {
   const userid = Cookies.get("userid");
-  const [requestdata, setrequestdata]: any = useState();
   useEffect(() => {
-    request
-      .post("teacheruserid", {
-        data: {
-          id: userid,
-        },
-      })
-      .then(function (response) {
-        setrequestdata(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    props.AdminUserid({ id: userid });
   }, []);
+  const cookiceuserid = props.cooikeuserid;
+  const cookicelength = cookiceuserid.length;
+  if (JSON.stringify(cookiceuserid) !== "{}") {
+    for (let i = cookicedata.length; i < cookicelength; i++) {
+      console.log("cookiceuserid", cookiceuserid);
+      cookicedata.push({
+        key: i + 1,
+        username: cookiceuserid[i].username,
+        password: cookiceuserid[i].password,
+        type: cookiceuserid[i].type,
+        realName: cookiceuserid[i].realName,
+
+        sex: cookiceuserid[i].sex,
+        department: cookiceuserid[i].department,
+
+        age: cookiceuserid[i].age,
+        duty: cookiceuserid[i].duty,
+        IDcard: cookiceuserid[i].IDcard,
+
+        phone: cookiceuserid[i].phone,
+        eMail: cookiceuserid[i].eMail,
+
+        diploma: cookiceuserid[i].diploma,
+      });
+    }
+  }
 
   const [state, setState] = useState({
     collapsed: false,
@@ -65,7 +80,8 @@ function Administer() {
         collapsed={state.collapsed}
       >
         <div className="logo">
-          {requestdata != undefined && requestdata[0].realName + "你好！"}
+          {JSON.stringify(cookicedata) != "{}" &&
+            cookicedata[0]?.realName + "你好！"}
         </div>
         <Menu
           selectable
@@ -104,6 +120,9 @@ function Administer() {
               onClick: toggle,
             }
           )}
+          <Tooltip title="欢迎光临成绩管理系统!">
+            <span style={{ fontSize: 25 }}>教务员成绩管理系统</span>
+          </Tooltip>
           <Button icon={<PoweroffOutlined />} href="/login" danger>
             退出
           </Button>
@@ -129,6 +148,7 @@ export default connect(
   // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
   (state: RootStateOrAny) => ({
     user: state.user,
+    cooikeuserid: state.cooikeuserid,
   }),
   //  函数确定
   { AdminUserid }

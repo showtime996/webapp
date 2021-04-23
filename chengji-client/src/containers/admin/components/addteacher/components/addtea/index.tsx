@@ -20,7 +20,9 @@ function TeacherRegister(props) {
     password2: "", // 确认密码
     type: "teacher",
   });
-
+  const refresh = () => {
+    window.history.go(0);
+  };
   // 点击注册调用  将值传入到state中
   const onFinish = (values: {
     username: string;
@@ -107,16 +109,21 @@ function TeacherRegister(props) {
           // onChange={val => { this.handleChange('password2', val) }}
         />
       </Form.Item>
-      {JSON.stringify(msg) != "{}" && msg !== "用户名或密码不正确!" ? (
+      {/* {JSON.stringify(msg) != "{}" && msg !== "用户名或密码不正确!" ? (
         <span className="errorMsg">{msg}</span>
       ) : (
         JSON.stringify(msg) != "{}" && (
           <span style={{ color: "green", fontWeight: "bold" }}>录入成功！</span>
         )
-      )}
+      )} */}
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
+        <Button
+          type="primary"
+          onClick={refresh}
+          htmlType="submit"
+          className="login-form-button"
+        >
           录入
         </Button>
       </Form.Item>

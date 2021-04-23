@@ -124,10 +124,9 @@ router.post("/adminLogin", function (req, res) {
       // 生成一个cookie(userid: user._id), 并交给浏览器保存
       res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
       // 返回登陆成功信息(包含user)
-      res.send({ code: 0, data: user, msg: "用户名登入成功！" });
+      res.send({ code: 0, data: user });
     } else {
-      // 登陆失败
-      res.send({ code: 1, msg: "用户名或密码不正确!" });
+      res.send({ code: 1, msg: "用户名或密码不正确" });
     }
   });
 });
@@ -143,10 +142,9 @@ router.post("/teacherLogin", function (req, res) {
       // 生成一个cookie(userid: user._id), 并交给浏览器保存
       res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
       // 返回登陆成功信息(包含user)
-      res.send({ code: 0, data: user, msg: "用户登录成功！" });
+      res.send({ code: 0, data: user });
     } else {
-      // 登陆失败
-      res.send({ code: 1, msg: "用户名或密码不正确!" });
+      res.send({ code: 1, msg: "用户名或密码不正确" });
     }
   });
 });
@@ -164,8 +162,7 @@ router.post("/studentLogin", function (req, res) {
       // 返回登陆成功信息(包含user)
       res.send({ code: 0, data: user });
     } else {
-      // 登陆失败
-      res.send({ code: 1, msg: "用户名或密码不正确!" });
+      res.send({ code: 1, msg: "用户名或密码不正确" });
     }
   });
 });
@@ -332,9 +329,9 @@ router.post("/searchstu", function (req, res) {
     {
       $or: [
         { years: user.years, term: user.term, classno: user.classno },
-        { years: user.years, term: user.term },
+        // { classno: user.classno },
 
-        { classno: user.classno },
+        // { years: user.years, term: user.term },
       ],
     },
     function (error, data) {
@@ -422,16 +419,14 @@ router.post("/searchgradecheat", function (req, res) {
   GradeTable.find(
     {
       $or: [
-        { classno: grade.classno },
+        {
+          classno: grade.classno,
+          flaggrade: Boolean(grade.flaggrade),
+          flagcheat: Boolean(grade.flagcheat),
+        },
         { classno: grade.classno, flaggrade: Boolean(grade.flaggrade) },
         {
           classno: grade.classno,
-          flagcheat: Boolean(grade.flagcheat),
-        },
-        {
-          classno: grade.classno,
-
-          flaggrade: Boolean(grade.flaggrade),
           flagcheat: Boolean(grade.flagcheat),
         },
       ],
@@ -529,9 +524,6 @@ router.post("/adminsearchstu", function (req, res) {
     {
       $or: [
         { years: user.years, term: user.term, department: user.department },
-        { years: user.years, term: user.term },
-
-        { department: user.department },
       ],
     },
     function (error, data) {
@@ -573,4 +565,5 @@ router.post("/adminsearchtea", function (req, res) {
     }
   ).exec();
 });
+
 module.exports = router;

@@ -21,8 +21,7 @@ function UpdateGrade(props) {
     cname: "",
     department: "",
   });
-  const [seletdata, setselectdata] = useState();
-  const [deparmentdata, setdeparmentdata] = useState();
+
 
   const { tempdata } = props;
 

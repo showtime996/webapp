@@ -18,6 +18,7 @@ import {
   SEARCH_SUCCESS__COUNT,
   SEARCH_SUCCESS__GRADECHEAT,
   UPDATE_SUCCESS__GRADE,
+  SEARCH_SUCCESS__TEACHER,
 } from "./action-types";
 const initUser = {
   username: "", // 用户名
@@ -67,7 +68,10 @@ const user = (
   switch (action.type) {
     case AUTH_SUCCESS_USER: // data是user
       const { type, IDcard } = action.data;
-      return { ...action.data, redirectTo: getRedirectTo(type, IDcard) };
+      return {
+        ...action.data,
+        redirectTo: getRedirectTo(type, IDcard),
+      };
     case ERROR_MSG_USER: // data是msg
       return { ...state, msg: action.data };
     case RECEIVE_USER:
@@ -81,6 +85,20 @@ const user = (
       return state;
   }
 };
+// const admin = (
+//   state = initUser,
+//   action: { type: any; data: { type: any; IDcard: any } }
+// ) => {
+//   switch (action.type) {
+//     case AUTH_SUCCESS_ADMIN:
+//       return action.data;
+//     case RESET_USER:
+//       return { ...initUser, msg: action.data };
+
+//     default:
+//       return state;
+//   }
+// };
 // 成绩
 const grade = (state = initGrade, action: { type: any; data: any }) => {
   switch (action.type) {
@@ -131,10 +149,19 @@ const stuSearch = (state = initUser, action: { type: any; data: any }) => {
       return state;
   }
 };
+const stuSearchtea = (state = initUser, action: { type: any; data: any }) => {
+  switch (action.type) {
+    case SEARCH_SUCCESS__TEACHER:
+      return action.data;
+    default:
+      return state;
+  }
+};
 export default combineReducers({
   grade,
   user,
   cooikeuserid,
   stuSearch,
   gradecount,
+  stuSearchtea,
 });

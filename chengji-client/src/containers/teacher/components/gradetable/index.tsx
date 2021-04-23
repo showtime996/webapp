@@ -77,7 +77,6 @@ const GradeTable = (props) => {
         department: formatedata[i].department,
         countcredit: formatedata[i].countcredit,
         averagecountcredit: formatedata[i].averagecountcredit,
-
         count: formatedata[i].count,
         average: formatedata[i].average,
         countgpa: formatedata[i].countgpa,
@@ -278,7 +277,7 @@ const GradeTable = (props) => {
         realName: search[i].realName,
         cname: search[i].cname,
         classno: search[i].classno,
-
+        department: search[i].department,
         countcredit: search[i].countcredit,
         averagecountcredit: search[i].averagecountcredit,
 

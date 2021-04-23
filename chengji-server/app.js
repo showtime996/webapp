@@ -28,6 +28,7 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
 // view engine setup
 app.engine("art", require("express-art-template"));
 app.set("views", path.join(__dirname, "views"));

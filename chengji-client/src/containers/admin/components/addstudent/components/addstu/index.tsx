@@ -39,7 +39,9 @@ function StudentRegister(props) {
     props.studentRegister(state);
   };
   // 点击注册调用
-
+  const refresh = () => {
+    window.history.go(0);
+  };
   const validateMessages = {
     required: "账号或密码必须填写!",
   };
@@ -107,16 +109,21 @@ function StudentRegister(props) {
           // onChange={val => { this.handleChange('password2', val) }}
         />
       </Form.Item>
-      {JSON.stringify(msg) != "{}" && msg !== "用户名或密码不正确!" ? (
+      {/* {JSON.stringify(msg) != "{}" && msg !== "用户名或密码不正确!" ? (
         <span className="errorMsg">{msg}</span>
       ) : (
         JSON.stringify(msg) != "{}" && (
           <span style={{ color: "green", fontWeight: "bold" }}>录入成功！</span>
         )
-      )}
+      )} */}
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
+        <Button
+          type="primary"
+          onClick={refresh}
+          htmlType="submit"
+          className="login-form-button"
+        >
           录入
         </Button>
       </Form.Item>

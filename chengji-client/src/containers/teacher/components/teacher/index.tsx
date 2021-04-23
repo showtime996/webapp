@@ -1,4 +1,4 @@
-import { Button, Layout, Menu } from "antd";
+import { Button, Layout, Menu, Tooltip } from "antd";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -99,6 +99,10 @@ function Teachers() {
               onClick: toggle,
             }
           )}
+          <Tooltip title="欢迎光临成绩管理系统!">
+            <span style={{ fontSize: 25 }}>教师成绩管理系统</span>
+          </Tooltip>
+
           <Button icon={<PoweroffOutlined />} href="/login" danger>
             退出
           </Button>

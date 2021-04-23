@@ -23,21 +23,30 @@ function Login(props: any) {
   const [state, setState] = useState({
     username: "", // 用户名
     password: "", // 密码
+    type: "",
   });
 
   // 点击注册调用  将值传入到state中
-  const onFinish = (values: { username: string; password: string }) => {
+  const onFinish = (values: {
+    username: string;
+    password: string;
+    type: string;
+  }) => {
     setState({
       username: (state.username = values.username),
       password: (state.password = values.password),
+      type: (state.type = values.type),
     });
     //调用redux action中的login方法，判断是否可以注册
 
-    props.adminLogin(state);
-    props.studentLogin(state);
-    props.teacherLogin(state);
+    if (state.type === "student") {
+      props.studentLogin(state);
+    } else if (state.type === "admin") {
+      props.adminLogin(state);
+    } else {
+      props.teacherLogin(state);
+    }
   };
-  // 点击登入调用
 
   const toRegister = () => {
     props.history.replace("/register");
@@ -99,7 +108,13 @@ function Login(props: any) {
                     // onChange={val => { this.handleChange('password', val) }}
                   />
                 </Form.Item>
-
+                <Form.Item name="type">
+                  <Radio.Group>
+                    <Radio value="admin">教务员</Radio>
+                    <Radio value="student">学生</Radio>
+                    <Radio value="teacher">老师</Radio>
+                  </Radio.Group>
+                </Form.Item>
                 <Form.Item>
                   <Button
                     type="primary"
@@ -185,7 +200,13 @@ function Login(props: any) {
                     // onChange={val => { this.handleChange('password', val) }}
                   />
                 </Form.Item>
-
+                <Form.Item name="type">
+                  <Radio.Group>
+                    <Radio value="admin">教务员</Radio>
+                    <Radio value="student">学生</Radio>
+                    <Radio value="teacher">老师</Radio>
+                  </Radio.Group>
+                </Form.Item>
                 <Form.Item>
                   <Button
                     type="primary"
@@ -270,7 +291,13 @@ function Login(props: any) {
                     // onChange={val => { this.handleChange('password', val) }}
                   />
                 </Form.Item>
-
+                <Form.Item name="type">
+                  <Radio.Group>
+                    <Radio value="admin">教务员</Radio>
+                    <Radio value="student">学生</Radio>
+                    <Radio value="teacher">老师</Radio>
+                  </Radio.Group>
+                </Form.Item>
                 <Form.Item>
                   <Button
                     type="primary"
@@ -355,7 +382,13 @@ function Login(props: any) {
                     // onChange={val => { this.handleChange('password', val) }}
                   />
                 </Form.Item>
-
+                <Form.Item name="type">
+                  <Radio.Group>
+                    <Radio value="admin">教务员</Radio>
+                    <Radio value="student">学生</Radio>
+                    <Radio value="teacher">老师</Radio>
+                  </Radio.Group>
+                </Form.Item>
                 <Form.Item>
                   <Button
                     type="primary"

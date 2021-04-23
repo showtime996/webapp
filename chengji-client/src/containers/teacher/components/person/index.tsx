@@ -36,7 +36,7 @@ function TeacherPerson(props) {
   });
 
   const userid = Cookies.get("userid");
-  const [requestdata, setrequestdata] = useState();
+
   useEffect(() => {
     props.TeacherUserid({ id: userid });
   }, []);
@@ -70,8 +70,7 @@ function TeacherPerson(props) {
       });
     }
   }
-  const [seletdata, setselectdata] = useState();
-  const [deparmentdata, setdeparmentdata] = useState();
+
   const onFinish = (values: any) => {
     setState({
       username: (state.username = cookicedata[0].username),

@@ -17,6 +17,7 @@ import {
   SEARCH_SUCCESS__COUNT,
   SEARCH_SUCCESS__GRADECHEAT,
   UPDATE_SUCCESS__GRADE,
+  SEARCH_SUCCESS__TEACHER,
 } from "./action-types";
 import {
   reqteacherRegister,
@@ -110,6 +111,10 @@ const searchUserid = (data: any) => ({
   type: SEARCH_SUCCESS__COOKIES,
   data: data,
 });
+const searchteacher = (data: any) => ({
+  type: SEARCH_SUCCESS__TEACHER,
+  data: data,
+});
 
 // 注册教务员异步action
 export const adminRegister = (user: {
@@ -145,7 +150,6 @@ export const adminRegister = (user: {
   };
 };
 
-
 // 注册老师异步action
 export const teacherRegister = (user) => {
   const { username, password, password2, type } = user;
@@ -162,7 +166,7 @@ export const teacherRegister = (user) => {
   return async (dispatch) => {
     // 发送注册的异步ajax请求
     const response = await reqteacherRegister({ username, password, type });
-    const result = response.data; 
+    const result = response.data;
     if (result.code === 0) {
       // 成功
       // 分发授权成功的同步action
@@ -191,7 +195,7 @@ export const studentRegister = (user) => {
   return async (dispatch) => {
     // 发送注册的异步ajax请求
     const response = await reqstudentRegister({ username, password, type });
-    const result = response.data; 
+    const result = response.data;
     if (result.code === 0) {
       // 成功
       // 分发授权成功的同步action
@@ -205,7 +209,7 @@ export const studentRegister = (user) => {
 };
 
 // 教务员登陆异步action
-export const adminLogin = (user: { username: any; password: any }) => {
+export const adminLogin = (user) => {
   const { username, password } = user;
   // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
   if (!username) {
@@ -228,7 +232,7 @@ export const adminLogin = (user: { username: any; password: any }) => {
   };
 };
 // 学生登陆异步action
-export const studentLogin = (user: { username: any; password: any }) => {
+export const studentLogin = (user) => {
   const { username, password } = user;
   // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
   if (!username) {
@@ -251,7 +255,7 @@ export const studentLogin = (user: { username: any; password: any }) => {
   };
 };
 // 老师登陆异步action
-export const teacherLogin = (user: { username: any; password: any }) => {
+export const teacherLogin = (user) => {
   const { username, password } = user;
   // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
   if (!username) {
@@ -582,7 +586,7 @@ export const addTeacher = (user) => {
     if (result.code === 0) {
       // 成功
       // 分发授权成功的同步action
-      dispatch(searchuser(result.data));
+      dispatch(searchteacher(result.data));
     } else {
       // 失败
       // 分发错误提示信息的同步action

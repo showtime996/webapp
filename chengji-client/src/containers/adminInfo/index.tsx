@@ -110,8 +110,7 @@ function AdminInfo(props: {
           >
             <Select placeholder="请输入你的政治面貌">
               <Option value="DY">党员</Option>
-              <Option value="TY">团员</Option>
-              <Option value="SXDY">少先队员</Option>
+
               <Option value="QZ">群众</Option>
             </Select>
           </Form.Item>

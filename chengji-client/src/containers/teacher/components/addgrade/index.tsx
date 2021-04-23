@@ -2,7 +2,7 @@ import { Modal, Button } from "antd";
 import { connect, RootStateOrAny } from "react-redux";
 import { GradeInfo } from "@/redux/actions";
 import React, { useEffect, useRef, useState } from "react";
-import GradeEdit from "../gradeedit";
+
 import AddDetail from "./components/adddetail";
 import { PlusCircleOutlined } from "@ant-design/icons";
 const AddGrade = (props) => {

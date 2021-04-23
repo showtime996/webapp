@@ -1,4 +1,4 @@
-import { Layout, Menu, Breadcrumb, Button } from "antd";
+import { Layout, Menu, Breadcrumb, Button, Tooltip } from "antd";
 import React, { useEffect, useState } from "react";
 import "./index.less";
 import { StudentUserid } from "@/redux/actions";
@@ -16,7 +16,7 @@ function PersonalCommonL() {
   const [requestdata, setrequestdata]: any = useState();
   useEffect(() => {
     request
-      .post("teacheruserid", {
+      .post("studentuserid", {
         data: {
           id: userid,
         },
@@ -56,6 +56,9 @@ function PersonalCommonL() {
           <Menu.Item key="1">个人成绩表</Menu.Item>
           <Menu.Item key="2">个人信息</Menu.Item>
         </Menu>
+        <Tooltip title="欢迎光临成绩管理系统!">
+          <span style={{ fontSize: 25 }}>学生成绩管理系统</span>
+        </Tooltip>
         <Button onClick={btnclearcookie} href="/login" danger>
           退出
         </Button>

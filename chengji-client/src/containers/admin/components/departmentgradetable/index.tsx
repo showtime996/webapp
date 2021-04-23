@@ -330,11 +330,26 @@ const DepartmentGradeTable = (props) => {
                 <Option value={originData[0]?.classno}>
                   {originData[0]?.classno}
                 </Option>
-                <Option value={originData[0]?.cname + "2"}>
-                  {originData[0]?.cname + "2"}
+                <Option value={originData[1]?.classno}>
+                  {originData[1]?.classno}
                 </Option>
-                <Option value={originData[0]?.cname + "3"}>
-                  {originData[0]?.cname + "3"}
+                <Option value={originData[2]?.classno}>
+                  {originData[2]?.classno}
+                </Option>
+                <Option value={originData[3]?.classno}>
+                  {originData[3]?.classno}
+                </Option>
+                <Option value={originData[4]?.classno}>
+                  {originData[4]?.classno}
+                </Option>
+                <Option value={originData[5]?.classno}>
+                  {originData[5]?.classno}
+                </Option>
+                <Option value={originData[6]?.classno}>
+                  {originData[6]?.classno}
+                </Option>
+                <Option value={originData[7]?.classno}>
+                  {originData[7]?.classno}
                 </Option>
               </Select>
             </Form.Item>

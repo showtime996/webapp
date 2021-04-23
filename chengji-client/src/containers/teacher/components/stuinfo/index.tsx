@@ -18,12 +18,8 @@ import DeleteStudentModel from "../deletestudentmodel";
 import ProTable from "@ant-design/pro-table";
 import type { ActionType } from "@ant-design/pro-table";
 
-import request from "umi-request";
 import EditModal from "../modal";
-import {
-  RequestData,
-  UseFetchDataAction,
-} from "@ant-design/pro-table/lib/typing";
+
 const originData: any = [];
 const cookicedata: any = [];
 const searchdata: any = [];
@@ -67,10 +63,9 @@ const EditableCell = ({
 const StuInfo = (props) => {
   const actionRef = useRef<ActionType>();
   const [form] = Form.useForm();
-  const [data, setData]: any[] = useState(originData);
+
   const [editingKey, setEditingKey] = useState("");
 
-  const isEditing = (record) => record.key === editingKey;
   const userid = Cookies.get("userid");
   useEffect(() => {
     props.TeacherUserid({ id: userid });
@@ -127,23 +122,10 @@ const StuInfo = (props) => {
       });
     }
   }
-  const edit = (record) => {
-    form.setFieldsValue({
-      username: "",
-      realName: "",
-      cname: "",
-      classno: "",
-      phone: "",
-
-      ...record,
-    });
-    setEditingKey(record.key);
-  };
 
   const cancel = () => {
     setEditingKey("");
   };
-  const [tempsearch, settempsearch]: any = useState([]);
 
   const [tempdata, settempdata] = useState();
   const columns: any = [
@@ -318,11 +300,7 @@ const StuInfo = (props) => {
             />
           </Tooltip>,
         ]}
-        dataSource={
-          flag === 0
-            ? [...data]
-            : [...searchdata] || (flag === 2 && [...tempsearch])
-        }
+        dataSource={flag === 0 ? [...originData] : [...searchdata]}
         columns={columns}
         rowClassName="editable-row"
         pagination={{
