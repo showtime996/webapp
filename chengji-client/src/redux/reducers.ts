@@ -19,6 +19,9 @@ import {
   SEARCH_SUCCESS__GRADECHEAT,
   UPDATE_SUCCESS__GRADE,
   SEARCH_SUCCESS__TEACHER,
+  INFO_SUCCESS_COURSE,
+  RESET__COURSE,
+  SEARCH_SUCCESS__COURSE,
 } from "./action-types";
 const initUser = {
   username: "", // 用户名
@@ -38,6 +41,15 @@ const initGrade = {
   grade: "",
   cheat: "",
   pass: "",
+};
+const initCourse = {
+  username: "",
+  realName: "",
+  courseNo: "",
+  classno: "",
+  courseType: "",
+  courseName: "",
+  cname: "",
 };
 
 const initcooice = {
@@ -157,6 +169,26 @@ const stuSearchtea = (state = initUser, action: { type: any; data: any }) => {
       return state;
   }
 };
+// 课程
+const course = (state = initCourse, action: { type: any; data: any }) => {
+  switch (action.type) {
+    case INFO_SUCCESS_COURSE:
+      return action.data;
+    case RESET__COURSE:
+      return action.data;
+
+    default:
+      return state;
+  }
+};
+const coursesearch = (state = initCourse, action: { type: any; data: any }) => {
+  switch (action.type) {
+    case SEARCH_SUCCESS__COURSE:
+      return action.data;
+    default:
+      return state;
+  }
+};
 export default combineReducers({
   grade,
   user,
@@ -164,4 +196,6 @@ export default combineReducers({
   stuSearch,
   gradecount,
   stuSearchtea,
+  course,
+  coursesearch,
 });

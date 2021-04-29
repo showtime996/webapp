@@ -40,8 +40,8 @@ const StudentModel = mongoose.model("studentInfo", studentSchema);
 const teacherSchema = mongoose.Schema({
   // type:Number, min:3, max:9, required: true
   _id: Number,
-  username: { type: String, required: true, trim: true },
-  password: { type: String, required: true, trim: true },
+  username: { type: String, required: true },
+  password: { type: String, required: true },
   type: { type: String, required: true, trim: true },
   realName: { type: String },
   years: { type: String },
@@ -103,16 +103,16 @@ const gradetableSchema = mongoose.Schema({
   classno: { type: String },
   username: { type: String },
   realName: { type: String },
-  countcredit: { type: Number },//总学分
-  averagecountcredit: { type: Number },//平均学分
+  countcredit: { type: Number }, //总学分
+  averagecountcredit: { type: Number }, //平均学分
   flaggrade: { type: Boolean },
   flagcheat: { type: Boolean },
   cname: { type: String },
   department: { type: String },
-  count: { type: Number },//总分
-  average: { type: Number },//平均分
-  countgpa: { type: Number },//总绩点
-  averagegpa: { type: Number },//平均绩点
+  count: { type: Number }, //总分
+  average: { type: Number }, //平均分
+  countgpa: { type: Number }, //总绩点
+  averagegpa: { type: Number }, //平均绩点
 });
 const GradeTable = mongoose.model("GradeTable", gradetableSchema);
 // 向外暴露Model

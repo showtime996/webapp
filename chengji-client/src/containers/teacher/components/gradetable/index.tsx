@@ -41,7 +41,6 @@ const GradeTable = (props) => {
         type: cookiceuserid[i].type,
         realName: cookiceuserid[i].realName,
         cname: cookiceuserid[i].cname,
-
         sex: cookiceuserid[i].sex,
         department: cookiceuserid[i].department,
         affiliation: cookiceuserid[i].affiliation,
@@ -205,15 +204,15 @@ const GradeTable = (props) => {
       sortOrder: sortedInfo.columnKey === "countcredit" && sortedInfo.order,
       ellipsis: true,
     },
-    {
-      title: "平均学分",
-      dataIndex: "averagecountcredit",
-      key: "averagecountcredit",
-      sorter: (a, b) => a.averagecountcredit - b.averagecountcredit,
-      sortOrder:
-        sortedInfo.columnKey === "averagecountcredit" && sortedInfo.order,
-      ellipsis: true,
-    },
+    // {
+    //   title: "平均学分",
+    //   dataIndex: "averagecountcredit",
+    //   key: "averagecountcredit",
+    //   sorter: (a, b) => a.averagecountcredit - b.averagecountcredit,
+    //   sortOrder:
+    //     sortedInfo.columnKey === "averagecountcredit" && sortedInfo.order,
+    //   ellipsis: true,
+    // },
     {
       title: "总分",
       dataIndex: "count",

@@ -17,4 +17,6 @@ export const SEARCH_SUCCESS__COUNT = "search_success_count"; // 查询成绩表�
 export const SEARCH_SUCCESS__GRADECHEAT = "search_success_gradecheat"; // 查询成绩表作弊不及格成功
 export const UPDATE_SUCCESS__GRADE = "update_success_grade"; // 修改成绩成功
 export const SEARCH_SUCCESS__TEACHER = "search_success_teacher"; 
-
+export const INFO_SUCCESS_COURSE = "info_success_course";
+export const RESET__COURSE = "reset_course";
+export const SEARCH_SUCCESS__COURSE = "search_success_course"; 

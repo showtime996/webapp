@@ -18,6 +18,9 @@ import {
   SEARCH_SUCCESS__GRADECHEAT,
   UPDATE_SUCCESS__GRADE,
   SEARCH_SUCCESS__TEACHER,
+  INFO_SUCCESS_COURSE,
+  RESET__COURSE,
+  SEARCH_SUCCESS__COURSE,
 } from "./action-types";
 import {
   reqteacherRegister,
@@ -49,6 +52,8 @@ import {
   reqTeacherInformation,
   reqDeleteTeacher,
   reqAdminSearchtea,
+  reqCourse,
+  reqCourseSearch,
 } from "../api/index";
 
 // 授权成功的同步action
@@ -115,7 +120,16 @@ const searchteacher = (data: any) => ({
   type: SEARCH_SUCCESS__TEACHER,
   data: data,
 });
+const course = (data: any) => ({
+  type: INFO_SUCCESS_COURSE,
+  data: data,
+});
+const coursesearch = (data: any) => ({
+  type: SEARCH_SUCCESS__COURSE,
+  data: data,
+});
 
+const resetcourse = (msg: any) => ({ type: RESET__COURSE, data: msg });
 // 注册教务员异步action
 export const adminRegister = (user: {
   username: any;
@@ -629,6 +643,44 @@ export const AdminSearchtea = (user) => {
     } else {
       // 失败
       dispatch(resetUser(result.msg));
+    }
+  };
+};
+// 课程信息
+export const Course = (data) => {
+  return async (dispatch) => {
+    // 执行异步ajax请求
+
+    const response = await reqCourse(data);
+
+    const result = response.data;
+
+    if (result.code === 0) {
+      // 成功
+
+      dispatch(course(result.data));
+    } else {
+      // 失败
+      dispatch(resetcourse(result.msg));
+    }
+  };
+};
+// 课程班级查询
+export const CourseSearch = (data) => {
+  return async (dispatch) => {
+    // 执行异步ajax请求
+
+    const response = await reqCourseSearch(data);
+
+    const result = response.data;
+
+    if (result.code === 0) {
+      // 成功
+
+      dispatch(coursesearch(result.data));
+    } else {
+      // 失败
+      dispatch(resetcourse(result.msg));
     }
   };
 };

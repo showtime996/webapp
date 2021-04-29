@@ -91,16 +91,17 @@ function Administer(props) {
           selectedKeys={[clickkey]}
           defaultSelectedKeys={[clickkey]}
         >
-          <Menu.Item key="1" icon={<CalendarOutlined />}>
+          {/* <Menu.Item key="1" icon={<CalendarOutlined />}>
             学院成绩表
-          </Menu.Item>
-          <Menu.Item key="2" icon={<UserOutlined />}>
+          </Menu.Item> */}
+
+          <SubMenu key="sub1" icon={<MailOutlined />} title="账号管理">
+            <Menu.Item key="1">学生信息</Menu.Item>
+            <Menu.Item key="2">教师信息</Menu.Item>
+          </SubMenu>
+          <Menu.Item key="3" icon={<UserOutlined />}>
             个人信息
           </Menu.Item>
-          <SubMenu key="sub1" icon={<MailOutlined />} title="账号管理">
-            <Menu.Item key="3">学生信息</Menu.Item>
-            <Menu.Item key="4">教师信息</Menu.Item>
-          </SubMenu>
         </Menu>
       </Sider>
       <Layout className="site-layout">
@@ -135,10 +136,11 @@ function Administer(props) {
             minHeight: 618,
           }}
         >
-          {clickkey === "1" && <DepartmentGradeTable></DepartmentGradeTable>}
-          {clickkey === "2" && <AdminPerson></AdminPerson>}
-          {clickkey === "3" && <Studentinfomation></Studentinfomation>}
-          {clickkey === "4" && <Teacherinfomation></Teacherinfomation>}
+          {/* {clickkey === "1" && <DepartmentGradeTable></DepartmentGradeTable>} */}
+
+          {clickkey === "1" && <Studentinfomation></Studentinfomation>}
+          {clickkey === "2" && <Teacherinfomation></Teacherinfomation>}
+          {clickkey === "3" && <AdminPerson></AdminPerson>}
         </Content>
       </Layout>
     </Layout>

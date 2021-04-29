@@ -6,11 +6,12 @@ import {
   CalendarOutlined,
   MediumOutlined,
   PoweroffOutlined,
+  ContainerOutlined,
 } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import "./index.less";
 import TeacherPerson from "../person";
-
+import CourseInfo from "../course";
 import Cookies from "js-cookie";
 import GradeTable from "../gradetable";
 import StuInfo from "@/containers/teacher/components/stuinfo";
@@ -77,7 +78,11 @@ function Teachers() {
           <Menu.Item key="2" icon={<CalendarOutlined />}>
             成绩表
           </Menu.Item>
-          <Menu.Item key="3" icon={<UserOutlined />}>
+
+          <Menu.Item key="3" icon={<ContainerOutlined />}>
+            授课信息
+          </Menu.Item>
+          <Menu.Item key="4" icon={<UserOutlined />}>
             个人信息
           </Menu.Item>
         </Menu>
@@ -117,7 +122,8 @@ function Teachers() {
         >
           {clickkey === "1" && <StuInfo></StuInfo>}
           {clickkey === "2" && <GradeTable></GradeTable>}
-          {clickkey === "3" && <TeacherPerson></TeacherPerson>}
+          {clickkey === "3" && <CourseInfo></CourseInfo>}
+          {clickkey === "4" && <TeacherPerson></TeacherPerson>}
         </Content>
       </Layout>
     </Layout>

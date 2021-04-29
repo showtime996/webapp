@@ -565,5 +565,33 @@ router.post("/adminsearchtea", function (req, res) {
     }
   ).exec();
 });
+// 课程信息
+router.post("/course", function (req, res) {
+  const course = req.body;
 
+  GradeModel.find(
+    {
+      cname: course.cname,
+    },
+    function (error, data) {
+      res.status = 200;
+      res.send({ code: 0, data: data });
+    }
+  ).exec();
+});
+// 课程信息
+router.post("/coursesearch", function (req, res) {
+  const course = req.body;
+  console.log("course", course);
+  GradeModel.find(
+    {
+      classno: course.classno,
+    },
+    function (error, data) {
+      res.status = 200;
+      res.send({ code: 0, data: data });
+      console.log("data", data);
+    }
+  ).exec();
+});
 module.exports = router;
