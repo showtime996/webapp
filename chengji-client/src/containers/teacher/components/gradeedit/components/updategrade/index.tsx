@@ -1,11 +1,11 @@
 //学生信息完善的路由容器组件
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect, RootStateOrAny } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Form, Input, InputNumber, Button, Radio, Select } from "antd";
-
-import { UpdateGradeData } from "@/redux/actions";
+import Cookies from "js-cookie";
+import { UpdateGradeData, TeacherUserid } from "@/redux/actions";
 import { LikeOutlined } from "@ant-design/icons";
 function UpdateGrade(props) {
   const [state, setState] = useState({
@@ -20,9 +20,39 @@ function UpdateGrade(props) {
     cheat: "",
     cname: "",
     department: "",
+    courseteacher: "",
   });
-
-
+  const userid = Cookies.get("userid");
+  useEffect(() => {
+    props.TeacherUserid({ id: userid });
+  }, []);
+  const cookicedata: any = [];
+  const cookiceuserid = props.cooikeuserid;
+  const cookicelength = cookiceuserid.length;
+  if (JSON.stringify(cookiceuserid) !== "{}") {
+    for (let i = cookicedata.length; i < cookicelength; i++) {
+      cookicedata.push({
+        key: i + 1,
+        username: cookiceuserid[i].username,
+        password: cookiceuserid[i].password,
+        type: cookiceuserid[i].type,
+        realName: cookiceuserid[i].realName,
+        cname: cookiceuserid[i].cname,
+        sex: cookiceuserid[i].sex,
+        department: cookiceuserid[i].department,
+        affiliation: cookiceuserid[i].affiliation,
+        age: cookiceuserid[i].age,
+        duty: cookiceuserid[i].duty,
+        IDcard: cookiceuserid[i].IDcard,
+        nation: cookiceuserid[i].nation,
+        region: cookiceuserid[i].region,
+        phone: cookiceuserid[i].phone,
+        eMail: cookiceuserid[i].eMail,
+        street: cookiceuserid[i].street,
+        diploma: cookiceuserid[i].diploma,
+      });
+    }
+  }
   const { tempdata } = props;
 
   const onFinish = async (values: any) => {
@@ -39,6 +69,7 @@ function UpdateGrade(props) {
       grade: (state.grade =
         values.cheat === "作弊" ? 0 : values.grade || tempdata.grade),
       cheat: (state.cheat = values.cheat || tempdata.cheat),
+      courseteacher: (state.courseteacher = tempdata.courseteacher),
     });
 
     await props.UpdateGradeData(state);
@@ -96,6 +127,13 @@ function UpdateGrade(props) {
           value={tempdata.department}
         />
       </Form.Item>
+      <Form.Item name={"courseteacher"} label="授课老师">
+        <Input
+          readOnly
+          defaultValue={tempdata.courseteacher}
+          value={tempdata.courseteacher}
+        />
+      </Form.Item>
       <Form.Item name={"cname"} label="专业">
         <Input
           readOnly
@@ -148,20 +186,31 @@ function UpdateGrade(props) {
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
         &nbsp; &nbsp; &nbsp; &nbsp;
-        <Button
-          type="primary"
-          icon={<LikeOutlined />}
-          onClick={btnclick}
-          htmlType="submit"
-        >
-          信息提交
-        </Button>
+        {cookicedata[0].realName === tempdata.courseteacher ? (
+          <Button
+            type="primary"
+            icon={<LikeOutlined />}
+            onClick={btnclick}
+            htmlType="submit"
+          >
+            信息提交
+          </Button>
+        ) : (
+          <Button disabled>信息提交</Button>
+        )}
       </Form.Item>
     </Form>
   );
 }
 
 //updateUser
-export default connect((state: RootStateOrAny) => ({ grade: state.grade }), {
-  UpdateGradeData,
-})(UpdateGrade);
+export default connect(
+  (state: RootStateOrAny) => ({
+    grade: state.grade,
+    cooikeuserid: state.cooikeuserid,
+  }),
+  {
+    UpdateGradeData,
+    TeacherUserid,
+  }
+)(UpdateGrade);

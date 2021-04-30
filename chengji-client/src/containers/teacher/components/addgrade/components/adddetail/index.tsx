@@ -8,6 +8,7 @@ import styles from "@/assets/css/global.module.less";
 import GlobalTab from "@/components/tabNav";
 import selfStyles from "./index.module.less";
 import { addGrade } from "@/redux/actions";
+
 import { LikeOutlined } from "@ant-design/icons";
 function AddDetail(props) {
   const [state, setState] = useState({
@@ -22,6 +23,7 @@ function AddDetail(props) {
     cheat: "",
     cname: "",
     department: "",
+    courseteacher: "",
   });
   const [seletdata, setselectdata] = useState();
   const [deparmentdata, setdeparmentdata] = useState();
@@ -39,6 +41,7 @@ function AddDetail(props) {
       courseName: (state.courseName = values.courseName),
       grade: (state.grade = values.cheat === "作弊" ? 0 : values.grade),
       cheat: (state.cheat = values.cheat),
+      courseteacher: (state.courseteacher = tempdata.courseteacher),
     });
 
     await props.addGrade(state);
@@ -94,6 +97,13 @@ function AddDetail(props) {
           placeholder="请输入学院"
           defaultValue={tempdata.department}
           value={tempdata.department}
+        />
+      </Form.Item>
+      <Form.Item name={"courseteacher"} label="授课老师">
+        <Input
+          readOnly
+          defaultValue={tempdata.courseteacher}
+          value={tempdata.courseteacher}
         />
       </Form.Item>
       <Form.Item name={"cname"} label="专业">

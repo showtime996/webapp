@@ -112,7 +112,7 @@ function Login(props: any) {
                   <Radio.Group>
                     <Radio value="admin">教务员</Radio>
                     <Radio value="student">学生</Radio>
-                    <Radio value="teacher">老师</Radio>
+                    <Radio value="teacher">教师</Radio>
                   </Radio.Group>
                 </Form.Item>
                 <Form.Item>
@@ -204,7 +204,7 @@ function Login(props: any) {
                   <Radio.Group>
                     <Radio value="admin">教务员</Radio>
                     <Radio value="student">学生</Radio>
-                    <Radio value="teacher">老师</Radio>
+                    <Radio value="teacher">教师</Radio>
                   </Radio.Group>
                 </Form.Item>
                 <Form.Item>
@@ -295,7 +295,7 @@ function Login(props: any) {
                   <Radio.Group>
                     <Radio value="admin">教务员</Radio>
                     <Radio value="student">学生</Radio>
-                    <Radio value="teacher">老师</Radio>
+                    <Radio value="teacher">教师</Radio>
                   </Radio.Group>
                 </Form.Item>
                 <Form.Item>
@@ -386,7 +386,7 @@ function Login(props: any) {
                   <Radio.Group>
                     <Radio value="admin">教务员</Radio>
                     <Radio value="student">学生</Radio>
-                    <Radio value="teacher">老师</Radio>
+                    <Radio value="teacher">教师</Radio>
                   </Radio.Group>
                 </Form.Item>
                 <Form.Item>

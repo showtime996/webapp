@@ -41,6 +41,7 @@ const initGrade = {
   grade: "",
   cheat: "",
   pass: "",
+  courseteacher: "",
 };
 const initCourse = {
   username: "",
@@ -50,6 +51,7 @@ const initCourse = {
   courseType: "",
   courseName: "",
   cname: "",
+  courseteacher: "",
 };
 
 const initcooice = {
@@ -58,6 +60,7 @@ const initcooice = {
   type: "",
   realName: "",
   cname: "",
+
   classno: "",
   sex: "",
   department: "",

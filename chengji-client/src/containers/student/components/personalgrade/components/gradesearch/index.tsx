@@ -114,6 +114,7 @@ const PersonalGradeTableEdit = (props) => {
           cheat: formatedata[i].cheat,
           flaggrade: formatedata[i].flaggrade,
           flagcheat: formatedata[i].flagcheat,
+          courseteacher: formatedata[i].courseteacher,
         });
       }
     }
@@ -185,6 +186,12 @@ const PersonalGradeTableEdit = (props) => {
     {
       title: "课程类型",
       dataIndex: "courseType",
+      width: "7%",
+      editable: true,
+    },
+    {
+      title: "授课老师",
+      dataIndex: "courseteacher",
       width: "7%",
       editable: true,
     },

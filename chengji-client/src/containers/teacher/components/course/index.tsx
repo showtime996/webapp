@@ -23,20 +23,7 @@ const originData: any = [];
 const cookicedata: any = [];
 const searchdata: any = [];
 let flag = 0;
-let counttype = {
-  classno: "",
-  username: "",
-  realName: "",
-  flaggrade: false,
-  flagcheat: false,
-  cname: "",
-  count: 0,
-  average: 0,
-  countgpa: 0,
-  averagegpa: 0,
-  countcredit: 0,
-  averagecountcredit: 0,
-};
+
 const EditableCell = ({
   editing,
   dataIndex,
@@ -126,11 +113,12 @@ const CourseInfo = (props) => {
   }
 
   useEffect(() => {
-    props.Course({ cname: cookicedata[0].cname });
+    props.Course({ courseteacher: cookicedata[0].realName });
   }, []);
   //   console.log("props", props);
 
   const formatedata = props.course;
+
   const { Option } = Select;
   const temp = formatedata.length;
   originData.length = 0;
@@ -297,7 +285,16 @@ const CourseInfo = (props) => {
                 </Option>
               </Select>
             </Form.Item>
-
+            <Form.Item name={"courseNo"} label="课程号">
+              <Select placeholder="请选择课程号">
+                <Option value={originData[0]?.courseNo}>
+                  {originData[0]?.courseNo}
+                </Option>
+                <Option value={originData[1]?.courseNo}>
+                  {originData[1]?.courseNo}
+                </Option>
+              </Select>
+            </Form.Item>
             <Form.Item>
               <Tooltip title="查找">
                 <Button

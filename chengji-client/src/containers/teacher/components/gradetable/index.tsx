@@ -74,6 +74,7 @@ const GradeTable = (props) => {
         realName: formatedata[i].realName,
         cname: formatedata[i].cname,
         department: formatedata[i].department,
+        courseteacher: formatedata[0].courseteacher,
         countcredit: formatedata[i].countcredit,
         averagecountcredit: formatedata[i].averagecountcredit,
         count: formatedata[i].count,
@@ -160,6 +161,7 @@ const GradeTable = (props) => {
       sortOrder: sortedInfo.columnKey === "department" && sortedInfo.order,
       ellipsis: true,
     },
+
     {
       title: "专业",
       dataIndex: "cname",
@@ -278,7 +280,7 @@ const GradeTable = (props) => {
         classno: search[i].classno,
         department: search[i].department,
         countcredit: search[i].countcredit,
-        averagecountcredit: search[i].averagecountcredit,
+        // averagecountcredit: search[i].averagecountcredit,
 
         count: search[i].count,
         average: search[i].average,

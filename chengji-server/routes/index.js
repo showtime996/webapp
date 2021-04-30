@@ -297,11 +297,12 @@ router.post("/addgrade", function (req, res) {
     credit: grade.grade >= 60 ? grade.credit : 0,
     courseType: grade.courseType,
     courseName: grade.courseName,
+    courseteacher: grade.courseteacher,
     grade: grade.grade,
     cheat: grade.cheat,
     cname: grade.cname,
     flaggrade: grade.grade < 60 ? true : false,
-    flagcheat: grade.cheat === "正常" ? false : true,
+    // flagcheat: grade.cheat === "正常" ? false : true,
     gpa: grade.grade >= 60 ? (grade.grade / 10 - 5).toFixed(2) : 0,
   });
 });
@@ -361,7 +362,7 @@ router.post("/addgradecount", function (req, res) {
     username,
     realName,
     countcredit,
-    averagecountcredit,
+    // averagecountcredit,
     cname,
     count,
     average,
@@ -389,7 +390,7 @@ router.post("/addgradecount", function (req, res) {
         username,
         realName,
         countcredit,
-        averagecountcredit,
+        // averagecountcredit,
         cname,
         count,
         average,
@@ -415,19 +416,13 @@ router.post("/gradecountinfo", function (req, res) {
 //查询成绩总分表里作弊不及格 成绩表
 router.post("/searchgradecheat", function (req, res) {
   const grade = req.body; // 没有_id
+  console.log("zzz", grade);
   //多样查找
   GradeTable.find(
     {
       $or: [
         {
-          classno: grade.classno,
-          flaggrade: Boolean(grade.flaggrade),
-          flagcheat: Boolean(grade.flagcheat),
-        },
-        { classno: grade.classno, flaggrade: Boolean(grade.flaggrade) },
-        {
-          classno: grade.classno,
-          flagcheat: Boolean(grade.flagcheat),
+          flagcheat: grade.flagcheat === "作弊" ? true : false,
         },
       ],
     },
@@ -451,12 +446,13 @@ router.post("/updategrade", function (req, res) {
       classno: grade.classno,
       credit: grade.grade >= 60 ? grade.credit : 0,
       courseType: grade.courseType,
+      courseteacher: grade.courseteacher,
       courseName: grade.courseName,
       grade: grade.grade,
       cheat: grade.cheat,
       cname: grade.cname,
       flaggrade: grade.grade < 60 ? true : false,
-      flagcheat: grade.cheat === "正常" ? false : true,
+      // flagcheat: grade.cheat === "正常" ? false : true,
       gpa: grade.grade >= 60 ? (grade.grade / 10 - 5).toFixed(2) : 0,
     },
     function (error, oldGrade) {
@@ -568,14 +564,15 @@ router.post("/adminsearchtea", function (req, res) {
 // 课程信息
 router.post("/course", function (req, res) {
   const course = req.body;
-
+  console.log("course", course);
   GradeModel.find(
     {
-      cname: course.cname,
+      courseteacher: course.courseteacher,
     },
     function (error, data) {
       res.status = 200;
       res.send({ code: 0, data: data });
+      console.log("sss", data);
     }
   ).exec();
 });
@@ -585,7 +582,12 @@ router.post("/coursesearch", function (req, res) {
   console.log("course", course);
   GradeModel.find(
     {
-      classno: course.classno,
+      $or: [
+        { classno: course.classno },
+        {
+          courseNo: course.courseNo,
+        },
+      ],
     },
     function (error, data) {
       res.status = 200;

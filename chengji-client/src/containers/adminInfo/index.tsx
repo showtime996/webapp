@@ -109,9 +109,9 @@ function AdminInfo(props: {
             rules={[{ required: true, message: "请输入你的政治面貌" }]}
           >
             <Select placeholder="请输入你的政治面貌">
-              <Option value="DY">党员</Option>
+              <Option value="党员">党员</Option>
 
-              <Option value="QZ">群众</Option>
+              <Option value="群众">群众</Option>
             </Select>
           </Form.Item>
           <Form.Item

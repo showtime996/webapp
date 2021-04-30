@@ -13,19 +13,22 @@ import {
 import { connect, RootStateOrAny } from "react-redux";
 import type { ActionType } from "@ant-design/pro-table";
 import AddGrade from "../addgrade";
-
-import { GradeInfo, AddGradeCount } from "@/redux/actions";
+import Cookies from "js-cookie";
+import { GradeInfo, AddGradeCount, TeacherUserid } from "@/redux/actions";
 import ProTable from "@ant-design/pro-table";
 import DeleteGradeModel from "../deletegrademodel";
 import styles from "./index.module.less";
 import EditModel from "./components/editmodel";
 import { SyncOutlined, FormOutlined } from "@ant-design/icons";
 const originData: any = [];
+
+const cookicedata: any = [];
 let counttype = {
   classno: "",
   username: "",
   realName: "",
   department: "",
+  courseteacher: "",
   flaggrade: false,
   flagcheat: false,
   cname: "",
@@ -95,7 +98,37 @@ const GradeEdit = (props) => {
   useEffect(() => {
     props.GradeInfo(tempdata);
   }, []);
+  const userid = Cookies.get("userid");
+  useEffect(() => {
+    props.TeacherUserid({ id: userid });
+  }, []);
 
+  const cookiceuserid = props.cooikeuserid;
+  const cookicelength = cookiceuserid.length;
+  if (JSON.stringify(cookiceuserid) !== "{}") {
+    for (let i = cookicedata.length; i < cookicelength; i++) {
+      cookicedata.push({
+        key: i + 1,
+        username: cookiceuserid[i].username,
+        password: cookiceuserid[i].password,
+        type: cookiceuserid[i].type,
+        realName: cookiceuserid[i].realName,
+        cname: cookiceuserid[i].cname,
+        sex: cookiceuserid[i].sex,
+        department: cookiceuserid[i].department,
+        affiliation: cookiceuserid[i].affiliation,
+        age: cookiceuserid[i].age,
+        duty: cookiceuserid[i].duty,
+        IDcard: cookiceuserid[i].IDcard,
+        nation: cookiceuserid[i].nation,
+        region: cookiceuserid[i].region,
+        phone: cookiceuserid[i].phone,
+        eMail: cookiceuserid[i].eMail,
+        street: cookiceuserid[i].street,
+        diploma: cookiceuserid[i].diploma,
+      });
+    }
+  }
   const formatedata = props.grade;
 
   const temp = formatedata.length;
@@ -118,11 +151,13 @@ const GradeEdit = (props) => {
           gpa: formatedata[i].gpa,
           cheat: formatedata[i].cheat,
           flaggrade: formatedata[i].flaggrade,
-          flagcheat: formatedata[i].flagcheat,
+          flagcheat: formatedata[i].cheat === "作弊" ? true : false,
+          courseteacher: formatedata[i].courseteacher,
         });
       }
     }
   }
+
   const save = async (key) => {
     try {
       const row = await form.validateFields();
@@ -192,6 +227,11 @@ const GradeEdit = (props) => {
       width: "7%",
     },
     {
+      title: "授课老师",
+      dataIndex: "courseteacher",
+      width: "7%",
+    },
+    {
       title: "成绩",
       dataIndex: "grade",
       width: "7%",
@@ -237,21 +277,9 @@ const GradeEdit = (props) => {
           </span>
         ) : (
           <div>
-            {record.flagcheat === true ? (
-              <Typography.Link disabled>
-                <Button
-                  type="link"
-                  style={{ color: "#ccc" }}
-                  icon={<FormOutlined />}
-                >
-                  编辑
-                </Button>
-              </Typography.Link>
-            ) : (
-              <Typography.Link disabled={editingKey !== ""}>
-                <EditModel record={record}></EditModel>
-              </Typography.Link>
-            )}
+            <Typography.Link disabled={editingKey !== ""}>
+              <EditModel record={record}></EditModel>
+            </Typography.Link>
 
             <Typography.Link>
               <DeleteGradeModel clickdata={record}></DeleteGradeModel>
@@ -309,6 +337,7 @@ const GradeEdit = (props) => {
   counttype = {
     classno: originData[0]?.classno,
     username: originData[0]?.username,
+    courseteacher: originData[0]?.courseteacher,
     realName: originData[0]?.realName,
     cname: originData[0]?.cname,
     department: originData[0]?.department,
@@ -384,7 +413,10 @@ const GradeEdit = (props) => {
 
 export default connect(
   // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
-  (state: RootStateOrAny) => ({ grade: state.grade }),
+  (state: RootStateOrAny) => ({
+    grade: state.grade,
+    cooikeuserid: state.cooikeuserid,
+  }),
   //  函数确定
-  { GradeInfo, AddGradeCount }
+  { GradeInfo, AddGradeCount, TeacherUserid }
 )(GradeEdit);

@@ -119,6 +119,7 @@ const StuInfo = (props) => {
         phone: formatedata[i].phone,
         years: formatedata[i].years,
         term: formatedata[i].term,
+        courseteacher: cookicedata[0].realName,
       });
     }
   }

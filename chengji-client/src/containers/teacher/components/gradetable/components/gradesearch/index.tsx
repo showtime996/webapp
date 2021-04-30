@@ -113,7 +113,8 @@ const GradeTableEdit = (props) => {
           gpa: formatedata[i].gpa,
           cheat: formatedata[i].cheat,
           flaggrade: formatedata[i].flaggrade,
-          flagcheat: formatedata[i].flagcheat,
+          flagcheat: formatedata[i].cheat === "作弊" ? true : false,
+          courseteacher: formatedata[i].courseteacher,
         });
       }
     }
@@ -185,6 +186,12 @@ const GradeTableEdit = (props) => {
     {
       title: "课程类型",
       dataIndex: "courseType",
+      width: "7%",
+      editable: true,
+    },
+    {
+      title: "授课老师",
+      dataIndex: "courseteacher",
       width: "7%",
       editable: true,
     },
