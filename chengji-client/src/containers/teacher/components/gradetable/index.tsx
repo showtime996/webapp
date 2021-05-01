@@ -239,14 +239,14 @@ const GradeTable = (props) => {
       sortOrder: sortedInfo.columnKey === "countgpa" && sortedInfo.order,
       ellipsis: true,
     },
-    {
-      title: "平均绩点",
-      dataIndex: "averagegpa",
-      key: "averagegpa",
-      sorter: (a, b) => a.averagegpa - b.averagegpa,
-      sortOrder: sortedInfo.columnKey === "averagegpa" && sortedInfo.order,
-      ellipsis: true,
-    },
+    // {
+    //   title: "平均绩点",
+    //   dataIndex: "averagegpa",
+    //   key: "averagegpa",
+    //   sorter: (a, b) => a.averagegpa - b.averagegpa,
+    //   sortOrder: sortedInfo.columnKey === "averagegpa" && sortedInfo.order,
+    //   ellipsis: true,
+    // },
     {
       title: "操作",
       dataIndex: "",
@@ -349,7 +349,7 @@ const GradeTable = (props) => {
             />
           </Tooltip>,
         ]}
-        headerTitle="班级成绩信息表"
+        headerTitle="成绩汇总信息表"
       />
     </>
   );

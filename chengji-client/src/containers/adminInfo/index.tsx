@@ -91,7 +91,7 @@ function AdminInfo(props: {
           validateMessages={validateMessages}
         >
           <Form.Item>
-            <h2 className={selfStyles.title}>教务员基本信息</h2>
+            <h2 className={selfStyles.title}>教职工基本信息</h2>
           </Form.Item>
           <Form.Item name={"realName"} label="真实姓名">
             <Input placeholder="请输入姓名" />

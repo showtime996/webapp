@@ -329,7 +329,7 @@ const DepartmentGradeTableEdit = (props) => {
         dataSource={[...data]}
         columns={mergedColumns}
         rowClassName="editable-row"
-        headerTitle="成绩详情表"
+        headerTitle="课程成绩信息表"
         pagination={{
           onChange: cancel,
         }}

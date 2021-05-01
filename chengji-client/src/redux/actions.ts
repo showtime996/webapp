@@ -18,6 +18,7 @@ import {
   SEARCH_SUCCESS__GRADECHEAT,
   UPDATE_SUCCESS__GRADE,
   SEARCH_SUCCESS__TEACHER,
+  SEARCH_SUCCESS__ADMIN,
   INFO_SUCCESS_COURSE,
   RESET__COURSE,
   SEARCH_SUCCESS__COURSE,
@@ -38,6 +39,7 @@ import {
   reqAdminUpdate,
   reqStudentInfo,
   reqDeleteGrade,
+  reqDeleteAdmin,
   reqDeleteStudent,
   reqAddGradeCount,
   reqGradeCountInfo,
@@ -47,6 +49,7 @@ import {
   reqAdminGradeCountInfo,
   reqStudentUserid,
   reqStudentGrade,
+  reqAdminInfomation,
   reqStudentInformation,
   reqAdminSearchstu,
   reqTeacherInformation,
@@ -68,6 +71,8 @@ const receive = (user: any) => ({ type: RECEIVE_USER, data: user });
 const deletestudent = (user) => ({ type: DELETE_SUCCESS__USER, data: user });
 //删除老师
 const deleteteacher = (user) => ({ type: DELETE_SUCCESS__USER, data: user });
+//删除教职工
+const deleteadmin = (user) => ({ type: DELETE_SUCCESS__USER, data: user });
 //删除成绩
 const deletegrade = (grade) => ({ type: DELETE_SUCCESS__GRADE, data: grade });
 // 查询成绩
@@ -120,6 +125,10 @@ const searchteacher = (data: any) => ({
   type: SEARCH_SUCCESS__TEACHER,
   data: data,
 });
+const searchadmin = (data: any) => ({
+  type: SEARCH_SUCCESS__ADMIN,
+  data: data,
+});
 const course = (data: any) => ({
   type: INFO_SUCCESS_COURSE,
   data: data,
@@ -130,7 +139,7 @@ const coursesearch = (data: any) => ({
 });
 
 const resetcourse = (msg: any) => ({ type: RESET__COURSE, data: msg });
-// 注册教务员异步action
+// 注册教职工异步action
 export const adminRegister = (user: {
   username: any;
   password: any;
@@ -169,25 +178,17 @@ export const teacherRegister = (user) => {
   const { username, password, password2, type } = user;
   console.log("password", password);
   console.log("password2", password2);
-  // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
-
   if (!username) {
     return errorMsg("账号必须指定!");
   } else if (password !== password2) {
     return errorMsg("2次密码要一致!");
   }
-  // 表单数据合法, 返回一个发ajax请求的异步action函数
   return async (dispatch) => {
-    // 发送注册的异步ajax请求
     const response = await reqteacherRegister({ username, password, type });
     const result = response.data;
     if (result.code === 0) {
-      // 成功
-      // 分发授权成功的同步action
       dispatch(authSuccess(result.data));
     } else {
-      // 失败
-      // 分发错误提示信息的同步action
       dispatch(errorMsg(result.msg));
     }
   };
@@ -198,34 +199,26 @@ export const studentRegister = (user) => {
   const { username, password, password2, type } = user;
   console.log("password", password);
   console.log("password2", password2);
-  // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
-
   if (!username) {
     return errorMsg("账号必须指定!");
   } else if (password !== password2) {
     return errorMsg("2次密码要一致!");
   }
-  // 表单数据合法, 返回一个发ajax请求的异步action函数
   return async (dispatch) => {
-    // 发送注册的异步ajax请求
     const response = await reqstudentRegister({ username, password, type });
     const result = response.data;
     if (result.code === 0) {
-      // 成功
-      // 分发授权成功的同步action
       dispatch(authSuccess(result.data));
     } else {
-      // 失败
-      // 分发错误提示信息的同步action
       dispatch(errorMsg(result.msg));
     }
   };
 };
 
-// 教务员登陆异步action
+// 教职工登陆异步action
 export const adminLogin = (user) => {
   const { username, password } = user;
-  // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
+
   if (!username) {
     return errorMsg("账号必须指定!");
   } else if (!password) {
@@ -239,8 +232,6 @@ export const adminLogin = (user) => {
       // 分发授权成功的同步action
       dispatch(authSuccess(result.data));
     } else {
-      // 失败
-      // 分发错误提示信息的同步action
       dispatch(errorMsg(result.msg));
     }
   };
@@ -285,8 +276,6 @@ export const teacherLogin = (user) => {
       // 分发授权成功的同步action
       dispatch(authSuccess(result.data));
     } else {
-      // 失败
-      // 分发错误提示信息的同步action
       dispatch(errorMsg(result.msg));
     }
   };
@@ -311,10 +300,8 @@ export const updateTeacher = (user: any) => {
     const response = await reqTeacherUpdate(user);
     const result = response.data;
     if (result.code === 0) {
-      // 更新成功: data
       dispatch(receive(result.data));
     } else {
-      // 更新失败: msg
       dispatch(reset(result.msg));
     }
   };
@@ -501,7 +488,7 @@ export const UpdateGradeData = (grade: any) => {
     }
   };
 };
-// 获取教务员的cooike
+// 获取教职工的cooike
 export const AdminUserid = (user: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqAdminUserid(user);
@@ -515,7 +502,7 @@ export const AdminUserid = (user: any) => {
     }
   };
 };
-// 教务员获取成绩表
+// 教职工获取成绩表
 export const getAdminGradeCountInfo = (grade: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqAdminGradeCountInfo(grade);
@@ -573,7 +560,7 @@ export const addstudent = (user) => {
     }
   };
 };
-// 教务员查询学生信息异步action
+// 教职工查询学生信息异步action
 export const AdminSearchstu = (user) => {
   return async (dispatch) => {
     // 执行异步ajax请求
@@ -627,7 +614,41 @@ export const DeleteTeacher = (user) => {
     }
   };
 };
-// 教务员查询老师信息异步action
+export const addAdmin = () => {
+  return async (dispatch: (arg0: { type: string; data: any }) => void) => {
+    const response = await reqAdminInfomation();
+    const result = response.data;
+    if (result.code === 0) {
+      // 成功
+      // 分发授权成功的同步action
+      dispatch(searchadmin(result.data));
+    } else {
+      // 失败
+      // 分发错误提示信息的同步action
+      dispatch(errorMsg(result.msg));
+    }
+  };
+};
+// 删除教职工
+export const DeleteAdmin = (user) => {
+  return async (dispatch) => {
+    // 执行异步ajax请求
+
+    const response = await reqDeleteAdmin(user);
+
+    const result = response.data;
+
+    if (result.code === 0) {
+      // 成功
+
+      dispatch(deleteadmin(result.data));
+    } else {
+      // 失败
+      dispatch(resetUser(result.msg));
+    }
+  };
+};
+// 教职工查询老师信息异步action
 export const AdminSearchtea = (user) => {
   return async (dispatch) => {
     // 执行异步ajax请求

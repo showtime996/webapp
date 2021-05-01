@@ -308,9 +308,9 @@ const GradeTableEdit = (props) => {
             <Tag color="green">总分:{count}</Tag>
             <Tag color="green">平均分:{average}</Tag>
             <Tag color="green">总绩点:{countgpa}</Tag>
-            <Tag color="green">平均绩点:{averagegpa}</Tag>
+            {/* <Tag color="green">平均绩点:{averagegpa}</Tag> */}
             <Tag color="green">总学分:{countcredit}</Tag>
-            <Tag color="green">平均学分:{averagecountcredit}</Tag>
+            {/* <Tag color="green">平均学分:{averagecountcredit}</Tag> */}
           </div>
         )}
         bordered
@@ -327,7 +327,7 @@ const GradeTableEdit = (props) => {
         dataSource={[...data]}
         columns={mergedColumns}
         rowClassName="editable-row"
-        headerTitle="成绩详情表"
+        headerTitle="课程成绩信息表"
         pagination={{
           onChange: cancel,
         }}

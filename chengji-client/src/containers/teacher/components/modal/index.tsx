@@ -28,13 +28,13 @@ const EditModal = (props) => {
   return (
     <>
       <Button type="link" icon={<FormOutlined />} onClick={showModal}>
-        编辑
+        详情
       </Button>
       <Modal
         afterClose={() => {
           window.history.go(0);
         }}
-        title="编辑成绩表"
+
         width={1200}
         visible={visible}
         onOk={handleOk}

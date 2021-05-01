@@ -20,6 +20,7 @@ import {
   UPDATE_SUCCESS__GRADE,
   SEARCH_SUCCESS__TEACHER,
   INFO_SUCCESS_COURSE,
+  SEARCH_SUCCESS__ADMIN,
   RESET__COURSE,
   SEARCH_SUCCESS__COURSE,
 } from "./action-types";
@@ -172,6 +173,14 @@ const stuSearchtea = (state = initUser, action: { type: any; data: any }) => {
       return state;
   }
 };
+const stuSearchadmin = (state = initUser, action: { type: any; data: any }) => {
+  switch (action.type) {
+    case SEARCH_SUCCESS__ADMIN:
+      return action.data;
+    default:
+      return state;
+  }
+};
 // 课程
 const course = (state = initCourse, action: { type: any; data: any }) => {
   switch (action.type) {
@@ -195,6 +204,7 @@ const coursesearch = (state = initCourse, action: { type: any; data: any }) => {
 export default combineReducers({
   grade,
   user,
+  stuSearchadmin,
   cooikeuserid,
   stuSearch,
   gradecount,

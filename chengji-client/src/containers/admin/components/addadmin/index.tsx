@@ -13,8 +13,8 @@ import {
 import { SearchOutlined, RedoOutlined } from "@ant-design/icons";
 import Cookies from "js-cookie";
 import { connect, RootStateOrAny } from "react-redux";
-import { AdminSearchtea, AdminUserid, addTeacher } from "@/redux/actions";
-import DeleteTeacherModel from "./components/deleteteacher";
+import { AdminSearchtea, AdminUserid, addAdmin } from "@/redux/actions";
+import DeleteAdminModel from "./components/deleteadmin";
 import ProTable from "@ant-design/pro-table";
 import type { ActionType } from "@ant-design/pro-table";
 
@@ -64,7 +64,7 @@ const EditableCell = ({
   );
 };
 
-const Teacherinfomation = (props) => {
+const Admininfomation = (props) => {
   const actionRef = useRef<ActionType>();
   const [form] = Form.useForm();
   const [data, setData]: any[] = useState(originData);
@@ -102,10 +102,10 @@ const Teacherinfomation = (props) => {
     }
   }
   useEffect(() => {
-    props.addTeacher({ id: userid });
+    props.addAdmin();
   }, []);
 
-  const formatedata = props.stuSearchtea;
+  const formatedata = props.stuSearchadmin;
   const { Option } = Select;
   const temp = formatedata.length;
 
@@ -161,7 +161,7 @@ const Teacherinfomation = (props) => {
     },
 
     {
-      title: "教工号",
+      title: "职工号",
       dataIndex: "username",
       width: "7%",
     },
@@ -208,46 +208,13 @@ const Teacherinfomation = (props) => {
               settempdata(record);
             }}
           >
-            <DeleteTeacherModel tempdata={tempdata}></DeleteTeacherModel>
+            <DeleteAdminModel tempdata={tempdata}></DeleteAdminModel>
           </Typography.Link>
         );
       },
     },
   ];
 
-  const onFinish = (e) => {
-    props.AdminSearchtea(e);
-    flag = 1;
-  };
-
-  const search = props.stuSearch;
-
-  const serachtemp = search.length;
-  searchdata.length = 0;
-  if (JSON.stringify(search) !== "{}") {
-    for (let i = searchdata.length; i < serachtemp; i++) {
-      searchdata.push({
-        key: i + 1,
-        realName: search[i].realName,
-        username: search[i].username,
-        password: search[i].password,
-        type: search[i].realName,
-        cname: search[i].cname,
-        sex: search[i].sex,
-        department: search[i].department,
-        affiliation: search[i].affiliation,
-        age: search[i].age,
-        duty: search[i].duty,
-        IDcard: search[i].IDcard,
-        nation: search[i].nation,
-        region: search[i].region,
-        phone: search[i].phone,
-        eMail: search[i].eMail,
-        street: search[i].street,
-        diploma: search[i].diploma,
-      });
-    }
-  }
   const refresh = () => {
     window.history.go(0);
   };
@@ -263,45 +230,8 @@ const Teacherinfomation = (props) => {
           },
         }}
         bordered={true}
-        headerTitle="教师信息表"
+        headerTitle=" 教职工信息表"
         toolBarRender={() => [
-          <Form name="nest-messages" layout="inline" onFinish={onFinish}>
-            <Form.Item name={"cname"} label="专业名">
-              <Select placeholder="请选择专业">
-                <Option value={formatedata[0]?.cname}>
-                  {formatedata[0]?.cname}
-                </Option>
-                <Option value={formatedata[1]?.cname}>
-                  {formatedata[1]?.cname}
-                </Option>
-                <Option value={formatedata[2]?.cname}>
-                  {formatedata[2]?.cname}
-                </Option>
-                <Option value={formatedata[3]?.cname}>
-                  {formatedata[3]?.cname}
-                </Option>
-                <Option value={formatedata[4]?.cname}>
-                  {formatedata[4]?.cname}
-                </Option>
-                <Option value={formatedata[5]?.cname}>
-                  {formatedata[5]?.cname}
-                </Option>
-                <Option value={formatedata[6]?.cname}>
-                  {formatedata[6]?.cname}
-                </Option>
-              </Select>
-            </Form.Item>
-            <Form.Item>
-              <Tooltip title="查找">
-                <Button
-                  htmlType="submit"
-                  style={{ border: 0 }}
-                  shape="circle"
-                  icon={<SearchOutlined />}
-                />
-              </Tooltip>
-            </Form.Item>
-          </Form>,
           <EditTeacherModal></EditTeacherModal>,
 
           <Tooltip title="刷新">
@@ -332,8 +262,8 @@ export default connect(
     user: state.user,
     cooikeuserid: state.cooikeuserid,
     stuSearch: state.stuSearch,
-    stuSearchtea: state.stuSearchtea,
+    stuSearchadmin: state.stuSearchadmin,
   }),
 
-  { AdminSearchtea, AdminUserid, addTeacher }
-)(Teacherinfomation);
+  { AdminSearchtea, AdminUserid, addAdmin }
+)(Admininfomation);

@@ -1,14 +1,12 @@
 import { Modal, Button } from "antd";
 import { connect, RootStateOrAny } from "react-redux";
-import { GradeInfo } from "@/redux/actions";
+import { FormOutlined } from "@ant-design/icons";
 import React, { useEffect, useRef, useState } from "react";
-
-import AddDetail from "./components/adddetail";
-import { PlusCircleOutlined } from "@ant-design/icons";
-const AddGrade = (props) => {
+import AdminRegister from "../addadmin";
+const EditAdminModal = () => {
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const { tempdata } = props;
+
   const showModal = () => {
     setVisible(true);
   };
@@ -28,31 +26,28 @@ const AddGrade = (props) => {
 
   return (
     <>
-      <Button type="primary" icon={<PlusCircleOutlined />} onClick={showModal}>
-        录入
+      <Button type="primary" icon={<FormOutlined />} onClick={showModal}>
+        注册
       </Button>
       <Modal
-       
-        width={700}
-        // afterClose={() => {
-        //   window.history.go(0);
-        // }}
+        afterClose={() => {
+          window.history.go(0);
+        }}
+        title="注册"
+        width={600}
         visible={visible}
         footer={null}
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
-        destroyOnClose={true}
       >
-        <AddDetail tempdata={tempdata}></AddDetail>
+        <AdminRegister></AdminRegister>
       </Modal>
     </>
   );
 };
 export default connect(
   // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
-  (state: RootStateOrAny) => ({ grade: state.grade }),
-
+  (state: RootStateOrAny) => ({ user: state.user })
   //  函数确定
-  { GradeInfo }
-)(AddGrade);
+)(EditAdminModal);

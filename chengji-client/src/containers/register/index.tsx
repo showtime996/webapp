@@ -1,4 +1,4 @@
-//教务员注册的路由组件
+//教职工注册的路由组件
 import React, { useState, useEffect } from "react";
 import "antd/dist/antd.css";
 import "@/assets/css/loginForm.less";
@@ -102,7 +102,6 @@ function Register(props) {
               >
                 <Input
                   prefix={<UserOutlined className="site-form-item-icon" />}
-                 
                   placeholder="学号/职工号/教工号"
                 />
               </Form.Item>
@@ -147,7 +146,7 @@ function Register(props) {
               </Form.Item>
               <Form.Item name="type">
                 <Radio.Group>
-                  <Radio value="admin">教务员</Radio>
+                  <Radio value="admin">教职工</Radio>
                   <Radio value="student">学生</Radio>
                   <Radio value="teacher">教师</Radio>
                 </Radio.Group>
@@ -181,7 +180,7 @@ function Register(props) {
                   <span className="login-form-registerLogin-txt">
                     温馨提示:
                   </span>
-                  学生学号老师职工号教务员教工号！
+                  学生学号老师职工号教职工教工号！
                 </div>
               </Form.Item>
             </Form>
@@ -264,7 +263,7 @@ function Register(props) {
               </Form.Item>
               <Form.Item name="type">
                 <Radio.Group>
-                  <Radio value="admin">教务员</Radio>
+                  <Radio value="admin">教职工</Radio>
                   <Radio value="student">学生</Radio>
                   <Radio value="teacher">教师</Radio>
                 </Radio.Group>
@@ -298,7 +297,7 @@ function Register(props) {
                   <span className="login-form-registerLogin-txt">
                     温馨提示:
                   </span>
-                  学生学号老师职工号教务员教工号！
+                  学生学号老师职工号教职工教工号！
                 </div>
               </Form.Item>
             </Form>
@@ -381,7 +380,7 @@ function Register(props) {
               </Form.Item>
               <Form.Item name="type">
                 <Radio.Group>
-                  <Radio value="admin">教务员</Radio>
+                  <Radio value="admin">教职工</Radio>
                   <Radio value="student">学生</Radio>
                   <Radio value="teacher">教师</Radio>
                 </Radio.Group>
@@ -415,7 +414,7 @@ function Register(props) {
                   <span className="login-form-registerLogin-txt">
                     温馨提示:
                   </span>
-                  学生学号老师职工号教务员教工号！
+                  学生学号老师职工号教职工教工号！
                 </div>
               </Form.Item>
             </Form>
@@ -498,7 +497,7 @@ function Register(props) {
               </Form.Item>
               <Form.Item name="type">
                 <Radio.Group>
-                  <Radio value="admin">教务员</Radio>
+                  <Radio value="admin">教职工</Radio>
                   <Radio value="student">学生</Radio>
                   <Radio value="teacher">教师</Radio>
                 </Radio.Group>
@@ -532,7 +531,7 @@ function Register(props) {
                   <span className="login-form-registerLogin-txt">
                     温馨提示:
                   </span>
-                  学生学号老师职工号教务员教工号！
+                  学生学号老师职工号教职工教工号！
                 </div>
               </Form.Item>
             </Form>

@@ -27,13 +27,13 @@ const EditTeacherModal = () => {
   return (
     <>
       <Button type="primary" icon={<FormOutlined />} onClick={showModal}>
-        录入
+        注册
       </Button>
       <Modal
         afterClose={() => {
           window.history.go(0);
         }}
-        title="录入表"
+        title="注册"
         width={600}
         visible={visible}
         footer={null}

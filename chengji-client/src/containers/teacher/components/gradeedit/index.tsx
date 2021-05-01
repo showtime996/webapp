@@ -402,7 +402,7 @@ const GradeEdit = (props) => {
         ]}
         dataSource={[...data]}
         columns={mergedColumns}
-        headerTitle="学生成绩信息表"
+        headerTitle="课程成绩信息表"
         pagination={{
           onChange: cancel,
         }}

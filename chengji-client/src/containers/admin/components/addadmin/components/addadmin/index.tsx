@@ -12,13 +12,13 @@ import Fonter from "@/components/fonter/index.tsx";
 import { connect, RootStateOrAny } from "react-redux";
 // 引入重定向路由
 import { Redirect } from "react-router-dom";
-import { teacherRegister } from "@/redux/actions";
-function TeacherRegister(props) {
+import { adminRegister } from "@/redux/actions";
+function AdminRegister(props) {
   const [state, setState] = useState({
     username: "", // 用户名
     password: "", // 密码
     password2: "", // 确认密码
-    type: "teacher",
+    type: "admin",
   });
 
   // 点击注册调用  将值传入到state中
@@ -36,17 +36,17 @@ function TeacherRegister(props) {
       password2: (state.password2 = values.password2),
       type: state.type,
     });
-    props.teacherRegister(state);
+    props.adminRegister(state);
   };
   // 点击注册调用
-
+  const { msg, redirectTo } = props.user;
+  // // 如果redirectTo有值, 就需要重定向到指定的路由 从reducer获取
+  if (redirectTo) {
+    return <Redirect to={redirectTo} />;
+  }
   const validateMessages = {
     required: "账号或密码必须填写!",
   };
-  console.log("props", props);
-
-  const { msg } = props.user;
-  console.log("msg", msg);
 
   return (
     <Form onFinish={onFinish} validateMessages={validateMessages}>
@@ -128,5 +128,5 @@ export default connect(
   // user: state.user  state=user 读取从reducer返回值状态到组件里面 到props属性里面
   (state: RootStateOrAny) => ({ user: state.user }),
   //  函数确定
-  { teacherRegister }
-)(TeacherRegister);
+  { adminRegister }
+)(AdminRegister);

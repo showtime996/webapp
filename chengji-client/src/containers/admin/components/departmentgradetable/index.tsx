@@ -383,7 +383,7 @@ const DepartmentGradeTable = (props) => {
             />
           </Tooltip>,
         ]}
-        headerTitle="学院成绩信息表"
+        headerTitle="课程成绩信息表"
       />
     </>
   );

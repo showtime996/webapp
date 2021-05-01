@@ -105,14 +105,14 @@ const gradetableSchema = mongoose.Schema({
   realName: { type: String },
   countcredit: { type: Number }, //总学分
   // averagecountcredit: { type: Number }, //平均学分
-  flaggrade: { type: Boolean },
+  flaggrade: { type: Boolean }, 
   flagcheat: { type: Boolean },
   cname: { type: String },
   department: { type: String },
   count: { type: Number }, //总分
   average: { type: Number }, //平均分
   countgpa: { type: Number }, //总绩点
-  averagegpa: { type: Number }, //平均绩点
+  // averagegpa: { type: Number }, //平均绩点
 });
 const GradeTable = mongoose.model("GradeTable", gradetableSchema);
 // 向外暴露Model

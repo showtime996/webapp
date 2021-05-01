@@ -34,7 +34,7 @@ const PersonalEditTableModal = (props) => {
         afterClose={() => {
           window.history.go(0);
         }}
-        title="成绩详情表"
+ 
         width={1200}
         visible={visible}
         onOk={handleOk}

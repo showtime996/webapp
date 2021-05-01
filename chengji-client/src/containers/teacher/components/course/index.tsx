@@ -318,7 +318,6 @@ const CourseInfo = (props) => {
         dataSource={flag === 0 ? [...data] : [...searchdata]}
         columns={mergedColumns}
         rowClassName="editable-row"
-        headerTitle="授课信息表"
         pagination={{
           onChange: cancel,
         }}

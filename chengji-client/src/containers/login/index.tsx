@@ -48,9 +48,9 @@ function Login(props: any) {
     }
   };
 
-  const toRegister = () => {
-    props.history.replace("/register");
-  };
+  // const toRegister = () => {
+  //   props.history.replace("/register");
+  // };
 
   const { msg, redirectTo } = props.user;
   // // 如果redirectTo有值, 就需要重定向到指定的路由 从reducer获取
@@ -110,7 +110,7 @@ function Login(props: any) {
                 </Form.Item>
                 <Form.Item name="type">
                   <Radio.Group>
-                    <Radio value="admin">教务员</Radio>
+                    <Radio value="admin">教职工</Radio>
                     <Radio value="student">学生</Radio>
                     <Radio value="teacher">教师</Radio>
                   </Radio.Group>
@@ -128,8 +128,8 @@ function Login(props: any) {
                     className="login-form-registerLogin"
                     style={{ marginTop: "10px" }}
                   >
-                    &nbsp;&nbsp;&nbsp;&nbsp;没有账号？{" "}
-                    <a onClick={toRegister}>请点击注册!</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;欢迎点击登入！
+                    {/* <a onClick={toRegister}>请点击注册!</a> */}
                   </p>
 
                   <div
@@ -145,7 +145,7 @@ function Login(props: any) {
                     <span className="login-form-registerLogin-txt">
                       温馨提示:
                     </span>
-                    学生学号老师职工号教务员教工号！
+                    学生学号老师职工号教职工教工号！
                   </div>
                 </Form.Item>
               </Form>
@@ -202,7 +202,7 @@ function Login(props: any) {
                 </Form.Item>
                 <Form.Item name="type">
                   <Radio.Group>
-                    <Radio value="admin">教务员</Radio>
+                    <Radio value="admin">教职工</Radio>
                     <Radio value="student">学生</Radio>
                     <Radio value="teacher">教师</Radio>
                   </Radio.Group>
@@ -220,8 +220,8 @@ function Login(props: any) {
                     className="login-form-registerLogin"
                     style={{ marginTop: "10px" }}
                   >
-                    &nbsp;&nbsp;&nbsp;&nbsp;没有账号？
-                    <a onClick={toRegister}>请点击注册!</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;欢迎点击登入！
+                    {/* <a onClick={toRegister}>请点击注册!</a> */}
                   </p>
 
                   <div
@@ -237,7 +237,7 @@ function Login(props: any) {
                     <span className="login-form-registerLogin-txt">
                       温馨提示:
                     </span>
-                    学生学号老师职工号教务员教工号！
+                    学生学号老师职工号教职工教工号！
                   </div>
                 </Form.Item>
               </Form>
@@ -293,7 +293,7 @@ function Login(props: any) {
                 </Form.Item>
                 <Form.Item name="type">
                   <Radio.Group>
-                    <Radio value="admin">教务员</Radio>
+                    <Radio value="admin">教职工</Radio>
                     <Radio value="student">学生</Radio>
                     <Radio value="teacher">教师</Radio>
                   </Radio.Group>
@@ -311,8 +311,8 @@ function Login(props: any) {
                     className="login-form-registerLogin"
                     style={{ marginTop: "10px" }}
                   >
-                    &nbsp;&nbsp;&nbsp;&nbsp; 没有账号？{" "}
-                    <a onClick={toRegister}>请点击注册!</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;欢迎点击登入！
+                    {/* <a onClick={toRegister}>请点击注册!</a> */}
                   </p>
 
                   <div
@@ -328,7 +328,7 @@ function Login(props: any) {
                     <span className="login-form-registerLogin-txt">
                       温馨提示:
                     </span>
-                    学生学号老师职工号教务员教工号！
+                    学生学号老师职工号教职工教工号！
                   </div>
                 </Form.Item>
               </Form>
@@ -384,7 +384,7 @@ function Login(props: any) {
                 </Form.Item>
                 <Form.Item name="type">
                   <Radio.Group>
-                    <Radio value="admin">教务员</Radio>
+                    <Radio value="admin">教职工</Radio>
                     <Radio value="student">学生</Radio>
                     <Radio value="teacher">教师</Radio>
                   </Radio.Group>
@@ -402,8 +402,8 @@ function Login(props: any) {
                     className="login-form-registerLogin"
                     style={{ marginTop: "10px" }}
                   >
-                    &nbsp;&nbsp;&nbsp;&nbsp; 没有账号？{" "}
-                    <a onClick={toRegister}>请点击注册!</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;欢迎点击登入！
+                    {/* <a onClick={toRegister}>请点击注册!</a> */}
                   </p>
 
                   <div
@@ -419,7 +419,7 @@ function Login(props: any) {
                     <span className="login-form-registerLogin-txt">
                       温馨提示:
                     </span>
-                    学生学号老师职工号教务员教工号！
+                    学生学号老师职工号教职工教工号！
                   </div>
                 </Form.Item>
               </Form>

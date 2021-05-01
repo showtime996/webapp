@@ -12,14 +12,11 @@ const {
 router.get("/", function (req, res, next) {
   res.render("index", { title: "Express" });
 });
-//定义随机数 为了让学生老师教务员的id不一样
 var count = 6000;
-var originalArray = new Array(); //原数组
-//给原数组originalArray赋值
+var originalArray = new Array();
 for (var i = 0; i < count; i++) {
   originalArray[i] = i + 1;
 }
-//排序输出
 originalArray.sort(function () {
   return 0.5 - Math.random();
 });
@@ -59,24 +56,17 @@ router.post("/adminRegister", function (req, res) {
 // 老师注册的路由
 router.post("/teacherRegister", function (req, res) {
   const { username, password, type } = req.body;
-
   TeacherModel.findOne({ username }, function (err, user) {
-    // 如果user有值(已存在)
     if (user) {
-      // 返回提示错误的信息
       res.send({ code: 1, msg: "此用户已存在" });
     } else {
-      // 没值(不存在)
-      // 保存
       new TeacherModel({
         _id: originalArray[i],
         username,
         type,
         password,
       }).save(function (error, user) {
-        // // 生成一个cookie(userid: user._id), 并交给浏览器保存
         res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
-        // 返回包含user的json数据
         const data = { username, type, _id: user._id };
         res.send({ code: 0, data });
       });
@@ -87,26 +77,17 @@ router.post("/teacherRegister", function (req, res) {
 // 学生注册的路由
 router.post("/studentRegister", function (req, res) {
   const { username, password, type } = req.body;
-
-  // 处理: 判断用户是否已经存在, 如果存在, 返回提示错误的信息, 如果不存在, 保存
-  // 查询(根据username)
   StudentModel.findOne({ username }, function (err, user) {
-    // 如果user有值(已存在)
     if (user) {
-      // 返回提示错误的信息
       res.send({ code: 1, msg: "此用户已存在" });
     } else {
-      // 没值(不存在)
-      // 保存
       new StudentModel({
         _id: originalArray[i],
         username,
         type,
         password,
       }).save(function (error, user) {
-        // // 生成一个cookie(userid: user._id), 并交给浏览器保存
         res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
-        // 返回包含user的json数据
         const data = { username, type, _id: user._id };
         res.send({ code: 0, data });
       });
@@ -117,13 +98,11 @@ router.post("/studentRegister", function (req, res) {
 // 教务员登陆的路由
 router.post("/adminLogin", function (req, res) {
   const { username, password } = req.body;
-  // 根据username和password查询数据库users, 如果没有, 返回提示错误的信息, 如果有, 返回登陆成功信息(包含user)
   AdminModel.findOne({ username, password }, function (err, user) {
     if (user) {
-      // 登陆成功
       // 生成一个cookie(userid: user._id), 并交给浏览器保存
       res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
-      // 返回登陆成功信息(包含user)
+
       res.send({ code: 0, data: user });
     } else {
       res.send({ code: 1, msg: "用户名或密码不正确" });
@@ -134,14 +113,9 @@ router.post("/adminLogin", function (req, res) {
 // 老师登陆的路由
 router.post("/teacherLogin", function (req, res) {
   const { username, password } = req.body;
-
-  // 根据username和password查询数据库users, 如果没有, 返回提示错误的信息, 如果有, 返回登陆成功信息(包含user)
   TeacherModel.findOne({ username, password }, function (err, user) {
     if (user) {
-      // 登陆成功
-      // 生成一个cookie(userid: user._id), 并交给浏览器保存
       res.cookie("userid", user._id, { maxAge: 1000 * 60 * 60 * 24 });
-      // 返回登陆成功信息(包含user)
       res.send({ code: 0, data: user });
     } else {
       res.send({ code: 1, msg: "用户名或密码不正确" });
@@ -200,29 +174,20 @@ router.post("/studentInfoupdate", function (req, res) {
 });
 // 更新老师用户信息的路由
 router.post("/teacherInfoupdate", function (req, res) {
-  // 从请求的cookie得到userid
   const userid = req.cookies.userid;
-  // 如果不存在, 直接返回一个提示信息
   if (!userid) {
     return res.send({ code: 1, msg: "请先登陆" });
   }
-  // 存在, 根据userid更新对应的user文档数据
-  // 得到提交的用户数据
-  const user = req.body; // 没有_id
+  const user = req.body;
   TeacherModel.findByIdAndUpdate(
     { _id: userid },
     user,
     function (error, oldUser) {
       if (!oldUser) {
-        // 通知浏览器删除userid cookie
         res.clearCookie("userid");
-        // 返回返回一个提示信息
         res.send({ code: 1, msg: "请先登陆" });
       } else {
-        // 准备一个返回的user数据对象
-
         const data = Object.assign(oldUser, user);
-        // 返回
         res.send({ code: 0, data });
       }
     }
@@ -302,7 +267,6 @@ router.post("/addgrade", function (req, res) {
     cheat: grade.cheat,
     cname: grade.cname,
     flaggrade: grade.grade < 60 ? true : false,
-    // flagcheat: grade.cheat === "正常" ? false : true,
     gpa: grade.grade >= 60 ? (grade.grade / 10 - 5).toFixed(2) : 0,
   });
 });
@@ -368,7 +332,7 @@ router.post("/addgradecount", function (req, res) {
     average,
     countgpa,
     department,
-    averagegpa,
+    // averagegpa,
     flaggrade,
     flagcheat,
   } = req.body;
@@ -395,7 +359,7 @@ router.post("/addgradecount", function (req, res) {
         count,
         average,
         countgpa,
-        averagegpa,
+        // averagegpa,
         flaggrade,
         flagcheat,
         department,
@@ -546,6 +510,19 @@ router.post("/teacherinfomation", function (req, res) {
 router.post("/deleteteacher", function (req, res) {
   const grade = req.body; // 没有_id
   TeacherModel.deleteOne({ username: grade.username }).exec();
+});
+//教务员获取教职工信息
+router.get("/admininfomation", function (req, res) {
+  AdminModel.find(function (error, data) {
+    res.status = 200;
+    res.send({ code: 0, data });
+  });
+});
+//删除教职工
+router.post("/deleteadmin", function (req, res) {
+  const grade = req.body; // 没有_id
+  console.log("zz", grade);
+  AdminModel.deleteOne({ username: grade.username }).exec();
 });
 //教务员查询 老师信息 按照专业名
 router.post("/adminsearchtea", function (req, res) {

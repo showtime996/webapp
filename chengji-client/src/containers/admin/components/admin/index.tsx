@@ -18,6 +18,7 @@ import { connect, RootStateOrAny } from "react-redux";
 import SubMenu from "antd/lib/menu/SubMenu";
 import Studentinfomation from "../addstudent";
 import Teacherinfomation from "../addteacher";
+import Admininfomation from "../addadmin";
 import request from "umi-request";
 
 const { Header, Sider, Content, Footer } = Layout;
@@ -98,8 +99,9 @@ function Administer(props) {
           <SubMenu key="sub1" icon={<MailOutlined />} title="账号管理">
             <Menu.Item key="1">学生信息</Menu.Item>
             <Menu.Item key="2">教师信息</Menu.Item>
+            <Menu.Item key="3">教职工信息</Menu.Item>
           </SubMenu>
-          <Menu.Item key="3" icon={<UserOutlined />}>
+          <Menu.Item key="4" icon={<UserOutlined />}>
             个人信息
           </Menu.Item>
         </Menu>
@@ -122,7 +124,7 @@ function Administer(props) {
             }
           )}
           <Tooltip title="欢迎光临成绩管理系统!">
-            <span style={{ fontSize: 25 }}>教务员成绩管理系统</span>
+            <span style={{ fontSize: 25 }}>教职工成绩管理系统</span>
           </Tooltip>
           <Button icon={<PoweroffOutlined />} href="/login" danger>
             退出
@@ -140,7 +142,8 @@ function Administer(props) {
 
           {clickkey === "1" && <Studentinfomation></Studentinfomation>}
           {clickkey === "2" && <Teacherinfomation></Teacherinfomation>}
-          {clickkey === "3" && <AdminPerson></AdminPerson>}
+          {clickkey === "3" && <Admininfomation></Admininfomation>}
+          {clickkey === "4" && <AdminPerson></AdminPerson>}
         </Content>
       </Layout>
     </Layout>
