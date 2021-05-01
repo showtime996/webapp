@@ -326,40 +326,33 @@ router.post("/addgradecount", function (req, res) {
     username,
     realName,
     countcredit,
-    // averagecountcredit,
     cname,
     count,
     average,
     countgpa,
     department,
-    // averagegpa,
     flaggrade,
     flagcheat,
   } = req.body;
   GradeTable.findOne({ username }, function (err, oldgrade) {
-    //查询是否存在，存在找到当前信息并且更新，否则新添加一条信息
     if (oldgrade) {
       GradeTable.findOneAndUpdate(
         { username: oldgrade.username },
-
         getgrade,
         function (error, newgrade) {
           res.send({ code: 0, data: newgrade });
         }
       );
     } else {
-      // 保存
       new GradeTable({
         classno,
         username,
         realName,
         countcredit,
-        // averagecountcredit,
         cname,
         count,
         average,
         countgpa,
-        // averagegpa,
         flaggrade,
         flagcheat,
         department,
@@ -380,15 +373,19 @@ router.post("/gradecountinfo", function (req, res) {
 //查询成绩总分表里作弊不及格 成绩表
 router.post("/searchgradecheat", function (req, res) {
   const grade = req.body; // 没有_id
-  console.log("zzz", grade);
-  //多样查找
+
+  let flagcheat = false;
+  let flaggrade = false;
+  if (grade.flaggrade === "不及格") {
+    flaggrade = true;
+  }
+  if (grade.flagcheat === "作弊") {
+    flagcheat = true;
+  }
   GradeTable.find(
     {
-      $or: [
-        {
-          flagcheat: grade.flagcheat === "作弊" ? true : false,
-        },
-      ],
+      $and: [{ flaggrade, classno: grade.classno }],
+      $and: [{ flagcheat, classno: grade.classno }],
     },
     function (error, data) {
       res.status = 200;
@@ -549,7 +546,6 @@ router.post("/course", function (req, res) {
     function (error, data) {
       res.status = 200;
       res.send({ code: 0, data: data });
-      console.log("sss", data);
     }
   ).exec();
 });
@@ -560,8 +556,8 @@ router.post("/coursesearch", function (req, res) {
   GradeModel.find(
     {
       $or: [
-        { classno: course.classno },
         {
+          classno: course.classno,
           courseNo: course.courseNo,
         },
       ],

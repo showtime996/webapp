@@ -82,7 +82,6 @@ function TeacherPerson(props) {
       diploma: (state.diploma = cookicedata[0].diploma),
       duty: (state.duty = values.duty || cookicedata[0].duty),
       cname: (state.cname = cookicedata[0].cname),
-
       nation: (state.nation = cookicedata[0].nation),
       region: (state.region = values.region || cookicedata[0].region),
       phone: (state.phone = values.phone || cookicedata[0].phone),
@@ -93,8 +92,6 @@ function TeacherPerson(props) {
       years: (state.years = cookicedata[0].years),
       term: (state.term = cookicedata[0].term),
     });
-    console.log("values", state);
-
     props.updateTeacher(state);
   };
 

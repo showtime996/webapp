@@ -129,6 +129,7 @@ const StuInfo = (props) => {
   };
 
   const [tempdata, settempdata] = useState();
+
   const columns: any = [
     {
       title: "序号",

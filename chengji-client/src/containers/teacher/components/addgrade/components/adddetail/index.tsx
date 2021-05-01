@@ -27,7 +27,11 @@ function AddDetail(props) {
   });
   const [seletdata, setselectdata] = useState();
   const [deparmentdata, setdeparmentdata] = useState();
+  
   const { tempdata } = props;
+
+
+
   const onFinish = async (values: any) => {
     setState({
       department: (state.department = tempdata.department),

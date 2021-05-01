@@ -95,26 +95,6 @@ const GradeTable = (props) => {
       sortedInfo: sorter,
     });
   };
-
-  const clearFilters = () => {
-    setState({ filteredInfo: null });
-  };
-
-  const clearAll = () => {
-    setState({
-      filteredInfo: null,
-      sortedInfo: null,
-    });
-  };
-
-  const setAgeSort = () => {
-    setState({
-      sortedInfo: {
-        order: "descend",
-        columnKey: "countgpa",
-      },
-    });
-  };
   const refresh = () => {
     window.history.go(0);
   };
@@ -150,29 +130,29 @@ const GradeTable = (props) => {
       sortOrder: sortedInfo.columnKey === "realName" && sortedInfo.order,
       ellipsis: true,
     },
-    {
-      title: "学院",
-      dataIndex: "department",
-      key: "department",
+    // {
+    //   title: "学院",
+    //   dataIndex: "department",
+    //   key: "department",
 
-      filteredValue: filteredInfo.department || null,
-      onFilter: (value, record) => record.department.includes(value),
-      //   sorter: (a, b) => a.cname.length - b.cname.length,
-      sortOrder: sortedInfo.columnKey === "department" && sortedInfo.order,
-      ellipsis: true,
-    },
+    //   filteredValue: filteredInfo.department || null,
+    //   onFilter: (value, record) => record.department.includes(value),
+    //   //   sorter: (a, b) => a.cname.length - b.cname.length,
+    //   sortOrder: sortedInfo.columnKey === "department" && sortedInfo.order,
+    //   ellipsis: true,
+    // },
 
-    {
-      title: "专业",
-      dataIndex: "cname",
-      key: "cname",
+    // {
+    //   title: "专业",
+    //   dataIndex: "cname",
+    //   key: "cname",
 
-      filteredValue: filteredInfo.cname || null,
-      onFilter: (value, record) => record.cname.includes(value),
-      //   sorter: (a, b) => a.cname.length - b.cname.length,
-      sortOrder: sortedInfo.columnKey === "cname" && sortedInfo.order,
-      ellipsis: true,
-    },
+    //   filteredValue: filteredInfo.cname || null,
+    //   onFilter: (value, record) => record.cname.includes(value),
+    //   //   sorter: (a, b) => a.cname.length - b.cname.length,
+    //   sortOrder: sortedInfo.columnKey === "cname" && sortedInfo.order,
+    //   ellipsis: true,
+    // },
     {
       title: "班级",
       dataIndex: "classno",
@@ -262,8 +242,6 @@ const GradeTable = (props) => {
 
   const onFinish = (e) => {
     props.getGradeCheat(e);
-    console.log("eeeeeeeee", e);
-
     flag = 1;
   };
   const search = props.gradecount;

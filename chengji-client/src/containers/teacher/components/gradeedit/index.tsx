@@ -35,9 +35,7 @@ let counttype = {
   count: 0,
   average: 0,
   countgpa: 0,
-  averagegpa: 0,
   countcredit: 0,
-  averagecountcredit: 0,
 };
 const EditableCell = ({
   editing,
@@ -308,9 +306,7 @@ const GradeEdit = (props) => {
   let count = 0;
   let average: any = 0;
   let countgpa = 0;
-  let averagegpa: any = 0;
   let countcredit = 0;
-  let averagecountcredit: any = 0;
   let flaggrade = false;
   let flagcheat = false;
   let n: any;
@@ -321,11 +317,8 @@ const GradeEdit = (props) => {
   for (let key in data) {
     count = count + data[key].grade;
     average = (count / n).toFixed(2);
-
     countgpa = data[key].gpa + countgpa;
-    averagegpa = (countgpa / n).toFixed(2);
     countcredit = countcredit + Number(data[key].credit);
-    averagecountcredit = (countcredit / n).toFixed(2);
     if (data[key].flaggrade === true) {
       flaggrade = true;
     }
@@ -346,9 +339,7 @@ const GradeEdit = (props) => {
     count,
     average,
     countgpa,
-    averagegpa,
     countcredit,
-    averagecountcredit,
   };
   const [isModalVisible, setIsModalVisible] = useState(false);
 

@@ -325,10 +325,8 @@ export const addGrade = (grade: any) => {
     const response = await reqAddGrade(grade);
     const result = response.data;
     if (result.code === 0) {
-      // 更新成功: data
       dispatch(addgrade(result.data));
     } else {
-      // 更新失败: msg
       dispatch(resetgrade(result.msg));
     }
   };
@@ -452,10 +450,8 @@ export const getGradeCountInfo = (grade: any) => {
     const response = await reqGradeCountInfo(grade);
     const result = response.data;
     if (result.code === 0) {
-      // 更新成功: data
       dispatch(gradecountinfo(result.data));
     } else {
-      // 更新失败: msg
       dispatch(resetgrade(result.msg));
     }
   };
@@ -670,22 +666,16 @@ export const AdminSearchtea = (user) => {
 // 课程信息
 export const Course = (data) => {
   return async (dispatch) => {
-    // 执行异步ajax请求
-
     const response = await reqCourse(data);
-
     const result = response.data;
-
     if (result.code === 0) {
-      // 成功
-
       dispatch(course(result.data));
     } else {
-      // 失败
       dispatch(resetcourse(result.msg));
     }
   };
 };
+
 // 课程班级查询
 export const CourseSearch = (data) => {
   return async (dispatch) => {

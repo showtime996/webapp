@@ -115,10 +115,8 @@ const CourseInfo = (props) => {
   useEffect(() => {
     props.Course({ courseteacher: cookicedata[0].realName });
   }, []);
-  //   console.log("props", props);
 
   const formatedata = props.course;
-
   const { Option } = Select;
   const temp = formatedata.length;
   originData.length = 0;
