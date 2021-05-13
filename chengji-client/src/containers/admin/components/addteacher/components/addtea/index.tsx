@@ -5,8 +5,7 @@ import "@/assets/css/loginForm.less";
 import bj from "@/assets/css/bj.module.less";
 import { Form, Input, Button, Radio } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import Header from "@/components/header/index.tsx";
-import Fonter from "@/components/fonter/index.tsx";
+
 
 // 通过异步action实现交互后台的数据 普通的ui不能得使用函数方式
 import { connect, RootStateOrAny } from "react-redux";
