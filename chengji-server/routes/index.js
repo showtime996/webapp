@@ -465,7 +465,7 @@ router.post("/studentinfomation", function (req, res) {
 
   AdminModel.find({ _id: user.id }, function (error, data) {
     StudentModel.find(
-      { department: data[0].department },
+      { department: data[0]?.department },
       function (error, newuser) {
         res.status = 200;
         res.send({ code: 0, data: newuser });
