@@ -278,7 +278,7 @@ router.post("/gradeinfo", function (req, res) {
     res.send({ code: 0, data: data });
   }).exec();
 });
-//获取当前登录老师的信息
+//获取当前登入老师的信息
 router.post("/teacheruserid", function (req, res) {
   const user = req.body;
   TeacherModel.find({ _id: user.id }, function (error, data) {
