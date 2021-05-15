@@ -1,4 +1,4 @@
-//注册的路由组件
+
 import React, { useState } from "react";
 import "antd/dist/antd.css";
 import "@/assets/css/loginForm.less";
