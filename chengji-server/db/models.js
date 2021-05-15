@@ -61,7 +61,7 @@ const teacherSchema = mongoose.Schema({
   diploma: { type: String }, //学历
 });
 const TeacherModel = mongoose.model("teacherInfo", teacherSchema);
-//教务员信息Schema
+//管理员信息Schema
 const adminSchema = mongoose.Schema({
   _id: Number,
   username: { type: String, required: true },
@@ -105,7 +105,7 @@ const gradetableSchema = mongoose.Schema({
   realName: { type: String },
   countcredit: { type: Number }, //总学分
   // averagecountcredit: { type: Number }, //平均学分
-  flaggrade: { type: Boolean }, 
+  flaggrade: { type: Boolean },
   flagcheat: { type: Boolean },
   cname: { type: String },
   department: { type: String },

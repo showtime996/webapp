@@ -71,7 +71,7 @@ const receive = (user: any) => ({ type: RECEIVE_USER, data: user });
 const deletestudent = (user) => ({ type: DELETE_SUCCESS__USER, data: user });
 //删除老师
 const deleteteacher = (user) => ({ type: DELETE_SUCCESS__USER, data: user });
-//删除教职工
+//删除管理员
 const deleteadmin = (user) => ({ type: DELETE_SUCCESS__USER, data: user });
 //删除成绩
 const deletegrade = (grade) => ({ type: DELETE_SUCCESS__GRADE, data: grade });
@@ -139,7 +139,7 @@ const coursesearch = (data: any) => ({
 });
 
 const resetcourse = (msg: any) => ({ type: RESET__COURSE, data: msg });
-// 注册教职工异步action
+// 注册管理员异步action
 export const adminRegister = (user: {
   username: any;
   password: any;
@@ -215,7 +215,7 @@ export const studentRegister = (user) => {
   };
 };
 
-// 教职工登陆异步action
+// 管理员登陆异步action
 export const adminLogin = (user) => {
   const { username, password } = user;
 
@@ -484,7 +484,7 @@ export const UpdateGradeData = (grade: any) => {
     }
   };
 };
-// 获取教职工的cooike
+// 获取管理员的cooike
 export const AdminUserid = (user: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqAdminUserid(user);
@@ -498,7 +498,7 @@ export const AdminUserid = (user: any) => {
     }
   };
 };
-// 教职工获取成绩表
+// 管理员获取成绩表
 export const getAdminGradeCountInfo = (grade: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqAdminGradeCountInfo(grade);
@@ -556,7 +556,7 @@ export const addstudent = (user) => {
     }
   };
 };
-// 教职工查询学生信息异步action
+// 管理员查询学生信息异步action
 export const AdminSearchstu = (user) => {
   return async (dispatch) => {
     // 执行异步ajax请求
@@ -625,7 +625,7 @@ export const addAdmin = () => {
     }
   };
 };
-// 删除教职工
+// 删除管理员
 export const DeleteAdmin = (user) => {
   return async (dispatch) => {
     // 执行异步ajax请求
@@ -644,7 +644,7 @@ export const DeleteAdmin = (user) => {
     }
   };
 };
-// 教职工查询老师信息异步action
+// 管理员查询老师信息异步action
 export const AdminSearchtea = (user) => {
   return async (dispatch) => {
     // 执行异步ajax请求

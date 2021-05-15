@@ -22,7 +22,7 @@ originalArray.sort(function () {
 });
 var i = 0;
 
-// 教务员注册的路由
+// 管理员注册的路由
 router.post("/adminRegister", function (req, res) {
   // 读取请求参数数据
   const { username, password, type } = req.body;
@@ -95,7 +95,7 @@ router.post("/studentRegister", function (req, res) {
   });
 });
 
-// 教务员登陆的路由
+// 管理员登陆的路由
 router.post("/adminLogin", function (req, res) {
   const { username, password } = req.body;
   AdminModel.findOne({ username, password }, function (err, user) {
@@ -193,7 +193,7 @@ router.post("/teacherInfoupdate", function (req, res) {
     }
   );
 });
-// 更新教务员用户信息的路由
+// 更新管理员用户信息的路由
 router.post("/adminInfoupdate", function (req, res) {
   // 从请求的cookie得到userid
   const userid = req.cookies.userid;
@@ -423,7 +423,7 @@ router.post("/updategrade", function (req, res) {
     }
   );
 });
-//教务员的cooike信息
+//管理员的cooike信息
 router.post("/adminuserid", function (req, res) {
   const user = req.body; // 没有_id
 
@@ -459,7 +459,7 @@ router.post("/studentgradecountinfo", function (req, res) {
     res.send({ code: 0, data: newuser });
   }).exec();
 });
-// 教务员获取学生信息
+// 管理员获取学生信息
 router.post("/studentinfomation", function (req, res) {
   const user = req.body; // 没有_id
 
@@ -473,7 +473,7 @@ router.post("/studentinfomation", function (req, res) {
     );
   });
 });
-//教务员查询 学生信息
+//管理员查询 学生信息
 router.post("/adminsearchstu", function (req, res) {
   const user = req.body;
 
@@ -489,7 +489,7 @@ router.post("/adminsearchstu", function (req, res) {
     }
   ).exec();
 });
-//教务员获取老师信息
+//管理员获取老师信息
 router.post("/teacherinfomation", function (req, res) {
   const user = req.body; // 没有_id
 
@@ -508,20 +508,20 @@ router.post("/deleteteacher", function (req, res) {
   const grade = req.body; // 没有_id
   TeacherModel.deleteOne({ username: grade.username }).exec();
 });
-//教务员获取教职工信息
+//管理员获取管理员信息
 router.get("/admininfomation", function (req, res) {
   AdminModel.find(function (error, data) {
     res.status = 200;
     res.send({ code: 0, data });
   });
 });
-//删除教职工
+//删除管理员
 router.post("/deleteadmin", function (req, res) {
   const grade = req.body; // 没有_id
   console.log("zz", grade);
   AdminModel.deleteOne({ username: grade.username }).exec();
 });
-//教务员查询 老师信息 按照专业名
+//管理员查询 老师信息 按照专业名
 router.post("/adminsearchtea", function (req, res) {
   const user = req.body;
 

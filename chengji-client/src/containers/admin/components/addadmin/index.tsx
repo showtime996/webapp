@@ -230,7 +230,7 @@ const Admininfomation = (props) => {
           },
         }}
         bordered={true}
-        headerTitle=" 教职工信息表"
+        headerTitle=" 管理员信息表"
         toolBarRender={() => [
           <EditTeacherModal></EditTeacherModal>,
 

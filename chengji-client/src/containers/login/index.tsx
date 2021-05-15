@@ -110,7 +110,7 @@ function Login(props: any) {
                 </Form.Item>
                 <Form.Item name="type">
                   <Radio.Group>
-                    <Radio value="admin">教职工</Radio>
+                    <Radio value="admin">管理员</Radio>
                     <Radio value="student">学生</Radio>
                     <Radio value="teacher">教师</Radio>
                   </Radio.Group>
@@ -145,7 +145,7 @@ function Login(props: any) {
                     <span className="login-form-registerLogin-txt">
                       温馨提示:
                     </span>
-                    学生学号老师职工号教职工教工号！
+                    学生学号老师职工号管理员教工号！
                   </div>
                 </Form.Item>
               </Form>
@@ -202,7 +202,7 @@ function Login(props: any) {
                 </Form.Item>
                 <Form.Item name="type">
                   <Radio.Group>
-                    <Radio value="admin">教职工</Radio>
+                    <Radio value="admin">管理员</Radio>
                     <Radio value="student">学生</Radio>
                     <Radio value="teacher">教师</Radio>
                   </Radio.Group>
@@ -237,7 +237,7 @@ function Login(props: any) {
                     <span className="login-form-registerLogin-txt">
                       温馨提示:
                     </span>
-                    学生学号老师职工号教职工教工号！
+                    学生学号老师职工号管理员教工号！
                   </div>
                 </Form.Item>
               </Form>
@@ -293,7 +293,7 @@ function Login(props: any) {
                 </Form.Item>
                 <Form.Item name="type">
                   <Radio.Group>
-                    <Radio value="admin">教职工</Radio>
+                    <Radio value="admin">管理员</Radio>
                     <Radio value="student">学生</Radio>
                     <Radio value="teacher">教师</Radio>
                   </Radio.Group>
@@ -328,7 +328,7 @@ function Login(props: any) {
                     <span className="login-form-registerLogin-txt">
                       温馨提示:
                     </span>
-                    学生学号老师职工号教职工教工号！
+                    学生学号老师职工号管理员教工号！
                   </div>
                 </Form.Item>
               </Form>
@@ -384,7 +384,7 @@ function Login(props: any) {
                 </Form.Item>
                 <Form.Item name="type">
                   <Radio.Group>
-                    <Radio value="admin">教职工</Radio>
+                    <Radio value="admin">管理员</Radio>
                     <Radio value="student">学生</Radio>
                     <Radio value="teacher">教师</Radio>
                   </Radio.Group>
@@ -419,7 +419,7 @@ function Login(props: any) {
                     <span className="login-form-registerLogin-txt">
                       温馨提示:
                     </span>
-                    学生学号老师职工号教职工教工号！
+                    学生学号老师职工号管理员教工号！
                   </div>
                 </Form.Item>
               </Form>

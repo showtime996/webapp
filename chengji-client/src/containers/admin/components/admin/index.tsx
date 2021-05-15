@@ -99,7 +99,7 @@ function Administer(props) {
           <SubMenu key="sub1" icon={<MailOutlined />} title="账号管理">
             <Menu.Item key="1">学生信息</Menu.Item>
             <Menu.Item key="2">教师信息</Menu.Item>
-            <Menu.Item key="3">教职工信息</Menu.Item>
+            <Menu.Item key="3">管理员信息</Menu.Item>
           </SubMenu>
           <Menu.Item key="4" icon={<UserOutlined />}>
             个人信息
@@ -124,7 +124,7 @@ function Administer(props) {
             }
           )}
           <Tooltip title="欢迎光临成绩管理系统!">
-            <span style={{ fontSize: 25 }}>教职工成绩管理系统</span>
+            <span style={{ fontSize: 25 }}>管理员成绩管理系统</span>
           </Tooltip>
           <Button icon={<PoweroffOutlined />} href="/login" danger>
             退出

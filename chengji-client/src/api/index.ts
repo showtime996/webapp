@@ -6,7 +6,7 @@ export const reqteacherRegister = (teacher: any) =>
 // 学生注册接口
 export const reqstudentRegister = (student: any) =>
   ajax("/studentRegister", student, "POST");
-// 教职工注册接口
+// 管理员注册接口
 export const reqadminRegister = (admin: {
   username: any;
   password: any;
@@ -54,9 +54,9 @@ export const reqSearchGradeCheat = (grade: any) =>
   ajax("/searchgradecheat", grade, "POST");
 //修改成绩
 export const reqEditGrade = (grade: any) => ajax("/updategrade", grade, "POST");
-//获取教职工cooike信息
+//获取管理员cooike信息
 export const reqAdminUserid = (user: any) => ajax("/adminuserid", user, "POST");
-//教职工获取成绩表
+//管理员获取成绩表
 export const reqAdminGradeCountInfo = (grade: any) =>
   ajax("/admingradecountinfo", grade, "POST");
 //获取学生cooike的信息
@@ -65,10 +65,10 @@ export const reqStudentUserid = (user: any) =>
 //学生获取成绩表信息
 export const reqStudentGrade = (user: any) =>
   ajax("/studentgradecountinfo", user, "POST");
-//教职工获取学生信息
+//管理员获取学生信息
 export const reqStudentInformation = (user: any) =>
   ajax("/studentinfomation", user, "POST");
-//教职工员查询学生
+//管理员员查询学生
 export const reqAdminSearchstu = (user: any) =>
   ajax("/adminsearchstu", user, "POST");
 //教务获取老师信息
@@ -77,7 +77,7 @@ export const reqTeacherInformation = (user: any) =>
 //删除老师
 export const reqDeleteTeacher = (user: any) =>
   ajax("/deleteteacher", user, "POST");
-//教职工查询老师
+//管理员查询老师
 export const reqAdminSearchtea = (user: any) =>
   ajax("/adminsearchtea", user, "POST");
 //课程信息
