@@ -69,7 +69,7 @@ const receiveUser = (user) => ({ type: RECEIVE_USER, data: user });
 const receive = (user: any) => ({ type: RECEIVE_USER, data: user });
 //删除学生
 const deletestudent = (user) => ({ type: DELETE_SUCCESS__USER, data: user });
-//删除老师
+//删除教师
 const deleteteacher = (user) => ({ type: DELETE_SUCCESS__USER, data: user });
 //删除管理员
 const deleteadmin = (user) => ({ type: DELETE_SUCCESS__USER, data: user });
@@ -173,7 +173,7 @@ export const adminRegister = (user: {
   };
 };
 
-// 注册老师异步action
+// 注册教师异步action
 export const teacherRegister = (user) => {
   const { username, password, password2, type } = user;
   console.log("password", password);
@@ -259,7 +259,7 @@ export const studentLogin = (user) => {
     }
   };
 };
-// 老师登陆异步action
+// 教师登陆异步action
 export const teacherLogin = (user) => {
   const { username, password } = user;
   // 做表单的前台检查, 如果不通过, 返回一个errorMsg的同步action
@@ -373,7 +373,7 @@ export const InfoStu = (user: any) => {
     }
   };
 };
-//  老师查询学生信息异步action
+//  教师查询学生信息异步action
 export const Searchstu = (user) => {
   return async (dispatch) => {
     // 执行异步ajax请求
@@ -444,7 +444,7 @@ export const AddGradeCount = (grade: any) => {
     }
   };
 };
-// 老师获取成绩表信息
+// 教师获取成绩表信息
 export const getGradeCountInfo = (grade: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqGradeCountInfo(grade);
@@ -456,7 +456,7 @@ export const getGradeCountInfo = (grade: any) => {
     }
   };
 };
-// 老师获取成绩表作弊不及格信息
+// 教师获取成绩表作弊不及格信息
 export const getGradeCheat = (grade: any) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqSearchGradeCheat(grade);
@@ -575,7 +575,7 @@ export const AdminSearchstu = (user) => {
     }
   };
 };
-// 录入老师
+// 录入教师
 export const addTeacher = (user) => {
   return async (dispatch: (arg0: { type: string; data: any }) => void) => {
     const response = await reqTeacherInformation(user);
@@ -591,7 +591,7 @@ export const addTeacher = (user) => {
     }
   };
 };
-// 删除老师
+// 删除教师
 export const DeleteTeacher = (user) => {
   return async (dispatch) => {
     // 执行异步ajax请求
@@ -644,7 +644,7 @@ export const DeleteAdmin = (user) => {
     }
   };
 };
-// 管理员查询老师信息异步action
+// 管理员查询教师信息异步action
 export const AdminSearchtea = (user) => {
   return async (dispatch) => {
     // 执行异步ajax请求

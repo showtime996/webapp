@@ -36,7 +36,7 @@ const studentSchema = mongoose.Schema({
   recommend: { type: String }, //自我介绍
 });
 const StudentModel = mongoose.model("studentInfo", studentSchema);
-//老师信息Schema
+//教师信息Schema
 const teacherSchema = mongoose.Schema({
   // type:Number, min:3, max:9, required: true
   _id: Number,

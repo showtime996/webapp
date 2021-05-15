@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import "antd/dist/antd.css";
 import "@/assets/css/loginForm.less";
@@ -145,7 +144,7 @@ function Login(props: any) {
                     <span className="login-form-registerLogin-txt">
                       温馨提示:
                     </span>
-                    学生学号老师职工号管理员教工号！
+                    学生学号教师职工号管理员教工号！
                   </div>
                 </Form.Item>
               </Form>
@@ -237,7 +236,7 @@ function Login(props: any) {
                     <span className="login-form-registerLogin-txt">
                       温馨提示:
                     </span>
-                    学生学号老师职工号管理员教工号！
+                    学生学号教师职工号管理员教工号！
                   </div>
                 </Form.Item>
               </Form>
@@ -328,7 +327,7 @@ function Login(props: any) {
                     <span className="login-form-registerLogin-txt">
                       温馨提示:
                     </span>
-                    学生学号老师职工号管理员教工号！
+                    学生学号教师职工号管理员教工号！
                   </div>
                 </Form.Item>
               </Form>
@@ -419,7 +418,7 @@ function Login(props: any) {
                     <span className="login-form-registerLogin-txt">
                       温馨提示:
                     </span>
-                    学生学号老师职工号管理员教工号！
+                    学生学号教师职工号管理员教工号！
                   </div>
                 </Form.Item>
               </Form>

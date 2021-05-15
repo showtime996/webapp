@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import { connect, RootStateOrAny } from "react-redux";
 import { Redirect } from "react-router-dom";
@@ -27,10 +25,8 @@ function AddDetail(props) {
   });
   const [seletdata, setselectdata] = useState();
   const [deparmentdata, setdeparmentdata] = useState();
-  
+
   const { tempdata } = props;
-
-
 
   const onFinish = async (values: any) => {
     setState({
@@ -103,7 +99,7 @@ function AddDetail(props) {
           value={tempdata.department}
         />
       </Form.Item>
-      <Form.Item name={"courseteacher"} label="授课老师">
+      <Form.Item name={"courseteacher"} label="授课教师">
         <Input
           readOnly
           defaultValue={tempdata.courseteacher}

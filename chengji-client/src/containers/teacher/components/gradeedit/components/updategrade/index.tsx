@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react";
 import { connect, RootStateOrAny } from "react-redux";
 import { Redirect } from "react-router-dom";
@@ -127,7 +125,7 @@ function UpdateGrade(props) {
           value={tempdata.department}
         />
       </Form.Item>
-      <Form.Item name={"courseteacher"} label="授课老师">
+      <Form.Item name={"courseteacher"} label="授课教师">
         <Input
           readOnly
           defaultValue={tempdata.courseteacher}

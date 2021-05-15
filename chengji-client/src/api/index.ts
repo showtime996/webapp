@@ -1,6 +1,6 @@
 // 函数返回值为: promise
 import ajax from "../utils/ajax";
-// 老师注册接口
+// 教师注册接口
 export const reqteacherRegister = (teacher: any) =>
   ajax("/teacherRegister", teacher, "POST");
 // 学生注册接口
@@ -32,10 +32,10 @@ export const reqStudentInfo = (user: any) => ajax("/studentInfo", user, "POST");
 export const reqAddGrade = (grade: any) => ajax("/addgrade", grade, "POST");
 //成绩信息
 export const reqGradeInfo = (grade: any) => ajax("/gradeinfo", grade, "POST");
-//老师的cooike信息
+//教师的cooike信息
 export const reqTeacherUserid = (user: any) =>
   ajax("/teacheruserid", user, "POST");
-//老师的查询学生
+//教师的查询学生
 export const reqSearchstu = (user: any) => ajax("/searchstu", user, "POST");
 //删除学生信息
 export const reqDeleteStudent = (user: any) =>
@@ -46,7 +46,7 @@ export const reqDeleteGrade = (grade: any) =>
 //同步成绩表信息
 export const reqAddGradeCount = (grade: any) =>
   ajax("/addgradecount", grade, "POST");
-//老师获取成绩表信息
+//教师获取成绩表信息
 export const reqGradeCountInfo = (grade: any) =>
   ajax("/gradecountinfo", grade, "POST");
 //查询成绩是否不及格作弊
@@ -71,13 +71,13 @@ export const reqStudentInformation = (user: any) =>
 //管理员员查询学生
 export const reqAdminSearchstu = (user: any) =>
   ajax("/adminsearchstu", user, "POST");
-//教务获取老师信息
+//教务获取教师信息
 export const reqTeacherInformation = (user: any) =>
   ajax("/teacherinfomation", user, "POST");
-//删除老师
+//删除教师
 export const reqDeleteTeacher = (user: any) =>
   ajax("/deleteteacher", user, "POST");
-//管理员查询老师
+//管理员查询教师
 export const reqAdminSearchtea = (user: any) =>
   ajax("/adminsearchtea", user, "POST");
 //课程信息

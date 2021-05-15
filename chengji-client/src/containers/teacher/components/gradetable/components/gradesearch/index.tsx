@@ -190,7 +190,7 @@ const GradeTableEdit = (props) => {
       editable: true,
     },
     {
-      title: "授课老师",
+      title: "授课教师",
       dataIndex: "courseteacher",
       width: "7%",
       editable: true,
